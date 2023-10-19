@@ -20,6 +20,11 @@ export default function App({ targetEl }) {
       await this.fetchDocuments();
       router.push(`/documents/${res.id}`);
     },
+    onDelete: async (id) => {
+      const res = await this.deleteDocument(id);
+      router.replace(res.parent ? `/documents/${res.parent.id}` : "/");
+      await this.fetchDocuments();
+    },
   });
 
   let timer = null;
@@ -97,6 +102,16 @@ export default function App({ targetEl }) {
       method: "POST",
       body: JSON.stringify(body),
     });
+
+    return res;
+  };
+
+  this.deleteDocument = async (id) => {
+    // if (!id || typeof id !== "number") {
+    //   throw new Error("삭제할 문서의 id를 입력하세요!");
+    // }
+
+    const res = await request(`/documents/${id}`, { method: "DELETE" });
 
     return res;
   };
