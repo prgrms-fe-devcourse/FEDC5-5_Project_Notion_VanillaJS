@@ -15,7 +15,7 @@ export default function Editor({ targetEl, initialState, onChange }) {
     this.state = nextState;
 
     if (onChange) {
-      onChange(this.state.data);
+      onChange(this.state.content.data);
     }
 
     this.render();
@@ -24,9 +24,12 @@ export default function Editor({ targetEl, initialState, onChange }) {
   this.updateState = (e) => {
     this.setState({
       ...this.state,
-      data: {
-        ...this.state.data,
-        [e.target.name]: e.target.value,
+      content: {
+        ...this.state.content,
+        data: {
+          ...this.state.content.data,
+          [e.target.name]: e.target.value,
+        },
       },
     });
   };
@@ -42,9 +45,21 @@ export default function Editor({ targetEl, initialState, onChange }) {
       this.isInit = true;
     }
 
-    if (this.state.data) {
-      inputEl.value = this.state.data.title;
-      textareaEl.value = this.state.data.content ?? "";
+    const { selectedDocumentId, content } = this.state;
+
+    if (selectedDocumentId !== null) {
+      inputEl.value = "";
+      inputEl.disabled = false;
+      textareaEl.value = "";
+      textareaEl.disabled = false;
+    } else {
+      inputEl.disabled = true;
+      textareaEl.disabled = true;
+    }
+
+    if (content.data) {
+      inputEl.value = content.data.title;
+      textareaEl.value = content.data.content ?? "";
     }
   };
 }

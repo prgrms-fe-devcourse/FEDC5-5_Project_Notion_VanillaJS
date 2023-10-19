@@ -34,7 +34,10 @@ export default function App({ targetEl }) {
 
   const editor = new Editor({
     targetEl,
-    initialState: { ...asyncDataObj, isLoading: true },
+    initialState: {
+      selectedDocumentId: this.state.selectedDocumentId,
+      content: this.state.content,
+    },
     onChange: (document) => {
       if (timer !== null) {
         clearTimeout(timer);
@@ -54,7 +57,10 @@ export default function App({ targetEl }) {
       selectedDocumentId: this.state.selectedDocumentId,
       documents: this.state.documents,
     });
-    editor.setState({ ...this.state.content });
+    editor.setState({
+      selectedDocumentId: this.state.selectedDocumentId,
+      content: this.state.content,
+    });
 
     this.render();
   };
@@ -132,6 +138,12 @@ export default function App({ targetEl }) {
         selectedDocumentId: id,
       });
       this.fetchContent(id);
+    } else {
+      // this.setState({
+      //   ...this.state,
+      //   selectedDocumentId: null,
+      //   content: { ...asyncDataObj, isLoading: true }
+      // })
     }
   };
 
