@@ -1,0 +1,32 @@
+#target{
+    /* background-color: beige; */
+    display: flex;
+    height: 120vh;
+    width: 95vw;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+.RootContainer{
+    /* background-color: wheat; */
+    height: 120vh;
+    width: 250px;
+    margin-right: 2vw;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+.DocumentContainer{
+    /* background-color: blanchedalmond; */
+    height: 120vh;
+    width: 80vw;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 800px) { /* 뷰포트 너비에 따라 조절 */
+    #target {
+        width: 100%; /* 원하는 크기로 조절 */
+    }
+}
