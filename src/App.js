@@ -81,6 +81,14 @@ export default function App({ targetEl }) {
   };
 
   this.fetchContent = async (id) => {
+    if (id === null) {
+      this.setState({
+        ...this.state,
+        content: { ...asyncDataObj },
+      });
+      return null;
+    }
+
     try {
       const res = await request(`/documents/${id.toString()}`);
       this.setState({
@@ -132,19 +140,15 @@ export default function App({ targetEl }) {
     const arr = pathname.substring(1).split("/");
     const id = arr.length > 1 ? Number(arr[1]) : null;
 
-    if (typeof id === "number" && this.state.selectedDocumentId !== id) {
+    if (this.state.selectedDocumentId !== id) {
       this.setState({
         ...this.state,
         selectedDocumentId: id,
       });
       this.fetchContent(id);
-    } else {
-      // this.setState({
-      //   ...this.state,
-      //   selectedDocumentId: null,
-      //   content: { ...asyncDataObj, isLoading: true }
-      // })
     }
+
+    clearTimeout(timer);
   };
 
   this.render = () => {

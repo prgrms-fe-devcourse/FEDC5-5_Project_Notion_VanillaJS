@@ -14,7 +14,7 @@ export default function Editor({ targetEl, initialState, onChange }) {
   this.setState = (nextState) => {
     this.state = nextState;
 
-    if (onChange) {
+    if (onChange && this.state.content.data) {
       onChange(this.state.content.data);
     }
 
@@ -45,21 +45,18 @@ export default function Editor({ targetEl, initialState, onChange }) {
       this.isInit = true;
     }
 
-    const { selectedDocumentId, content } = this.state;
-
-    if (selectedDocumentId !== null) {
-      inputEl.value = "";
-      inputEl.disabled = false;
-      textareaEl.value = "";
-      textareaEl.disabled = false;
-    } else {
-      inputEl.disabled = true;
-      textareaEl.disabled = true;
-    }
+    const { content } = this.state;
 
     if (content.data) {
       inputEl.value = content.data.title;
+      inputEl.disabled = false;
       textareaEl.value = content.data.content ?? "";
+      textareaEl.disabled = false;
+    } else {
+      inputEl.value = "";
+      inputEl.disabled = true;
+      textareaEl.value = "";
+      textareaEl.disabled = true;
     }
   };
 }
