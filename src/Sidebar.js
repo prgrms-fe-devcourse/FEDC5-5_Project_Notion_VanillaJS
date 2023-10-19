@@ -53,20 +53,22 @@ export default function Sidebar({
       this.isInit = true;
     }
 
-    if (this.state.isLoading) {
-      listEl.innerHTML = `<ul><li>문서 가져오는 중...</li></ul>`;
-    } else if (this.state.isError) {
-      alert(isError);
+    const { selectedDocumentId, documents } = this.state;
 
-      listEl.innerHTML = `<ul><li>${this.state.isError.message}</li></ul>`;
-    } else if (this.state.data && Array.isArray(this.state.data)) {
+    if (documents.isLoading) {
+      listEl.innerHTML = `<ul><li>문서 가져오는 중...</li></ul>`;
+    } else if (documents.isError) {
+      listEl.innerHTML = `<ul><li>${documents.isError.message}</li></ul>`;
+    } else if (documents.data && Array.isArray(documents.data)) {
       listEl.innerHTML = `
         <ul>
-          ${this.state.data.length === 0 ? `<li>문서가 없습니다.</li>` : ""}
-          ${this.state.data
+          ${documents.data.length === 0 ? `<li>문서가 없습니다.</li>` : ""}
+          ${documents.data
             .map(
               (document) => `
-            <li data-id="${document.id}">
+            <li data-id="${document.id}" data-selected="${
+                document.id === selectedDocumentId
+              }">
               <span class="document-title">${document.title}</span>
               <button class="delete-button">🗑️</button>
               <button class="create-button">➕</button>
@@ -78,7 +80,9 @@ export default function Sidebar({
                   ${document.documents
                     .map(
                       (document) => `
-                    <li data-id="${document.id}">
+                    <li data-id="${document.id}" data-selected="${
+                        document.id === selectedDocumentId
+                      }">
                       <span class="document-title">${document.title}</span>
                       <button class="delete-button">🗑️</button>
                       <button class="create-button">➕</button>

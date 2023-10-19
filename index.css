@@ -43,3 +43,7 @@ main.app {
 .editor textarea {
   height: 100%;
 }
+
+li[data-selected="true"] > span {
+  font-weight: bold;
+}

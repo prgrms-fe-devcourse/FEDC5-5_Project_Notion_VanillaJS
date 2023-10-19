@@ -14,7 +14,10 @@ export default function App({ targetEl }) {
 
   const sidebar = new Sidebar({
     targetEl,
-    initialState: { ...asyncDataObj, isLoading: true },
+    initialState: {
+      selectedDocumentId: this.state.selectedDocumentId,
+      documents: this.state.documents,
+    },
     onCreate: async (parent) => {
       const res = await this.createDocument(parent);
       await this.fetchDocuments();
@@ -47,7 +50,10 @@ export default function App({ targetEl }) {
   this.setState = (nextState) => {
     this.state = nextState;
 
-    sidebar.setState({ ...this.state.documents });
+    sidebar.setState({
+      selectedDocumentId: this.state.selectedDocumentId,
+      documents: this.state.documents,
+    });
     editor.setState({ ...this.state.content });
 
     this.render();
