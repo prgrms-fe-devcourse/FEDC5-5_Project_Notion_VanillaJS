@@ -33,6 +33,8 @@ export default function App({ targetEl }) {
       }
       timer = setTimeout(async () => {
         await this.updateContent(document);
+        await this.fetchContent(document.id);
+        await this.fetchDocuments();
       }, 3000);
     },
   });
