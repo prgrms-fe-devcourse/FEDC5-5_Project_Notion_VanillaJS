@@ -15,6 +15,11 @@ export default function App({ targetEl }) {
   const sidebar = new Sidebar({
     targetEl,
     initialState: { ...asyncDataObj, isLoading: true },
+    onCreate: async (parent) => {
+      const res = await this.createDocument(parent);
+      await this.fetchDocuments();
+      router.push(`/documents/${res.id}`);
+    },
   });
 
   let timer = null;
@@ -80,6 +85,17 @@ export default function App({ targetEl }) {
       method: "PUT",
       body: JSON.stringify(body),
     });
+    return res;
+  };
+
+  this.createDocument = async (parent) => {
+    const body = { title: "제목 없음", parent };
+
+    const res = await request(`/documents`, {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+
     return res;
   };
 
