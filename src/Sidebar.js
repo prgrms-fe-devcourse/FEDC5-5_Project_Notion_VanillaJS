@@ -24,7 +24,7 @@ export default function Sidebar({
     this.render();
   };
 
-  this.onClickDocument = (e) => {
+  const onClickDocument = (e) => {
     const { target } = e;
     const liEl = target.closest("li");
     const id = liEl?.dataset?.id ? Number(liEl.dataset.id) : null;
@@ -44,13 +44,28 @@ export default function Sidebar({
     }
   };
 
+  const getListHTMLString = (documents, selectedDocumentId) => `
+    <ul>
+      ${documents.map(document => `
+        <li data-id="${document.id}" data-selected="${document.id === selectedDocumentId}">
+          <span class="document-title">${document.title}</span>
+          <button class="delete-button">🗑️</button>
+          <button class="create-button">➕</button>
+        ${document.documents?.length > 0 ? `
+          <div class="child-pages">${getListHTMLString(document.documents, selectedDocumentId)}</div>
+        `: ''}
+        </li>
+      `).join('')}
+    <ul>
+  `
+
   this.render = () => {
     if (!this.isInit) {
       headerEl.appendChild(buttonEl);
       sidebarEl.appendChild(headerEl);
       sidebarEl.appendChild(listEl);
       targetEl.appendChild(sidebarEl);
-      sidebarEl.addEventListener("click", this.onClickDocument);
+      sidebarEl.addEventListener("click", onClickDocument);
 
       this.isInit = true;
     }
@@ -62,45 +77,7 @@ export default function Sidebar({
     } else if (documents.isError) {
       listEl.innerHTML = `<ul><li>${documents.isError.message}</li></ul>`;
     } else if (documents.data && Array.isArray(documents.data)) {
-      listEl.innerHTML = `
-        <ul>
-          ${documents.data.length === 0 ? `<li>문서가 없습니다.</li>` : ""}
-          ${documents.data
-            .map(
-              (document) => `
-            <li data-id="${document.id}" data-selected="${
-                document.id === selectedDocumentId
-              }">
-              <span class="document-title">${document.title}</span>
-              <button class="delete-button">🗑️</button>
-              <button class="create-button">➕</button>
-              ${
-                document.documents.length === 0
-                  ? ""
-                  : `
-                <ul>
-                  ${document.documents
-                    .map(
-                      (document) => `
-                    <li data-id="${document.id}" data-selected="${
-                        document.id === selectedDocumentId
-                      }">
-                      <span class="document-title">${document.title}</span>
-                      <button class="delete-button">🗑️</button>
-                      <button class="create-button">➕</button>
-                    </li>
-                  `
-                    )
-                    .join("")}
-                </ul>
-              `
-              }
-            </li>
-          `
-            )
-            .join("")}
-        </ul>
-      `;
+      listEl.innerHTML = getListHTMLString(documents.data, selectedDocumentId)
     }
   };
 }

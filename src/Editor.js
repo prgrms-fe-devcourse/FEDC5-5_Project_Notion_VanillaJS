@@ -1,3 +1,5 @@
+import router from './router.js'
+
 export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
   editorEl.className = "editor";
@@ -6,6 +8,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
   inputEl.placeholder = "Title";
   const textareaEl = document.createElement("textarea");
   textareaEl.name = "content";
+  const childPagesEl = document.createElement('div');
 
   this.isInit = false;
 
@@ -38,8 +41,16 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     if (!this.isInit) {
       inputEl.addEventListener("keyup", updateState);
       textareaEl.addEventListener("keyup", updateState);
+      childPagesEl.addEventListener('click', e => {
+        const { target } = e
+        const liEl = target.closest('li')
+        if(liEl && liEl.className === 'child-page' && liEl.dataset.id) {
+          router.push(`/documents/${liEl.dataset.id}`)
+        }
+      })
       editorEl.appendChild(inputEl);
       editorEl.appendChild(textareaEl);
+      editorEl.appendChild(childPagesEl);
       targetEl.appendChild(editorEl);
 
       this.isInit = true;
@@ -52,11 +63,20 @@ export default function Editor({ targetEl, initialState, onEditing }) {
       inputEl.disabled = false;
       textareaEl.value = document.data.content ?? "";
       textareaEl.disabled = false;
+      childPagesEl.innerHTML = `
+        <h3>하위 페이지</h3>
+        <ul>
+          ${document.data.documents && Array.isArray(document.data.documents) ? document.data.documents.map(document => `
+            <li class="child-page" data-id="${document.id}">${document.title}</li>
+          `).join(''):''}
+        </ul>
+      `
     } else {
       inputEl.value = "";
       inputEl.disabled = true;
       textareaEl.value = "";
       textareaEl.disabled = true;
+      childPagesEl.innerHTML = ''
     }
   };
 }
