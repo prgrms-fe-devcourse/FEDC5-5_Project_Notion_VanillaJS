@@ -1,4 +1,4 @@
-export default function Editor({ targetEl, initialState, onChange }) {
+export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
   editorEl.className = "editor";
   const inputEl = document.createElement("input");
@@ -14,20 +14,20 @@ export default function Editor({ targetEl, initialState, onChange }) {
   this.setState = (nextState) => {
     this.state = nextState;
 
-    if (onChange && this.state.content.data) {
-      onChange(this.state.content.data);
+    if (onEditing && this.state.document.data) {
+      onEditing(this.state.document.data);
     }
 
     this.render();
   };
 
-  this.updateState = (e) => {
+  const updateState = (e) => {
     this.setState({
       ...this.state,
-      content: {
-        ...this.state.content,
+      document: {
+        ...this.state.document,
         data: {
-          ...this.state.content.data,
+          ...this.state.document.data,
           [e.target.name]: e.target.value,
         },
       },
@@ -36,8 +36,8 @@ export default function Editor({ targetEl, initialState, onChange }) {
 
   this.render = () => {
     if (!this.isInit) {
-      inputEl.addEventListener("keyup", this.updateState);
-      textareaEl.addEventListener("keyup", this.updateState);
+      inputEl.addEventListener("keyup", updateState);
+      textareaEl.addEventListener("keyup", updateState);
       editorEl.appendChild(inputEl);
       editorEl.appendChild(textareaEl);
       targetEl.appendChild(editorEl);
@@ -45,12 +45,12 @@ export default function Editor({ targetEl, initialState, onChange }) {
       this.isInit = true;
     }
 
-    const { content } = this.state;
+    const { document } = this.state;
 
-    if (content.data) {
-      inputEl.value = content.data.title;
+    if (document.data) {
+      inputEl.value = document.data.title;
       inputEl.disabled = false;
-      textareaEl.value = content.data.content ?? "";
+      textareaEl.value = document.data.content ?? "";
       textareaEl.disabled = false;
     } else {
       inputEl.value = "";

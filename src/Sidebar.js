@@ -12,7 +12,7 @@ export default function Sidebar({
   headerEl.innerText = "개인 페이지";
   const buttonEl = document.createElement("button");
   buttonEl.innerText = "➕";
-  buttonEl.className = "delete-button";
+  buttonEl.className = "create-button";
   const listEl = document.createElement("div");
 
   this.isInit = false;
@@ -30,8 +30,8 @@ export default function Sidebar({
     const id = liEl?.dataset?.id ? Number(liEl.dataset.id) : null;
 
     if (target.className === "document-title") {
-      if(id) {
-        router.push(`/documents/${id}`)
+      if (id) {
+        router.push(`/documents/${id}`);
       }
     } else if (target.className === "delete-button") {
       if (onDelete && id) {

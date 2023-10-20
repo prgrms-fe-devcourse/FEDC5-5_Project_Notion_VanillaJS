@@ -1,7 +1,9 @@
 import Editor from "./Editor.js";
 import Sidebar from "./Sidebar.js";
-import { asyncDataObj, request } from "./api.js";
 import router from "./router.js";
+import { asyncDataObj, request } from "./api.js";
+import { setItem, getItem, removeItem } from "./storage.js";
+import { getLocalSaveKey } from "./utility.js";
 
 export default function App({ targetEl }) {
   this.isInit = false;
@@ -9,8 +11,31 @@ export default function App({ targetEl }) {
   this.state = {
     selectedDocumentId: null,
     documents: { ...asyncDataObj, isLoading: true },
-    content: { ...asyncDataObj, isLoading: true },
+    document: { ...asyncDataObj },
   };
+
+  this.setState = (nextState) => {
+    const prevState = { ...this.state };
+
+    if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
+      this.state = nextState;
+
+      sidebar.setState({
+        selectedDocumentId: this.state.selectedDocumentId,
+        documents: this.state.documents,
+      });
+
+      editor.setState({
+        selectedDocumentId: this.state.selectedDocumentId,
+        document: this.state.document,
+      });
+
+      this.render();
+    }
+  };
+
+  let serverUpdateTimer = null;
+  let localSaveTimer = null;
 
   const sidebar = new Sidebar({
     targetEl,
@@ -19,59 +44,49 @@ export default function App({ targetEl }) {
       documents: this.state.documents,
     },
     onCreate: async (parent) => {
-      const res = await this.createDocument(parent);
+      const res = await createDocument(parent);
 
-      await this.fetchDocuments();
+      await fetchDocuments();
 
-      if(res.id) {
+      if (res.id) {
         router.push(`/documents/${res.id}`);
       } else {
-        throw new Error('문서 생성 과정에서 에러가 발생하였습니다!')
+        throw new Error("문서 생성 과정에서 에러가 발생하였습니다!");
       }
     },
     onDelete: async (id) => {
-      const res = await this.deleteDocument(id);
-      router.replace(res.parent ? `/documents/${res.parent.id}` : "/");
-      await this.fetchDocuments();
+      const res = await deleteDocument(id);
+      router.replace(res.parent?.id ? `/documents/${res.parent.id}` : "/");
+      await fetchDocuments();
     },
   });
-
-  let timer = null;
 
   const editor = new Editor({
     targetEl,
     initialState: {
       selectedDocumentId: this.state.selectedDocumentId,
-      content: this.state.content,
+      document: this.state.document,
     },
-    onChange: (document) => {
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(async () => {
-        await this.updateContent(document);
-        await this.fetchContent(document.id);
-        await this.fetchDocuments();
+    onEditing: (document) => {
+      clearTimeout(serverUpdateTimer);
+      clearTimeout(localSaveTimer);
+      serverUpdateTimer = setTimeout(async () => {
+        await updateDocument(document);
+
+        const LOCAL_SAVE_KEY = getLocalSaveKey(document.id);
+        removeItem(LOCAL_SAVE_KEY);
+
+        await fetchDocument(document.id);
+
+        await fetchDocuments();
       }, 3000);
+      localSaveTimer = setTimeout(async () => {
+        localSaveDocument(document);
+      }, 250);
     },
   });
 
-  this.setState = (nextState) => {
-    this.state = nextState;
-
-    sidebar.setState({
-      selectedDocumentId: this.state.selectedDocumentId,
-      documents: this.state.documents,
-    });
-    editor.setState({
-      selectedDocumentId: this.state.selectedDocumentId,
-      content: this.state.content,
-    });
-
-    this.render();
-  };
-
-  this.fetchDocuments = async () => {
+  const fetchDocuments = async () => {
     try {
       const res = await request("/documents");
       this.setState({
@@ -86,30 +101,57 @@ export default function App({ targetEl }) {
     }
   };
 
-  this.fetchContent = async (id) => {
+  const fetchDocument = async (id) => {
     if (id === null) {
       this.setState({
         ...this.state,
-        content: { ...asyncDataObj },
+        document: { ...asyncDataObj },
       });
       return null;
     }
 
+    const LOCAL_SAVE_KEY = getLocalSaveKey(id);
+    const storedData = getItem(LOCAL_SAVE_KEY, false);
+
     try {
       const res = await request(`/documents/${id.toString()}`);
+
+      const savedAt = new Date(storedData.localSaveDate).getTime();
+      const updatedAt = new Date(res.updatedAt).getTime();
+
+      if (
+        savedAt > updatedAt &&
+        window.confirm("로컬에 저장된 최신 정보가 있습니다. 가져오시겠습니까?")
+      ) {
+        delete storedData.localSaveDate;
+
+        this.setState({
+          ...this.state,
+          document: { ...asyncDataObj, data: storedData },
+        });
+      } else {
+        this.setState({
+          ...this.state,
+          document: { ...asyncDataObj, data: res },
+        });
+      }
+
       this.setState({
         ...this.state,
-        content: { ...asyncDataObj, data: res },
+        document: {
+          ...asyncDataObj,
+          data: savedAt > updatedAt ? storedData : res,
+        },
       });
     } catch (e) {
       this.setState({
         ...this.state,
-        content: { ...asyncDataObj, isError: e },
+        document: { ...asyncDataObj, isError: e },
       });
     }
   };
 
-  this.updateContent = async (document) => {
+  const updateDocument = async (document) => {
     const { id, title, content } = document;
 
     const body = { title, content };
@@ -121,7 +163,7 @@ export default function App({ targetEl }) {
     return res;
   };
 
-  this.createDocument = async (parent) => {
+  const createDocument = async (parent) => {
     const body = { title: "제목 없음", parent };
 
     const res = await request(`/documents`, {
@@ -132,7 +174,7 @@ export default function App({ targetEl }) {
     return res;
   };
 
-  this.deleteDocument = async (id) => {
+  const deleteDocument = async (id) => {
     // if (!id || typeof id !== "number") {
     //   throw new Error("삭제할 문서의 id를 입력하세요!");
     // }
@@ -142,7 +184,18 @@ export default function App({ targetEl }) {
     return res;
   };
 
-  this.onRouterChange = (pathname) => {
+  const localSaveDocument = async (document) => {
+    if (
+      this.state.document.data.id === document.id &&
+      (this.state.document.data.title !== document.title ||
+        this.state.document.data.content !== document.content)
+    ) {
+      const LOCAL_SAVE_KEY = getLocalSaveKey(document.id);
+      setItem(LOCAL_SAVE_KEY, { ...document, localSaveDate: new Date() });
+    }
+  };
+
+  const onRouterChange = (pathname) => {
     const arr = pathname.substring(1).split("/");
     const id = arr.length > 1 ? Number(arr[1]) : null;
 
@@ -151,21 +204,22 @@ export default function App({ targetEl }) {
         ...this.state,
         selectedDocumentId: id,
       });
-      this.fetchContent(id);
+      fetchDocument(id);
     }
 
-    clearTimeout(timer);
+    clearTimeout(serverUpdateTimer);
+    clearTimeout(localSaveTimer);
   };
 
   this.render = () => {
     if (!this.isInit) {
-      router.init(this.onRouterChange);
-      this.onRouterChange(window.location.pathname);
+      router.init(onRouterChange);
+      onRouterChange(window.location.pathname);
 
       sidebar.render();
       editor.render();
 
-      this.fetchDocuments();
+      fetchDocuments();
 
       this.isInit = true;
     }
