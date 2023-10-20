@@ -1,10 +1,7 @@
-import { ROOT_DOCUMETS_URL, HEADER_OPTION } from "../utils/fetchData.js";
-import {
-  getDocumentsWithValidation,
-  postDocumentWithValidation,
-  postData,
-} from "../utils/fetchData.js";
-export default function SideBar({ $target, initialState, pushIdForEditor }) {
+import { postData } from "../utils/fetchData.js";
+
+import { appendEditingPostToSideBar } from "../utils/dataManager.js";
+export default function SideBar({ $target, initialState, setPostIdState }) {
   const $div = document.createElement("div");
   $div.id = "sidebar";
   $target.appendChild($div);
@@ -23,10 +20,13 @@ export default function SideBar({ $target, initialState, pushIdForEditor }) {
         parent: e.target.id,
       };
       postData(data).then((data) => {
-        pushIdForEditor(data.id);
+        this.setState(
+          appendEditingPostToSideBar(this.state, data, e.target.id)
+        );
+        setPostIdState(data.id);
       });
     } else if (e.target.tagName === "LI") {
-      pushIdForEditor(e.target.id);
+      setPostIdState(e.target.id);
     }
   });
 
@@ -40,7 +40,7 @@ export default function SideBar({ $target, initialState, pushIdForEditor }) {
 
 function documentTreeToHTML(data) {
   const result = data.map((item) => {
-    let HtmlResult = `<li id=${item.id}>${item.title}</li><button id=${item.id}>+</button>`;
+    let HtmlResult = `<div><li id=${item.id}>${item.title}</li><button id=${item.id}>+</button></div>`;
     if (item.documents.length > 0) {
       HtmlResult += "<ul>" + documentTreeToHTML(item.documents) + "</ul>";
     }
