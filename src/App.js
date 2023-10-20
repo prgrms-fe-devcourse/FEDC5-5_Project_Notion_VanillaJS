@@ -20,8 +20,14 @@ export default function App({ targetEl }) {
     },
     onCreate: async (parent) => {
       const res = await this.createDocument(parent);
+
       await this.fetchDocuments();
-      router.push(`/documents/${res.id}`);
+
+      if(res.id) {
+        router.push(`/documents/${res.id}`);
+      } else {
+        throw new Error('문서 생성 과정에서 에러가 발생하였습니다!')
+      }
     },
     onDelete: async (id) => {
       const res = await this.deleteDocument(id);

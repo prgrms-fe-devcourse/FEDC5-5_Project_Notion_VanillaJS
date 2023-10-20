@@ -30,7 +30,9 @@ export default function Sidebar({
     const id = liEl?.dataset?.id ? Number(liEl.dataset.id) : null;
 
     if (target.className === "document-title") {
-      router.push(`/documents/${id}`);
+      if(id) {
+        router.push(`/documents/${id}`)
+      }
     } else if (target.className === "delete-button") {
       if (onDelete && id) {
         onDelete(id);
