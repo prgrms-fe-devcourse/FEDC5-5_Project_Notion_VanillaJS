@@ -3,6 +3,7 @@ import { request } from "../utils/api.js";
 
 export default function PostsPage({ $target }) {
   const $page = document.createElement("div");
+  $page.className = "post-list"
 
   const postList = new PostList({
     $target: $page,

@@ -1,0 +1,28 @@
+#app {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-list {
+  width: 200px;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.post-edit {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.input-title {
+  width: 90%;
+
+}
+
+.input-content {
+  width: 90%;
+  height: 90%;
+}

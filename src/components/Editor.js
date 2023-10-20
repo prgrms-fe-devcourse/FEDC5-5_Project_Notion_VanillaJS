@@ -10,10 +10,10 @@ export default function Editor({ $target, initialState, onEditing }) {
 
   this.render = () => {
     $target.appendChild($editor);
-
+    const { title, content } = this.state;
     $editor.innerHTML = `
-      <input type="text" name="title" value="${this.state.title}"/>
-      <textarea name="content">${this.state.content}</textarea>
+      <input type="text" class="input-title" name="title" value="${title}"/>
+      <textarea class="input-content" name="content">${content ? content : ""}</textarea>
     `;
   };
 

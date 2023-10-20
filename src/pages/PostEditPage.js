@@ -5,6 +5,7 @@ import { request } from "../utils/api.js";
 
 export default function PostEditPage({ $target, initialState }) {
   const $page = document.createElement("div");
+  $page.className = "post-edit"
 
   this.state = initialState;
 
