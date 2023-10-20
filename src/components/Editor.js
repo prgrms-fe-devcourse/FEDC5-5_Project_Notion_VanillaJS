@@ -1,23 +1,22 @@
-import {
-  ROOT_DOCUMETS_URL,
-  HEADER_OPTION,
-  getData,
-  putData,
-  deleteDocuments,
-} from "../utils/fetchData.js";
+import { isDataInLocalStorage } from "../utils/storage.js";
+import { getData, putData } from "../utils/fetchData.js";
 
-export default function Editor({ $target, initalState, renderSideBar }) {
+import { getEditingPostData, setEditingPostData } from "../utils/storage.js";
+
+export default function Editor({ $target, initalState, setSideBarState }) {
   const $div = document.createElement("div");
   $div.id = "editor";
   $target.appendChild($div);
-
-  deleteDocuments();
 
   this.idState = 0;
   this.state = initalState;
 
   this.setIdState = (nextState) => {
     this.idState = nextState;
+    if (isDataInLocalStorage(this.idState)) {
+      const data = getEditingPostData(this.idState);
+      this.setState(data);
+    }
     getData(this.idState).then((data) => {
       const newData = data;
       newData.content = data.content || "";
@@ -39,15 +38,16 @@ export default function Editor({ $target, initalState, renderSideBar }) {
       } else if (e.target.tagName === "TEXTAREA") {
         this.state = { ...this.state, content: e.target.value };
       }
+      this.state.tempUpdatedAt = new Date().toISOString();
+      setEditingPostData(this.state.id, this.state);
+      setSideBarState(this.state);
       clearTimeout(timer);
       timer = setTimeout(() => {
         const body = {
           title: this.state.title,
           content: this.state.content,
         };
-        putData(this.state.id, body).then((data) => {
-          renderSideBar();
-        });
+        putData(this.state.id, body).then((data) => {});
       }, 1000);
     });
   };
