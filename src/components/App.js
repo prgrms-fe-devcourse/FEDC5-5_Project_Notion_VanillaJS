@@ -1,7 +1,7 @@
 import SideBar from "./SideBar.js";
 import Editor from "./Editor.js";
 
-import { getDatas } from "../utils/fetchData.js";
+import { updateEditingPostToSideBar } from "../utils/dataManager.js";
 export default function App({
   $target,
   initialSideBarState,
@@ -28,7 +28,7 @@ export default function App({
   const sideBar = new SideBar({
     $target: $main,
     initialState: initialSideBarState,
-    pushIdForEditor: (id) => {
+    setPostIdState: (id) => {
       this.setIdState(id);
     },
   });
@@ -36,10 +36,12 @@ export default function App({
   const editor = new Editor({
     $target: $main,
     initalState: initialEditorState,
-    renderSideBar: () => {
-      getDatas().then((data) => {
-        sideBar.setState(data);
-      });
+    setSideBarState: (editingPostData) => {
+      const nextState = updateEditingPostToSideBar(
+        sideBar.state,
+        editingPostData
+      );
+      sideBar.setState(nextState);
     },
   });
 }
