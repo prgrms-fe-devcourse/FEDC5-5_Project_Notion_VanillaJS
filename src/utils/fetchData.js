@@ -45,7 +45,6 @@ export async function postDocumentWithValidation(
     headers: headerOption,
     body: JSON.stringify(body),
   };
-  console.log(options);
   const data = await fetchData(url, options);
   if (data === null) {
     return {};
@@ -81,7 +80,6 @@ export async function putDocumentWithValidation(
     headers: headerOption,
     body: JSON.stringify(body),
   };
-  console.log(options, url);
   const data = await fetchData(url, options);
   if (data === null) {
     return {};
@@ -119,7 +117,6 @@ export async function deleteDocumentWithValidation(
 
 export function getIDs(documents) {
   let ids = [];
-  console.log(documents);
   documents.forEach((item) => {
     ids.push(item.id);
     if (item.documents.length > 0) {
