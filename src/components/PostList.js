@@ -1,3 +1,5 @@
+import { push } from "../utils/router.js";
+
 export default function PostList({ $target, initialState, handlePostClick }) {
   const $postList = document.createElement("div");
   $target.appendChild($postList);
@@ -26,7 +28,7 @@ export default function PostList({ $target, initialState, handlePostClick }) {
 
     const { id } = e.target.dataset;
 
-    console.log(id);
+    push(`/documents/${id}`);
   });
 
   this.render();
