@@ -37,5 +37,6 @@ export default function Editor({ $target, initialState, onEditing }) {
       ...this.state,
       content: e.target.value,
     });
+    onEditing(this.state);
   });
 }
