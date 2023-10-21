@@ -19,10 +19,14 @@ export default function App({ $target }) {
     const { pathname } = window.location;
 
     if (pathname === "/") {
+      console.log("this.route: /");
       postsPage.setState();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
-      postEditPage.setState({ id });
+      postEditPage.setState({
+        id,
+      });
+      postsPage.setState();
     }
   };
 

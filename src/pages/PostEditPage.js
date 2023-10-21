@@ -2,23 +2,23 @@ import Editor from "../components/Editor.js";
 
 import { getItem, setItem, removeItem } from "../utils/storage.js";
 import { request } from "../utils/api.js";
+import { push } from "../utils/router.js";
 
 export default function PostEditPage({ $target, initialState }) {
   const $page = document.createElement("div");
-  $page.className = "post-edit"
+  $page.className = "post-edit";
 
   this.state = initialState;
 
   let postLocalSaveKey = `temp-post-${this.state.id}`;
+  let timer = null;
 
   const savedPost = getItem(postLocalSaveKey, { title: "", content: "" });
-
   const editor = new Editor({
     $target: $page,
     initialState: savedPost,
-    onEditing: (post) => {
-      let timer;
-      if (timer) clearTimeout(timer);
+    onEditing: async (post) => {
+      if (timer !== null) clearTimeout(timer);
       timer = setTimeout(async () => {
         setItem(postLocalSaveKey, {
           ...post,
@@ -28,11 +28,13 @@ export default function PostEditPage({ $target, initialState }) {
         const isNew = this.state.id === "new";
 
         if (isNew) {
+          console.log("isNew");
           const createdPost = await request("/documents", {
             method: "POST",
             body: JSON.stringify(post),
           });
-          history.replaceState(null, null, `/documents/${createdPost.id}`);
+          // history.replaceState(null, null, `/documents/${createdPost.id}`);
+          push(`/documents/${createdPost.id}`);
           removeItem(postLocalSaveKey);
 
           this.setState({
@@ -40,7 +42,7 @@ export default function PostEditPage({ $target, initialState }) {
             id: createdPost.id,
           });
         } else {
-          await request(`/documents/${post.id}`, {
+          await request(`/documents/${this.state.id}`, {
             method: "PUT",
             body: JSON.stringify(post),
           });
@@ -68,7 +70,6 @@ export default function PostEditPage({ $target, initialState }) {
 
     this.state = nextState;
     this.render();
-
     editor.setState(
       this.state.post || {
         title: "",
@@ -86,7 +87,6 @@ export default function PostEditPage({ $target, initialState }) {
 
     if (id !== "new") {
       const post = await request(`/documents/${id}`);
-
       const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
 
       if (tempPost.tempSaveDate && tempPost.tempSaveDate > post.updated_at) {

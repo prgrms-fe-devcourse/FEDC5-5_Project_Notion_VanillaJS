@@ -5,33 +5,35 @@ export default function Editor({ $target, initialState, onEditing }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    this.render();
   };
+
+  $editor.innerHTML = `
+    <input type="text" class="input-title" name="title" value="${
+      this.state.title
+    }"/>
+    <textarea class="input-content" name="content">${
+      this.state.content ? this.state.content : ""
+    }</textarea>
+  `;
 
   this.render = () => {
     $target.appendChild($editor);
-    const { title, content } = this.state;
-    $editor.innerHTML = `
-      <input type="text" class="input-title" name="title" value="${title}"/>
-      <textarea class="input-content" name="content">${content ? content : ""}</textarea>
-    `;
   };
 
   this.render();
 
-  $editor.querySelector("[name=title]").addEventListener("keyup", (e) => {
+  $editor.querySelector(".input-title").addEventListener("keyup", (e) => {
     this.setState({
       ...this.state,
-      title: e.target.value
+      title: e.target.value,
     });
     onEditing(this.state);
   });
 
-  $editor.querySelector("[name=content]").addEventListener("input", (e) => {
+  $editor.querySelector(".input-content").addEventListener("input", (e) => {
     this.setState({
       ...this.state,
-      content: e.target.value
+      content: e.target.value,
     });
-    onEditing(this.state);
   });
 }

@@ -3,11 +3,12 @@ import { request } from "../utils/api.js";
 
 export default function PostsPage({ $target }) {
   const $page = document.createElement("div");
-  $page.className = "post-list"
+  $page.className = "post-list";
 
   const postList = new PostList({
     $target: $page,
     initialState: [],
+    handleDeletePost: async (id) => await fetchDeletePost(id),
   });
 
   this.setState = async () => {
@@ -18,5 +19,12 @@ export default function PostsPage({ $target }) {
 
   this.render = () => {
     $target.appendChild($page);
+  };
+
+  const fetchDeletePost = async (id) => {
+    await request(`/documents/${id}`, {
+      method: "DELETE",
+    });
+    this.setState();
   };
 }

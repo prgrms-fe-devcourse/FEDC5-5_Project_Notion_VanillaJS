@@ -9,6 +9,11 @@
   border: 1px solid black;
 }
 
+.post-list ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
 .post-edit {
   display: flex;
   flex-direction: column;
