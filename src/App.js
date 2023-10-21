@@ -19,7 +19,6 @@ export default function App({ $target }) {
     const { pathname } = window.location;
 
     if (pathname === "/") {
-      console.log("this.route: /");
       postsPage.setState();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
@@ -30,6 +29,7 @@ export default function App({ $target }) {
     }
   };
 
+  // 뒤로가기, 앞으로 가기 동작하도록
   window.addEventListener("popstate", () => this.route());
 
   this.route();

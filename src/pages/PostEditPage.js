@@ -18,6 +18,7 @@ export default function PostEditPage({ $target, initialState }) {
     $target: $page,
     initialState: savedPost,
     onEditing: async (post) => {
+      // 디바운스 적용 (추후 함수로 따로 뺄 것)
       if (timer !== null) clearTimeout(timer);
       timer = setTimeout(async () => {
         setItem(postLocalSaveKey, {
@@ -27,8 +28,8 @@ export default function PostEditPage({ $target, initialState }) {
 
         const isNew = this.state.id === "new";
 
+        // 새 문서를 작성하는 경우
         if (isNew) {
-          console.log("isNew");
           const createdPost = await request("/documents", {
             method: "POST",
             body: JSON.stringify(post),
@@ -42,6 +43,7 @@ export default function PostEditPage({ $target, initialState }) {
             id: createdPost.id,
           });
         } else {
+          // 이미 존재하는 문서인 경우
           await request(`/documents/${this.state.id}`, {
             method: "PUT",
             body: JSON.stringify(post),

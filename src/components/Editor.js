@@ -24,6 +24,7 @@ export default function Editor({ $target, initialState, onEditing }) {
 
   this.render();
 
+  // 편집기 제목 입력
   $editor.querySelector(".input-title").addEventListener("keyup", (e) => {
     this.setState({
       ...this.state,
@@ -32,6 +33,7 @@ export default function Editor({ $target, initialState, onEditing }) {
     onEditing(this.state);
   });
 
+  // 편집기 내용 입력
   $editor.querySelector(".input-content").addEventListener("input", (e) => {
     this.setState({
       ...this.state,
