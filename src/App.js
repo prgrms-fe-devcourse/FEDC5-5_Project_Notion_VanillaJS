@@ -23,12 +23,14 @@ export default function App({ $target }) {
       postsPage.setState();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
+      postsPage.setState();
       postEditPage.setState({
         id,
       });
-      postsPage.setState();
     }
   };
+
+  window.addEventListener("popstate", () => this.route());
 
   this.route();
 
