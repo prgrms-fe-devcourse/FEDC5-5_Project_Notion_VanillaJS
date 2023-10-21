@@ -3,10 +3,6 @@ export default function Editor({ $target, initialState, onEditing }) {
 
   this.state = initialState;
 
-  this.setState = (nextState) => {
-    this.state = nextState;
-  };
-
   $editor.innerHTML = `
     <input type="text" class="input-title" name="title" value="${
       this.state.title
@@ -15,6 +11,12 @@ export default function Editor({ $target, initialState, onEditing }) {
       this.state.content ? this.state.content : ""
     }</textarea>
   `;
+
+  this.setState = (nextState) => {
+    this.state = nextState;
+    $editor.querySelector(".input-title").value = this.state.title;
+    $editor.querySelector(".input-content").value = this.state.content;
+  };
 
   this.render = () => {
     $target.appendChild($editor);
