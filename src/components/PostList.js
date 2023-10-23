@@ -1,7 +1,13 @@
 import { push } from "../utils/router.js";
 
-export default function PostList({ $target, initialState, handleDeletePost }) {
+export default function PostList({
+  $target,
+  initialState,
+  handleDeletePost,
+  handleAddPost,
+}) {
   const $postList = document.createElement("div");
+  $postList.className = "post-list";
   $target.appendChild($postList);
 
   this.state = initialState;
@@ -41,6 +47,7 @@ export default function PostList({ $target, initialState, handleDeletePost }) {
 
     if (e.target.matches(".add-post-button")) {
       push(`/documents/new`);
+      handleAddPost();
       return;
     }
   });

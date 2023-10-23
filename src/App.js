@@ -1,31 +1,46 @@
-import PostsPage from "./pages/PostsPage.js";
+import PostList from "./components/PostList.js";
 import PostEditPage from "./pages/PostEditPage.js";
-import { initRouter } from "./utils/router.js";
+
+import { initRouter, push } from "./utils/router.js";
+import { request } from "./utils/api.js";
 
 export default function App({ $target }) {
-  const postsPage = new PostsPage({ $target });
+  const postList = new PostList({
+    $target,
+    initialState: [],
+    handleDeletePost: async (id) => await fetchDeletePost(id),
+    handleAddPost: async () => await fetchAddPost(),
+  });
+
   const postEditPage = new PostEditPage({
     $target,
     initialState: {
       id: "new",
       post: {
-        title: "",
+        title: "제목 없음",
         content: "",
       },
     },
   });
 
-  this.route = () => {
+  this.route = async () => {
+    const posts = await request("/documents");
+    postList.setState(posts);
+
     const { pathname } = window.location;
 
-    if (pathname === "/") {
-      postsPage.setState();
-    } else if (pathname.indexOf("/documents/") === 0) {
+    // if (pathname === "/") {
+    if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
-      postsPage.setState();
-      postEditPage.setState({
-        id,
-      });
+      console.log("URL 변경");
+
+      if (id !== "new") {
+        const post = await request(`/documents/${id}`);
+        postEditPage.setState({
+          id,
+          post,
+        });
+      }
     }
   };
 
@@ -35,4 +50,23 @@ export default function App({ $target }) {
   this.route();
 
   initRouter(() => this.route());
+
+  const fetchDeletePost = async (id) => {
+    await request(`/documents/${id}`, {
+      method: "DELETE",
+    });
+
+    const posts = await request("/documents");
+    postList.setState(posts);
+  };
+
+  const fetchAddPost = async () => {
+    const createdPost = await request(`/documents`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: "제목 없음",
+      }),
+    });
+    push(`/documents/${createdPost.id}`);
+  };
 }

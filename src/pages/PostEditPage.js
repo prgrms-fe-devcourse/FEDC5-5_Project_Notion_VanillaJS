@@ -13,7 +13,10 @@ export default function PostEditPage({ $target, initialState }) {
   let postLocalSaveKey = `temp-post-${this.state.id}`;
   let timer = null;
 
-  const savedPost = getItem(postLocalSaveKey, { title: "", content: "" });
+  const savedPost = getItem(postLocalSaveKey, {
+    title: "제목 없음",
+    content: "",
+  });
   const editor = new Editor({
     $target: $page,
     initialState: savedPost,
@@ -26,31 +29,22 @@ export default function PostEditPage({ $target, initialState }) {
           tempSaveDate: new Date(),
         });
 
-        const isNew = this.state.id === "new";
+        await request(`/documents/${post.id}`, {
+          method: "PUT",
+          body: JSON.stringify(post),
+        });
 
-        // 새 문서를 작성하는 경우
-        if (isNew) {
-          const createdPost = await request("/documents", {
-            method: "POST",
-            body: JSON.stringify(post),
-          });
-          // history.replaceState(null, null, `/documents/${createdPost.id}`);
-          push(`/documents/${createdPost.id}`);
-          removeItem(postLocalSaveKey);
-
-          this.setState({
-            ...this.state,
-            id: createdPost.id,
-          });
-        } else {
-          // 이미 존재하는 문서인 경우
-          await request(`/documents/${this.state.id}`, {
-            method: "PUT",
-            body: JSON.stringify(post),
-          });
-          removeItem(postLocalSaveKey);
+        if (post !== this.state.post) {
+          push(`/documents/${this.state.id}`);
         }
-      }, 2000);
+
+        this.setState({
+          ...this.state,
+          post,
+        });
+
+        removeItem(postLocalSaveKey);
+      }, 1000);
     },
   });
 
@@ -60,7 +54,10 @@ export default function PostEditPage({ $target, initialState }) {
       this.state = nextState;
 
       if (this.state.id === "new") {
-        const savedPost = getItem(postLocalSaveKey, { title: "", content: "" });
+        const savedPost = getItem(postLocalSaveKey, {
+          title: "제목 없음",
+          content: "",
+        });
         this.render();
         editor.setState(savedPost);
       } else {
@@ -74,7 +71,7 @@ export default function PostEditPage({ $target, initialState }) {
     this.render();
     editor.setState(
       this.state.post || {
-        title: "",
+        title: "제목 없음",
         content: "",
       }
     );
