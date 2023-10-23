@@ -7,8 +7,6 @@ export default function Editor({ $page, initialState, onEdit }) {
   let isInit = false;
 
   this.render = () => {
-    // console.log(this.state);
-    // console.log(this.state.title);
     if (this.state.title !== null) {
       $page.innerHTML = `
         <input type="text" name="title" style="width:93%;  height:5%; margin:20px;" value=${this.state.title}>

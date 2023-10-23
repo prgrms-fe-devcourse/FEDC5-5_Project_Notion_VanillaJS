@@ -30,6 +30,19 @@ export default function App({ $app }) {
     },
   });
 
+  //EditDoc은 RootTree도 변화시켜야 하기 때문에 최상위로 끌고옴
+  const fetchEditingDoc = async (document) => {
+    await request(`/documents/${document.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: `${document.title}`,
+        content: `${document.content}`,
+      }),
+    });
+    const res = await request(`/documents`);
+    this.setState(res);
+  };
+
   const documentContainer = new DocumentContainer({
     $target,
     initialState: {
@@ -40,22 +53,19 @@ export default function App({ $app }) {
       createAt: null,
       updatedAt: null,
     },
-    onEdit: (document) => {
-      console.log("온에딧", document);
-      EditDoc(document);
+    EditDoc: (document) => {
+      fetchEditingDoc(document);
     },
   });
 
   this.render = () => {
     const pathname = window.location.pathname;
-    console.log("여기는 패스네임", pathname);
     if (pathname === "/") {
       fetchRoot();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , docId] = pathname.split("/");
-      console.log(docId);
       fetchRoot();
-      documentContainer.fetchDoc(docId);
+      documentContainer.fetchDoc(docId); //그러므로 router는 fetch를 실행함.
     }
   };
 
@@ -64,5 +74,13 @@ export default function App({ $app }) {
   initRouter(() => {
     //
     this.render();
+  });
+
+  window.addEventListener("popstate", (e) => {
+    const { pathname } = e.target.location;
+    console.log("pop", pathname);
+    const [, , docId] = pathname.split("/");
+    fetchRoot();
+    documentContainer.fetchDoc(docId);
   });
 }

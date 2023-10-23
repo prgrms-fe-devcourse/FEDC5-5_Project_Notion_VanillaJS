@@ -14,7 +14,7 @@ export default function RootList({ $page, initialState, onClick, addNewDoc }) {
             ${this.state
               .map(
                 (document) =>
-                  `<li data-id=${document.id}>${document.id}___${
+                  `<li data-id=${document.id}>${document.id}__${
                     document.title
                   } ${
                     document.documents.length !== 0
