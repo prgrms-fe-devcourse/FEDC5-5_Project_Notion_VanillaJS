@@ -12,9 +12,6 @@ export const initRouter = (onRouter) => {
 };
 
 export const push = (nextUrl) => {
-  // const { pathname } = window.location;
-
-  // if (pathname === nextUrl) return;
   window.dispatchEvent(
     new CustomEvent(ROUTER_CHANGE_EVENT_NAME, {
       detail: { nextUrl },

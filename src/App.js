@@ -29,7 +29,12 @@ export default function App({ $target }) {
 
     const { pathname } = window.location;
 
-    // if (pathname === "/") {
+    // 루트 경로일 때 편집기가 보이지 않도록 설정
+    if (pathname === "/" && $target.querySelector(".post-edit")) {
+      $target.removeChild($target.querySelector(".post-edit"));
+      return;
+    }
+
     if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
       console.log("URL 변경");
@@ -51,13 +56,23 @@ export default function App({ $target }) {
 
   initRouter(() => this.route());
 
-  const fetchDeletePost = async (id) => {
-    await request(`/documents/${id}`, {
+  const fetchDeletePost = async (selectedId) => {
+    await request(`/documents/${selectedId}`, {
       method: "DELETE",
     });
 
-    const posts = await request("/documents");
-    postList.setState(posts);
+    const { pathname } = window.location;
+    if (pathname === "/") return;
+
+    if (pathname.indexOf("/documents/") === 0) {
+      const [, , id] = pathname.split("/");
+      console.log(parseInt(id) === selectedId);
+      if (parseInt(id) === selectedId) {
+        push("/");
+      } else {
+        push(pathname);
+      }
+    }
   };
 
   const fetchAddPost = async () => {
