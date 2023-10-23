@@ -22,39 +22,14 @@ export default function App({ $app }) {
     this.setState(roots);
   };
 
-  const fetchDoc = async (id) => {
-    const doc = await request(`/documents/${id}`);
-    return doc;
-  };
-
-  const fetchNewPost = async () => {
-    const res = await request(`/documents`, {
-      method: "POST",
-      body: JSON.stringify({
-        title: "",
-        parent: "",
-      }),
-    });
-    return res;
-  };
-
   const rootContainer = new RootContainer({
     $target,
     initialState,
     onRenderDoc: async (documentId) => {
       documentContainer.fetchDoc(documentId);
     },
-    onAddDoc: async () => {
-      const res = await fetchNewPost(); //새 포스트 불러서 res받고
-      await fetchRoot(); //루트를 새로 렌더링해주고
-      const doc = await fetchDoc(res.id); //받은 res.id로 fetchDoc으로 다시 res받고
-      documentContainer.setState(doc); //그 res(doc)으로 docContainer를 setState해줌
-      push(res.id);
-
-      //documentContainer.render();
-    }, //Root에 새 문서추가해주면서 새 문서 작성 페이지로 이동해야대
-    //됐는데 내용이 null로 나오네
   });
+
   const documentContainer = new DocumentContainer({
     $target,
     initialState: {
@@ -70,6 +45,7 @@ export default function App({ $app }) {
       EditDoc(document);
     },
   });
+
   this.render = () => {
     const pathname = window.location.pathname;
     console.log("여기는 패스네임", pathname);
