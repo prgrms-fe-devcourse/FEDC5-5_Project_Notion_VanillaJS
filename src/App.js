@@ -66,5 +66,9 @@ export default function App({ $app }) {
       createAt: null,
       updatedAt: null,
     },
+    onEdit: (document) => {
+      console.log("온에딧", document);
+      EditDoc(document);
+    },
   });
 }
