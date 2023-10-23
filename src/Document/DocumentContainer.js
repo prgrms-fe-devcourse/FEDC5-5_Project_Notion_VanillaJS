@@ -1,5 +1,6 @@
 import Editor from "./Editor.js";
 import { request } from "../../library/api.js";
+import { push } from "../../library/router.js";
 
 export default function DocumentContainer({ $target, initialState }) {
   const $page = document.createElement("div");
@@ -16,6 +17,17 @@ export default function DocumentContainer({ $target, initialState }) {
         content: `${document.content}`,
       }),
     });
+  };
+
+  this.fetchDoc = async (id) => {
+    const doc = await request(`/documents/${id}`);
+    if (this.state.id === doc.id) {
+      //무한루프 방어코드
+      return;
+    }
+    this.setState(doc);
+    push(doc.id);
+    return doc;
   };
 
   const $editor = new Editor({
