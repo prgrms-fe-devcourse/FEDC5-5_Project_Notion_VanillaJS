@@ -1,27 +1,13 @@
 // import App from "./App.js";
-import Editor from "./Editor.js";
-import { getItem, setItem } from "./storage.js";
+import PostEditPage from "./PostEditPage.js";
 
 const $target = document.querySelector("#app");
 
 // new App({ $target });
 
-const TEMP_POST_SAVE_KEY = "temp-post";
-
-const post = getItem(TEMP_POST_SAVE_KEY, { title: "", content: "" });
-
-let timer = null;
-
-new Editor({
+const postEditPage = new PostEditPage({
   $target,
-  initialState: post,
-  onEditing: (post) => {
-    if (timer !== null) {
-      clearTimeout(timer);
-    }
-
-    timer = setTimeout(() => {
-      setItem(TEMP_POST_SAVE_KEY, { ...post, tempSaveDate: new Date() });
-    }, 1000);
-  },
+  initialState: { postId: "new" },
 });
+
+postEditPage.setState({ postId: 2 });
