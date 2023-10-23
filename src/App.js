@@ -8,8 +8,8 @@ export default function App({ $target }) {
   const postList = new PostList({
     $target,
     initialState: [],
-    handleDeletePost: async (id) => await fetchDeletePost(id),
-    handleAddPost: async () => await fetchAddPost(),
+    handleDeletePost: async (selectedId) => await fetchDeletePost(selectedId),
+    handleAddPost: async (selectedId) => await fetchAddPost(selectedId),
   });
 
   const postEditPage = new PostEditPage({
@@ -35,6 +35,7 @@ export default function App({ $target }) {
       return;
     }
 
+    // 이 부분은 함수로 빼서 fetchDeletePost에서도 쓰기
     if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
       console.log("URL 변경");
@@ -56,17 +57,23 @@ export default function App({ $target }) {
 
   initRouter(() => this.route());
 
+  // fetch - "DELETE" 요청
   const fetchDeletePost = async (selectedId) => {
     await request(`/documents/${selectedId}`, {
       method: "DELETE",
     });
 
+    // 함수로 빼기
     const { pathname } = window.location;
-    if (pathname === "/") return;
+    if (pathname === "/") {
+      push("/");
+      return;
+    }
 
     if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
-      console.log(parseInt(id) === selectedId);
+
+      // 선택된(편집 중인) 문서를 삭제하면 루트 경로로 이동
       if (parseInt(id) === selectedId) {
         push("/");
       } else {
@@ -75,11 +82,13 @@ export default function App({ $target }) {
     }
   };
 
-  const fetchAddPost = async () => {
+  // fetch - "POST" 요청
+  const fetchAddPost = async (selectedId) => {
     const createdPost = await request(`/documents`, {
       method: "POST",
       body: JSON.stringify({
         title: "제목 없음",
+        parent: selectedId,
       }),
     });
     push(`/documents/${createdPost.id}`);

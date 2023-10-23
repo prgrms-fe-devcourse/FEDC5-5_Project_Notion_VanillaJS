@@ -17,37 +17,62 @@ export default function PostList({
     this.render();
   };
 
+  // 자식 문서를 재귀로 리스트에 출력하는 함수
+  // ## 변수명 적절하게 변경하기
+  // ## 토글 기능 추가하기
+  // ## 제목이 일정 길이를 넘어가면 "..."으로 축약
+  const recursiveList = (post) => {
+    return post
+      .map(
+        (parent) => `<li data-id=${parent.id}>${parent.title}
+        <button class="add-child-button">➕</button>
+        <button class="delete-post-button">🗑️</button>
+        ${
+          parent.documents.length !== 0
+            ? `<ul>${recursiveList(parent.documents)}</ul>`
+            : ""
+        }
+        </li>`
+      )
+      .join("");
+  };
+
   this.render = () => {
+    if (this.state.length === 0) return;
+
     $postList.innerHTML = `
-    <ul>
-      ${this.state
-        .map(
-          (post) =>
-            `<li data-id=${post.id}>${post.title} <button class="delete-post-button">삭제</button></li>`
-        )
-        .join("")}
-    </ul>
-    <button class="add-post-button">+ 페이지 추가</button>
+    <button class="add-root-button">+</button>
+    <ul>${recursiveList(this.state)}</ul>
     `;
   };
 
   $postList.addEventListener("click", (e) => {
+    // 문서 열람 & 편집
     if (e.target.matches("li")) {
       const { id } = e.target.dataset;
       push(`/documents/${id}`);
       return;
     }
 
+    // 루트 문서 생성
+    if (e.target.matches(".add-root-button")) {
+      push(`/documents/new`);
+      handleAddPost();
+      return;
+    }
+
+    const { id } = e.target.closest("li").dataset;
+
+    // 문서 삭제
     if (e.target.matches(".delete-post-button")) {
-      // 일단 루트로 이동하고 추후 선택된 문서 id state에 추가해서 처리하기
-      const { id } = e.target.closest("li").dataset;
       handleDeletePost(parseInt(id));
       return;
     }
 
-    if (e.target.matches(".add-post-button")) {
+    // 자식 문서 생성
+    if (e.target.matches(".add-child-button")) {
       push(`/documents/new`);
-      handleAddPost();
+      handleAddPost(parseInt(id));
       return;
     }
   });
