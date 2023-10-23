@@ -22,24 +22,22 @@ export default function PostList({
   // ## 토글 기능 추가하기
   // ## 제목이 일정 길이를 넘어가면 "..."으로 축약
   const recursiveList = (post) => {
-    return post
-      .map(
-        (parent) => `<li data-id=${parent.id}>${parent.title}
-        <button class="add-child-button">➕</button>
-        <button class="delete-post-button">🗑️</button>
-        ${
-          parent.documents.length !== 0
-            ? `<ul>${recursiveList(parent.documents)}</ul>`
-            : ""
-        }
-        </li>`
-      )
-      .join("");
+    if (post.length !== 0) {
+      return post
+        .map((parent) => `<li data-id=${parent.id}>${parent.title}
+          <button class="add-child-button">➕</button>
+          <button class="delete-post-button">🗑️</button>
+          ${parent.documents.length !== 0
+              ? `<ul>${recursiveList(parent.documents)}</ul>`
+              : ""
+          }
+          </li>`)
+        .join("");
+    }
+    return "";
   };
 
   this.render = () => {
-    if (this.state.length === 0) return;
-
     $postList.innerHTML = `
     <button class="add-root-button">+</button>
     <ul>${recursiveList(this.state)}</ul>
