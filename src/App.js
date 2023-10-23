@@ -14,21 +14,25 @@ export default function App({ targetEl }) {
     document: { ...asyncDataObj },
   };
 
-  this.setState = (nextState) => {
-    const prevState = { ...this.state };
+  this.setState = (nextState) => { 
+    const prevState = JSON.parse(JSON.stringify(this.state));
 
     if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
       this.state = nextState;
 
-      sidebar.setState({
-        selectedDocumentId: this.state.selectedDocumentId,
-        documents: this.state.documents,
-      });
+      if(JSON.stringify(prevState.documents) !== JSON.stringify(nextState.documents)) {
+        sidebar.setState({
+          selectedDocumentId: this.state.selectedDocumentId,
+          documents: this.state.documents,
+        });
+      }
 
-      editor.setState({
-        selectedDocumentId: this.state.selectedDocumentId,
-        document: this.state.document,
-      });
+      if(JSON.stringify(prevState.document) !== JSON.stringify(nextState.document)) {
+        editor.setState({
+          selectedDocumentId: this.state.selectedDocumentId,
+          document: this.state.document,
+        });
+      }
 
       this.render();
     }
@@ -36,6 +40,7 @@ export default function App({ targetEl }) {
 
   let serverUpdateTimer = null;
   let localSaveTimer = null;
+  let optimisticUpdateTimer = null;
 
   const sidebar = new Sidebar({
     targetEl,
@@ -70,6 +75,7 @@ export default function App({ targetEl }) {
     onEditing: (document) => {
       clearTimeout(serverUpdateTimer);
       clearTimeout(localSaveTimer);
+      clearTimeout(optimisticUpdateTimer);
       serverUpdateTimer = setTimeout(async () => {
         await updateDocument(document);
 
@@ -83,8 +89,39 @@ export default function App({ targetEl }) {
       localSaveTimer = setTimeout(async () => {
         localSaveDocument(document);
       }, 250);
+      optimisticUpdateTimer = setTimeout(async () => {
+        optimisticUpdate(document);
+      }, 50);
     },
   });
+
+  const optimisticUpdate = async ({ id, title }) => {
+    const newData = JSON.parse(JSON.stringify(this.state.documents.data));
+
+    function recursion(id, documents, title) {
+      for (const document of documents) {
+        if (document.id === id) {
+          if (document.title !== title) {
+            document.title = title;
+          }
+          return null;
+        }
+        if (document.documents && document.documents.length > 0) {
+          recursion(id, document.documents, title);
+        }
+      }
+    }
+
+    await recursion(id, newData, title);
+
+    this.setState({
+      ...this.state,
+      documents: {
+        ...asyncDataObj,
+        data: newData,
+      },
+    });
+  };
 
   const fetchDocuments = async () => {
     try {
@@ -209,6 +246,7 @@ export default function App({ targetEl }) {
 
     clearTimeout(serverUpdateTimer);
     clearTimeout(localSaveTimer);
+    clearTimeout(optimisticUpdateTimer)
   };
 
   this.render = () => {
