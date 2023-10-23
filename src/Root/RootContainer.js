@@ -1,51 +1,30 @@
-// import { request } from "./library/api.js";
+import { request } from "../../library/api.js";
+import RootList from "./RootList.js";
 export default function RootContainer({
   $target,
   initialState,
-  onClick,
-  addNewDoc,
+  onRenderDoc,
+  onAddDoc,
 }) {
   const $page = document.createElement("div");
   $page.className = "RootContainer";
   $target.appendChild($page);
 
   this.state = initialState;
-
+  const documentRoot = new RootList({
+    $page,
+    initialState,
+    onClick: async (documentId) => {
+      //DocumentRoot에서 받아서
+      //const doc = await fetchDoc(documentId); //App에 doc정보 보내줘
+      onRenderDoc(documentId);
+    },
+    addNewDoc: () => {
+      onAddDoc();
+    },
+  });
   this.setState = (nextState) => {
     this.state = nextState;
-    this.render();
+    documentRoot.setState(this.state);
   };
-
-  this.render = () => {
-    $page.innerHTML = `
-    <div class="document_tree">
-    <p>DocumentTree <button>추가</button></p>
-        <ul>
-        ${this.state
-          .map(
-            (document) =>
-              `<li data-id=${document.id}>${document.id}___${document.title} ${
-                document.documents.length !== 0
-                  ? `<div>${document.documents[0].title}</div>` //일단 출력만. 재귀로 다듬읍십다. (문서 안에 문서)
-                  : document.documents
-              }</li>`
-          )
-          .join("")}
-        </ul>
-    </div>
-    `;
-  };
-
-  $page.addEventListener("click", (e) => {
-    const $li = e.target.closest("li");
-    const $button = e.target.closest("button");
-    //console.log(e.target);
-    if ($li) {
-      const { id } = $li.dataset;
-      onClick(id);
-    }
-    if ($button) {
-      addNewDoc();
-    }
-  });
 }
