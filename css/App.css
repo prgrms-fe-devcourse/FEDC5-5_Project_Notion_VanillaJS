@@ -16,6 +16,9 @@
     border: 1px solid black;
     border-radius: 0.5rem;
 }
+.document_tree{
+    width:250px;
+}
 
 .DocumentContainer{
     /* background-color: blanchedalmond; */
