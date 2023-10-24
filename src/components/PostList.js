@@ -21,22 +21,29 @@ export default function PostList({
   };
 
   // 자식 문서를 재귀로 리스트에 출력하는 함수
-  // ## 제목이 일정 길이를 넘어가면 "..."으로 축약
   const recursiveList = (posts) => {
     if (posts.length !== 0) {
       return posts
-        .map((post) =>
-          `<li data-id=${post.id} class="post-li">
-            <img class="toggle-img" src="/src/icons/arrow-${post.documents.length === 0 ? 'right' : 'bottom'}.svg" />
-            ${post.title}
+        .map(
+          (post) =>
+            `<li data-id=${post.id} class="post-li">
+            <div class="parent-list">
+            <img class="toggle-img" src="/src/icons/arrow-${
+              post.documents.length === 0 ? "right" : "bottom"
+            }.svg" />
+            <div class="post-title">${post.title}</div>
             <img class="add-child-img" src="/src/icons/add.svg" />
             <img class="delete-post-img" src="/src/icons/delete.svg" />
+            </div>
             ${
               post.documents.length !== 0
-                ? `<ul class="toggle-ul active">${recursiveList(post.documents)}</ul>`
+                ? `<ul class="toggle-ul active">${recursiveList(
+                    post.documents
+                  )}</ul>`
                 : "<ul class='toggle-ul'><div style='color: darkgrey'>하위 문서 없음</div></ul>"
             }
-          </li>`)
+          </li>`
+        )
         .join("");
     }
     return "";
@@ -70,14 +77,8 @@ export default function PostList({
   };
 
   $postList.addEventListener("click", (e) => {
-    // 문서 열람 & 편집
-    if (e.target.matches("li")) {
-      const { id } = e.target.dataset;
-      push(`/documents/${id}`);
-      return;
-    }
-
     // 루트 문서 생성
+    // ## 우측 상단으로 옮기기
     if (e.target.matches(".add-root-img")) {
       push(`/documents/new`);
       handleAddPost();
@@ -85,6 +86,12 @@ export default function PostList({
     }
 
     const { id } = e.target.closest("li").dataset;
+
+    // 문서 열람 & 편집
+    if (e.target.matches(".post-title")) {
+      push(`/documents/${id}`);
+      return;
+    }
 
     // 문서 삭제
     if (e.target.matches(".delete-post-img")) {

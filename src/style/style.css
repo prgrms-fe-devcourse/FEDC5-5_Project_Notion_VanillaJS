@@ -3,7 +3,6 @@
   flex-direction: row;
 }
 
-
 .toggle-ul {
   display: none;
 }
@@ -11,8 +10,6 @@
 .active {
   display: block;
 }
-
-
 
 .post-list {
   width: 300px;
@@ -25,8 +22,17 @@
   padding-left: 20px;
 }
 
-.post-li {
-  margin: auto;
+.parent-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-title {
+  display: block;
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .post-edit {
@@ -39,7 +45,6 @@
 
 .input-title {
   width: 90%;
-
 }
 
 .input-content {
