@@ -26,6 +26,10 @@ main {
   width: 100%;
   height: 90%;
 }
+
+#richView div {
+  padding-bottom: 1.9rem;
+}
 #sidebar {
   padding: 1rem;
   width: 400px;
