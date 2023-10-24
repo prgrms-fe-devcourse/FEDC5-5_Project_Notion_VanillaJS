@@ -1,5 +1,5 @@
 import Editor from "./Editor.js";
-import { getItem, setItem } from "./storage.js";
+import { getItem, setItem, removeItem } from "./storage.js";
 import { request } from "./api.js";
 
 export default function ({ $target, initialState }) {
@@ -28,6 +28,7 @@ export default function ({ $target, initialState }) {
         setItem(postLocalSaveKey, { ...post, tempSaveDate: new Date() });
 
         const isNew = this.state.postId === "new";
+
         if (isNew) {
           const createdPost = await request("/posts", {
             method: "POST",
@@ -35,6 +36,15 @@ export default function ({ $target, initialState }) {
           });
 
           history.replaceState(null, null, `/posts/${createdPost.id}`); // 뒤로가기 시, new로 가지 않도록 지정
+          removeItem(postLocalSaveKey); //temp=post-new가 이전 값을 가지고 있지 않도록 삭제
+        } else {
+          // update
+          // 새 글 작성 후, 새로고침 시 update된 값 불러오기
+          await request(`/posts/${post.id}`, {
+            method: "PUT",
+            body: JSON.stringify(post),
+          });
+          removeItem(postLocalSaveKey); //update한 post를 localStorage에서 삭제
         }
       }, 1000);
     },

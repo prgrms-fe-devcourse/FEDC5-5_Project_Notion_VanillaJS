@@ -16,3 +16,8 @@ export const getItem = (key, defaultValue) => {
 export const setItem = (key, value) => {
   storage.setItem(key, JSON.stringify(value));
 };
+
+// 값 삭제
+export const removeItem = (key) => {
+  storage.removeItem(key);
+};
