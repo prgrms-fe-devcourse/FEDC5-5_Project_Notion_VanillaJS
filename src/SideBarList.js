@@ -1,4 +1,9 @@
-export default function SideBarList({ $target, initialState }) {
+export default function SideBarList({
+    $target,
+    initialState,
+    addSubDocument,
+    deleteCurrDocument,
+}) {
     const $sideBarList = document.createElement("div");
 
     $target.appendChild($sideBarList);
@@ -9,28 +14,49 @@ export default function SideBarList({ $target, initialState }) {
         this.state = nextState;
         this.render();
     };
-    this.render = () => {
-        const documentList = getDocumentList(this.state, "");
-        $sideBarList.innerHTML = `<div>${documentList}</div>`;
-    };
 
     const getDocumentList = (rootDocument, text) => {
-        if (rootDocument.length < 1) return "";
+        if (rootDocument == null || rootDocument.length < 1) return "";
         text += `
-            <ul>
-            ${rootDocument
-                ?.map(({ id, title, documents }) => {
-                    const returnText = `<li data-id="${id}">${title}</li>
-                    ${getDocumentList(documents, text)}
-                    `;
-                    return returnText;
-                })
-                .join("")}
+        <ul>
+        ${rootDocument
+            ?.map(({ id, title, documents }) => {
+                const returnText = `<li id="documentList" data-documentid="${id}">${title}
+                <button id="addButton" data-documentid="${id}">+</button>
+                <button id="deleteButton" data-documentid="${id}">-</button>
+                </li>
+                ${getDocumentList(documents, text)}
+                `;
+                return returnText;
+            })
+            .join("")}
             </ul>
             `;
 
         return text;
     };
 
+    this.render = () => {
+        const documentList = getDocumentList(this.state, "");
+
+        $sideBarList.innerHTML = `${documentList}`;
+    };
     this.render();
+
+    $sideBarList.addEventListener("click", (e) => {
+        const $li = e.target.closest("#documentList");
+
+        if ($li) {
+            const { id } = e.target;
+            const { documentid } = e.target.dataset;
+            console.log(id);
+            // console.log(documentid);
+            const actions = {
+                addButton: addSubDocument,
+                deleteButton: deleteCurrDocument,
+            };
+            actions[id](documentid);
+            return;
+        }
+    });
 }

@@ -34,9 +34,10 @@ export const getSelectedDocument = async (url) => {
 };
 
 // Document 생성하기
-export const makeNewDocument = async (url) => {
+export const makeNewDocument = async (url, post) => {
     const data = await request(url, {
         method: "POST",
+        body: JSON.stringify(post),
     });
 
     return data;
