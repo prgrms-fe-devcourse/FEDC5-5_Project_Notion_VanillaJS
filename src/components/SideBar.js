@@ -1,7 +1,7 @@
 import { postData } from "../utils/fetchData.js";
 
 import { appendEditingPostToSideBar } from "../utils/dataManager.js";
-import { pushHistoryById } from "./Router.js";
+import { pushHistoryById } from "../utils/router.js";
 export default function SideBar({ $target, initialState, setPostIdState }) {
   const $div = document.createElement("div");
   $div.id = "sidebar";
