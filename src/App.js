@@ -7,7 +7,7 @@ export default function App({ $target }) {
   const postsPage = new PostsPage({ $target });
   const postEditPage = new PostEditPage({
     $target,
-    initialState: { postId: "new" },
+    initialState: { postId: "new", post: { title: "", content: "" } },
   });
 
   this.route = () => {

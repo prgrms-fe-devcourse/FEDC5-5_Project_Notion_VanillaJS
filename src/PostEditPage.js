@@ -9,9 +9,9 @@ export default function ({ $target, initialState }) {
 
   // key를 조합해서 사용
   // 다른 page로 이동 시, 이전 page의 수정 내용이 들어오는 것 방지
-  const TEMP_POST_SAVE_KEY = `temp-post-${this.state.postId}`;
+  let postLocalSaveKey = `temp-post-${this.state.postId}`;
 
-  const post = getItem(TEMP_POST_SAVE_KEY, { title: "", content: "" });
+  const post = getItem(postLocalSaveKey, { title: "", content: "" });
 
   let timer = null;
 
@@ -25,13 +25,15 @@ export default function ({ $target, initialState }) {
       }
 
       timer = setTimeout(() => {
-        setItem(TEMP_POST_SAVE_KEY, { ...post, tempSaveDate: new Date() });
+        setItem(postLocalSaveKey, { ...post, tempSaveDate: new Date() });
       }, 1000);
     },
   });
 
   this.setState = async (nextState) => {
     if (this.state.postId !== nextState.postId) {
+      // 새 글 작성 시 , temp-post-new에 저장하지 않도록 지정
+      postLocalSaveKey = `temp-post-${this.state.postId}`;
       this.state = nextState;
       await fetchPost();
       return;
@@ -40,7 +42,9 @@ export default function ({ $target, initialState }) {
     this.state = nextState;
     this.render();
 
-    editor.setState(this.state.post);
+    // default 값 지정
+    // /posts/new에서 title, content에 undefined 방지
+    editor.setState(this.state.post || { title: "", content: "" });
   };
 
   this.render = () => {
