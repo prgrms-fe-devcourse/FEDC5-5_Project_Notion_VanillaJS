@@ -20,6 +20,7 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
       return;
     }
     this.setState(doc);
+    // console.log("fechDoc", doc);
   };
 
   const $editor = new Editor({

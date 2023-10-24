@@ -26,7 +26,7 @@ export default function App({ $app }) {
     $target,
     initialState,
     onRenderDoc: async (documentId) => {
-      documentContainer.fetchDoc(documentId);
+      await documentContainer.fetchDoc(documentId);
     },
   });
 
@@ -58,15 +58,15 @@ export default function App({ $app }) {
     },
   });
 
-  this.render = () => {
+  this.render = async () => {
     const pathname = window.location.pathname;
     if (pathname === "/") {
       fetchRoot();
       documentContainer.init();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , docId] = pathname.split("/");
-      fetchRoot();
-      documentContainer.fetchDoc(docId);
+      await fetchRoot();
+      await documentContainer.fetchDoc(docId);
     }
   };
 

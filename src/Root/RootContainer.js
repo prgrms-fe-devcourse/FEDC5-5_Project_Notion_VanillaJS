@@ -26,6 +26,17 @@ export default function RootContainer({
     return res;
   };
 
+  const fetchSiblingPost = async (id) => {
+    const res = await request(`/documents`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: "",
+        parent: id,
+      }),
+    });
+    return res;
+  };
+
   this.state = initialState;
   const rootList = new RootList({
     $page,
@@ -37,6 +48,12 @@ export default function RootContainer({
 
     addNewDoc: async () => {
       const res = await fetchNewPost();
+      push(res.id);
+    },
+
+    addSibling: async (id) => {
+      const res = await fetchSiblingPost(id);
+      console.log("adS", res);
       push(res.id);
     },
   });
