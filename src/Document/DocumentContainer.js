@@ -1,13 +1,17 @@
 import Editor from "./Editor.js";
 import { request } from "../../library/api.js";
 import { push } from "../../library/router.js";
+import RemoveButton from "./RemoveButton.js";
 
 export default function DocumentContainer({ $target, initialState, EditDoc }) {
   const $page = document.createElement("div");
-  $page.className = "DocumentContainer";
-  $target.appendChild($page);
-  $page.innerHTML = "DocumentContainer";
-  this.state = initialState;
+  this.init = () => {
+    $page.className = "DocumentContainer";
+    $target.appendChild($page);
+    $page.innerHTML = "DocumentContainer";
+    this.state = initialState;
+  };
+  this.init();
 
   this.fetchDoc = async (id) => {
     const doc = await request(`/documents/${id}`);
@@ -30,5 +34,8 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
     this.state = nextState;
     $editor.setState(nextState);
     $editor.render();
+    $button.setState(nextState);
   };
+
+  const $button = new RemoveButton({ $page, initialState });
 }

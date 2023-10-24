@@ -62,17 +62,17 @@ export default function App({ $app }) {
     const pathname = window.location.pathname;
     if (pathname === "/") {
       fetchRoot();
+      documentContainer.init();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , docId] = pathname.split("/");
       fetchRoot();
-      documentContainer.fetchDoc(docId); //그러므로 router는 fetch를 실행함.
+      documentContainer.fetchDoc(docId);
     }
   };
 
-  this.render(); //맨 처음 렌더링
+  this.render();
 
   initRouter(() => {
-    //
     this.render();
   });
 

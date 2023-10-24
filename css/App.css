@@ -1,35 +1,57 @@
-#target{
-    /* background-color: beige; */
-    display: flex;
-    height: 120vh;
-    width: 95vw;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 0.5rem;
+#target {
+  /* background-color: beige; */
+  display: flex;
+  height: 120vh;
+  width: 95vw;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 0.5rem;
 }
 
-.RootContainer{
-    /* background-color: wheat; */
-    height: 120vh;
-    width: 250px;
-    margin-right: 2vw;
-    border: 1px solid black;
-    border-radius: 0.5rem;
+.RootContainer {
+  /* background-color: wheat; */
+  height: 120vh;
+  width: 300px;
+  margin-right: 2vw;
+  border: 1px solid black;
+  border-radius: 0.5rem;
 }
-.document_tree{
-    width:250px;
-}
-
-.DocumentContainer{
-    /* background-color: blanchedalmond; */
-    height: 120vh;
-    width: 80vw;
-    border: 1px solid black;
-    border-radius: 0.5rem;
+.document_tree {
+  width: 250px;
 }
 
-@media (max-width: 800px) { /* 뷰포트 너비에 따라 조절 */
-    #target {
-        width: 100%; /* 원하는 크기로 조절 */
-    }
+.DocumentContainer {
+  /* background-color: blanchedalmond; */
+  height: 120vh;
+  width: 80vw;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+}
+
+.btn {
+  margin-left: 20px;
+}
+.rootList {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.add {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+.selected {
+  border: 1px solid black;
+}
+@media (max-width: 800px) {
+  /* 뷰포트 너비에 따라 조절 */
+  #target {
+    width: 100%; /* 원하는 크기로 조절 */
+  }
 }

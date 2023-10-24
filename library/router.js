@@ -6,6 +6,9 @@ export const initRouter = (onRoute) => {
     if (nextUrl) {
       history.pushState(null, null, `/documents/${nextUrl}`);
       onRoute(); //pushState후 참조 함수를 실행하는데 App.js가보면 render가 들어있음
+    } else {
+      history.pushState(null, null, `/`);
+      onRoute(); //pushState후 참조 함수를 실행하는데 App.js가보면 render가 들어있음
     }
   });
 };
