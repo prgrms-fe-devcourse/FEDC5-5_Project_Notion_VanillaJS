@@ -96,7 +96,6 @@ export default function DocumentsList({ $target, onSelect }) {
     if ($li) {
       const { id } = $li.dataset;
       onSelect(id);
-      console.log(id)
     }
   });
 
