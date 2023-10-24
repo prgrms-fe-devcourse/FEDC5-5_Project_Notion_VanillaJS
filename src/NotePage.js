@@ -3,6 +3,7 @@ import { request } from './api.js';
 
 export default function NotePage({ $target, initialState }) {
   const $page = document.createElement('div');
+  $page.classList.add('editor');
 
   this.state = initialState;
 

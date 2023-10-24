@@ -2,11 +2,15 @@ import { request } from './api.js';
 
 export default function DocumentsList({ $target, onSelect }) {
   const $listContainer = document.createElement('div');
-  $listContainer.style.display = 'flex';
-  $listContainer.style.flexDirection = 'column';
+  $listContainer.classList.add('sidebar');
+
+  const $title = document.createElement('h3');
+  $title.textContent = 'melo의 Notion';
+  $listContainer.appendChild($title)
 
   const $documentsList = document.createElement('div');
   $listContainer.appendChild($documentsList);
+ 
 
   this.state = [];
 
@@ -29,11 +33,10 @@ export default function DocumentsList({ $target, onSelect }) {
           </details>`
       )
       .join('');
-  };
-  
+    };
+    
   this.render = () => {
     $documentsList.innerHTML = `
-      <h1>Notion</h1>
       <ul>${renderDocuments(this.state)}</ul>`;
   
     const $addChildButtons = document.querySelectorAll('.add-child-button');
@@ -67,8 +70,9 @@ export default function DocumentsList({ $target, onSelect }) {
       });
     });
   };
+
   
-  const $addButton = document.createElement('button');
+  const $addButton = document.createElement('h4');
   $addButton.textContent = '새 글 추가';
   
   $addButton.addEventListener('click', async () => {
