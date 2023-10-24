@@ -24,8 +24,18 @@ export default function ({ $target, initialState }) {
         clearTimeout(timer);
       }
 
-      timer = setTimeout(() => {
+      timer = setTimeout(async () => {
         setItem(postLocalSaveKey, { ...post, tempSaveDate: new Date() });
+
+        const isNew = this.state.postId === "new";
+        if (isNew) {
+          const createdPost = await request("/posts", {
+            method: "POST",
+            body: JSON.stringify(post), //this.state에는 postId만 있으므로, 변경
+          });
+
+          history.replaceState(null, null, `/posts/${createdPost.id}`); // 뒤로가기 시, new로 가지 않도록 지정
+        }
       }, 1000);
     },
   });
