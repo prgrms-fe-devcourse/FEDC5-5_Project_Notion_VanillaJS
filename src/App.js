@@ -4,7 +4,13 @@ import PostEditPage from "./PostEditPage.js";
 // /posts/{id} -> id에 해당하는 post 생성
 // /posts/new -> 새 post 생성
 export default function App({ $target }) {
-  const postsPage = new PostsPage({ $target });
+  const postsPage = new PostsPage({
+    $target,
+    onPostClick: (id) => {
+      history.pushState(null, null, `/posts/${id}`);
+      this.route();
+    },
+  });
   const postEditPage = new PostEditPage({
     $target,
     initialState: { postId: "new", post: { title: "", content: "" } },

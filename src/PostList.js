@@ -1,4 +1,4 @@
-export default function PostList({ $target, initialState }) {
+export default function PostList({ $target, initialState, onPostClick }) {
   const $postList = document.createElement("div");
   $target.appendChild($postList);
 
@@ -11,9 +11,19 @@ export default function PostList({ $target, initialState }) {
 
   this.render = () => {
     $postList.innerHTML = `<ul>${this.state
-      .map((post) => `<li>${post.title}</li>`)
+      .map((post) => `<li data-id="${post.id}">${post.title}</li>`)
       .join("")}</ul>`;
   };
 
   //   this.render();
+
+  $postList.addEventListener("click", (e) => {
+    const $li = e.target.closest("li"); // postList내 클릭한 li 가져오기
+    console.log($li.dataset.id);
+    if ($li) {
+      const { id } = $li.dataset;
+
+      onPostClick(id);
+    }
+  });
 }
