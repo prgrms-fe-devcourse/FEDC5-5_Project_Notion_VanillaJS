@@ -3,6 +3,17 @@
   flex-direction: row;
 }
 
+
+.toggle-ul {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+
+
 .post-list {
   width: 300px;
   height: 100vh;
@@ -12,6 +23,10 @@
 .post-list ul {
   list-style: none;
   padding-left: 20px;
+}
+
+.post-li {
+  margin: auto;
 }
 
 .post-edit {
