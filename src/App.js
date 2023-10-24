@@ -1,5 +1,6 @@
 import PostsPage from "./PostsPage.js";
 import PostEditPage from "./PostEditPage.js";
+import { initRouter } from "./router.js";
 
 // /posts/{id} -> id에 해당하는 post 생성
 // /posts/new -> 새 post 생성
@@ -23,14 +24,5 @@ export default function App({ $target }) {
 
   this.route();
 
-  // nextUrl이 유효할 때만 라우팅 처리
-  // route가 매번 호출 되는 것을 방지
-  window.addEventListener("route-change", (e) => {
-    const { nextUrl } = e.detail;
-
-    if (nextUrl) {
-      history.pushState(null, null, nextUrl);
-      this.route();
-    }
-  });
+  initRouter(() => this.route());
 }
