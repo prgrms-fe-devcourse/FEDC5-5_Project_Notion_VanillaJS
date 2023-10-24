@@ -33,7 +33,8 @@ export default function ({ $target, initialState }) {
   this.setState = async (nextState) => {
     if (this.state.postId !== nextState.postId) {
       // 새 글 작성 시 , temp-post-new에 저장하지 않도록 지정
-      postLocalSaveKey = `temp-post-${this.state.postId}`;
+      postLocalSaveKey = `temp-post-${nextState.postId}`;
+      console.log(this.state);
       this.state = nextState;
       await fetchPost();
       return;
