@@ -58,6 +58,17 @@ export default function ({ $target, initialState }) {
     if (postId !== "new") {
       const post = await request(`./posts/${postId}`);
 
+      const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
+
+      // tempSaveDate -> 저장한 시간
+      // updated_at -> 마지막으로 업데이트 되었던 시간
+      if (tempPost.tempSaveDate && tempPost.tempSaveDate > post.updated_at) {
+        if (confirm("저장되지 않은 임시 데이터가 있습니다. 불러올까요?")) {
+          this.setState({ ...this.state, post: tempPost });
+          return;
+        }
+      }
+
       this.setState({
         ...this.state,
         post,
