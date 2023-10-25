@@ -1,5 +1,14 @@
 :root {
-  
+  --grey50: rgb(255, 255, 255);
+  --grey100: rgb(251, 251, 251);
+  --grey200: rgb(242, 242, 242);
+  --grey300: rgb(233, 233, 231);
+  --grey400: rgb(163, 163, 163);
+  --grey500: rgb(119, 119, 127);
+  --grey600: rgb(82, 82, 82);
+  --grey700: rgb(49, 49, 49);
+  --grey800: rgb(31, 31, 31);
+  --grey900: rgb(23, 23, 23);
 }
 
 html,
@@ -24,12 +33,49 @@ main.app {
   opacity: 0.5;
 }
 
+.indicator {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
+
+.spinner-spin {
+  animation: 1s linear 0s rotate infinite;
+}
+
+.spinner-hidden {
+  animation: 1000ms ease-in-out forwards hide;
+}
+
 .sidebar {
   width: 15rem;
   font-size: 0.875rem;
   font-weight: 500;
-  background-color: rgb(251, 251, 250);
-  border-right: 1px solid rgb(245, 245, 245);
+  background-color: var(--grey100);
+  border-right: 1px solid var(--grey200);
 }
 
 .sidebar .header {
@@ -42,8 +88,8 @@ main.app {
   width: 1.3rem;
   height: 1.3rem;
   text-align: center;
-  color: rgba(55, 53, 47, 0.65);
-  background-color: rgba(55, 53, 47, 0.09);
+  color: var(--grey500);
+  background-color: var(--grey300);
 }
 
 .sidebar .documents {
@@ -68,7 +114,7 @@ main.app {
 
 .sidebar .create-button:hover,
 .sidebar .delete-button:hover {
-  background-color: rgba(55, 53, 47, 0.09);
+  background-color: var(--grey300);
 }
 
 .sidebar .create-button > img,
@@ -81,7 +127,7 @@ main.app {
 .sidebar ul {
   list-style: none;
   padding-inline-start: 0rem;
-  color: rgba(25, 23, 17, 0.6);
+  color: var(--grey500);
 }
 
 .sidebar ul li {
@@ -105,21 +151,22 @@ main.app {
   overflow: hidden;
 }
 
-.sidebar .document .document-title img.icon {
+.sidebar .document .document-title .icon {
   width: 1.25rem;
   height: 1.25rem;
 }
-.sidebar .document .buttons {
-  display: flex;
+
+.documents li[data-selected="true"] > .document {
+  background-color: var(--grey200);
 }
 
-li[data-selected="true"] > .document {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-li[data-selected="true"] > .document > span {
+.documents li[data-selected="true"] > .document > span {
   font-weight: bold;
   color: rgb(55, 53, 47);
+}
+
+.sidebar .document .buttons {
+  display: flex;
 }
 
 .editor {
@@ -130,20 +177,27 @@ li[data-selected="true"] > .document > span {
   padding: 5rem;
 }
 
-.editor input,
+.editor .title,
 .editor .content,
 .editor .content:focus-visible {
   border: 0;
   outline: none;
 }
 
-.editor input {
+.editor .title {
   font-size: 2.5rem;
   font-weight: bold;
 }
 
 .editor .content {
   min-height: 15rem;
+}
+
+.editor-disabled .title,
+.editor-disabled .buttons,
+.editor-disabled .content {
+  pointer-events: none;
+  background: none;
 }
 
 .editor .child-pages-header {
@@ -190,11 +244,11 @@ li[data-selected="true"] > .document > span {
   border: 0;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: rgb(240, 240, 240);
+  background-color: var(--grey100);
 }
 
 .editor .buttons button:hover {
-  background-color: rgb(219, 219, 219);
+  background-color: var(--grey300);
 }
 
 .editor .buttons button .icon {
@@ -204,7 +258,7 @@ li[data-selected="true"] > .document > span {
 
 .link-block {
   font-weight: 500;
-  color: rgb(55, 53, 47);
+  color: var(--grey700);
   text-decoration: none;
 }
 

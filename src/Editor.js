@@ -6,6 +6,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
   editorEl.className = "editor";
   const inputEl = document.createElement("input");
   inputEl.name = "title";
+  inputEl.className = "title";
   inputEl.placeholder = "Title";
   const editableEl = document.createElement("div");
   editableEl.contentEditable = true;
@@ -14,17 +15,15 @@ export default function Editor({ targetEl, initialState, onEditing }) {
   const childPagesEl = document.createElement("div");
   const buttonsEl = document.createElement("div");
   buttonsEl.className = "buttons";
-  buttonsEl.innerHTML = editorCommands
-    .map(
-      ({ command, variable, label, icon }) => `
-    <button data-command="${command}" ${
-        variable ? `data-variable="${variable}"` : ""
-      } title="${label}">
+  buttonsEl.innerHTML = editorCommands.map(({ command, variable, label, icon }) => `
+    <button 
+      data-command="${command}" 
+      ${variable ? `data-variable="${variable}"` : ""} 
+      title="${label}"
+    >
       <img class="icon" src="${icon}" alt="${label} icon" />
     </button>
-  `
-    )
-    .join("");
+  `).join("");
 
   this.isInit = false;
 
@@ -44,8 +43,41 @@ export default function Editor({ targetEl, initialState, onEditing }) {
         this.isInit = false;
       }
 
-      this.render();
+      if (
+        prevState.selectedDocumentId !== nextState.selectedDocumentId ||
+        prevState.document !== nextState.document
+      ) {
+        updateFlatDocuments();
+        this.render();
+      }
     }
+  };
+
+  const updateFlatDocuments = () => {
+    const { isLoading, isError, data } = this.state.documents;
+
+    if (isLoading || isError || !data) {
+      return null;
+    }
+
+    const flatDocuments = [];
+
+    function recursion(documents) {
+      for (const document of documents) {
+        flatDocuments.push({ id: document.id, title: document.title });
+
+        if (document.documents && document.documents.length > 0) {
+          recursion(document.documents);
+        }
+      }
+    }
+
+    recursion(this.state.documents.data);
+
+    this.setState({
+      ...this.state,
+      flatDocuments,
+    });
   };
 
   const transformContent = (e) => {
@@ -57,67 +89,47 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     const anchorNode = selection.anchorNode;
     const lineEl = anchorNode.parentNode.closest(".content > *");
 
-    // editableEl에 최상단에 TextNode가 없도록 div로 wrapping
-    if (!lineEl) {
-      if (anchorNode.wholeText) {
-        const newNode = document.createElement("div");
-        newNode.innerHTML = anchorNode.wholeText;
-        anchorNode.parentNode.insertBefore(newNode, anchorNode);
-        anchorNode.parentNode.removeChild(anchorNode);
-      }
-    }
-
     // #, ##, ## 처리
     const headerRegex = new RegExp(/^(?<level>#{1,3})\s/);
 
-    if (lineEl?.innerText?.match(headerRegex)) {
-      const { level } = headerRegex.exec(lineEl.innerText).groups;
+    const innerHTML = lineEl ? lineEl.innerHTML : anchorNode.wholeText;
+    const oldNode = lineEl ? lineEl : anchorNode;
 
-      lineEl.innerHTML = `<h${
-        level.length
-      } class="item-block heading-block">${lineEl.innerText.replace(
-        `${level} `,
-        ""
-      )}</h${level.length}>`;
-
-      editableEl.blur();
-
-      const spanEl = document.createElement("span");
-      spanEl.className = "temp";
-      lineEl.appendChild(spanEl);
-
-      const range = document.createRange();
-
-      range.selectNode(spanEl);
-
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-
-      editableEl.focus();
-
-      range.deleteContents();
-      // spanEl.parentNode.removeChild(spanEl)
+    if (innerHTML?.match(headerRegex)) {
+      const { level } = headerRegex.exec(innerHTML).groups;
+      const newNode = document.createElement("h" + level.length);
+      newNode.classList.add(["item-block", "heading-block"]);
+      newNode.innerHTML = innerHTML.replace(`${level} `, "");
+      oldNode.parentNode.insertBefore(newNode, oldNode);
+      oldNode.parentNode.removeChild(oldNode);
     }
 
+    // 문서 링크
     if (this.state.flatDocuments) {
-      this.state.flatDocuments.map(({ id, title }) => {
-        const regex = new RegExp(`@${title}`);
+      this.state.flatDocuments.forEach(({ id, title }) => {
+        const titleRegex = new RegExp(`@${title}`);
 
-        if (lineEl?.innerHTML?.match(regex)) {
-          lineEl.innerHTML = lineEl.innerHTML.replace(
-            regex,
+        if (innerHTML?.match(titleRegex)) {
+          const nodeName =
+            oldNode instanceof HTMLElement ? oldNode.nodeName : "div";
+          const newNode = document.createElement(nodeName);
+
+          newNode.innerHTML = innerHTML.replace(
+            titleRegex,
             `
             <a class="item-blcok link-block" href="/documents/${id}" contenteditable="false">
               <span class="icon">🔗</span>
               <span class="document-title">${title}</span>
             </a>
             <span class="temp" />
-          `
+            `
           );
 
+          oldNode.parentNode.insertBefore(newNode, oldNode);
+          oldNode.parentNode.removeChild(oldNode);
+
           const range = document.createRange();
-          const spanEl = document.querySelector("span.temp");
+          const spanEl = newNode.querySelector("span.temp");
 
           range.selectNode(spanEl);
 
@@ -125,7 +137,6 @@ export default function Editor({ targetEl, initialState, onEditing }) {
           selection.removeAllRanges();
           selection.addRange(range);
           range.deleteContents();
-          // spanEl.parentNode.removeChild(spanEl)
         }
       });
     }
@@ -162,7 +173,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     }
   };
 
-  const onClickCommandBtn = (e) => {
+  const onClickCommand = (e) => {
     const { target } = e;
     const btnEl = target.closest("button");
 
@@ -175,9 +186,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
   this.render = () => {
     if (!this.isInit) {
       inputEl.addEventListener("keyup", updateState);
-      editableEl.addEventListener("keyup", updateState);
+      editableEl.addEventListener("input", updateState);
       childPagesEl.addEventListener("click", onClickChildPage);
-      buttonsEl.addEventListener("click", onClickCommandBtn);
+      buttonsEl.addEventListener("click", onClickCommand);
       editorEl.appendChild(inputEl);
       editorEl.appendChild(buttonsEl);
       editorEl.appendChild(editableEl);
@@ -186,6 +197,16 @@ export default function Editor({ targetEl, initialState, onEditing }) {
 
       this.isInit = true;
     }
+
+    editorEl.classList.toggle(
+      "editor-disabled",
+      this.state.document.isLoading || !this.state.selectedDocumentId
+    );
+    inputEl.disabled =
+      this.state.document.isLoading || !this.state.selectedDocumentId;
+    editableEl.contentEditable = !(
+      this.state.document.isLoading || !this.state.selectedDocumentId
+    );
 
     if (this.state.document.data) {
       if (this.state.document.data.title !== inputEl.value) {
@@ -223,6 +244,10 @@ export default function Editor({ targetEl, initialState, onEditing }) {
           }
         </ul>
       `;
+    } else {
+      inputEl.value = "";
+      editableEl.innerHTML = "";
+      childPagesEl.innerHTML = "";
     }
   };
 }
