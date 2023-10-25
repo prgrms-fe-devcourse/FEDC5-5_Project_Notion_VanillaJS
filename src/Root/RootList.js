@@ -87,14 +87,12 @@ export default function RootList({
       return;
     }
 
-    if ($liContainer.classList.contains("content-opened")) {
-      //liContainer의 opened클래스 여부 따라서 하위  doc 렌더 여부 결정
-      const $ul = $liContainer.querySelector("ul"); //하위 docs ul
-      console.log($ul);
-      $ul.style.display = "none";
-    } else {
-      const $ul = $liContainer.querySelector("ul"); //하위 docs ul
-      $ul.style.display = "block";
+    const $ul = $liContainer.querySelector("ul"); // 하위 docs ul
+    if ($ul) {
+      // 하위 문서가 있다면 디스플레이 상태 조절
+      $ul.style.display = $liContainer.classList.contains("content-opened")
+        ? "none"
+        : "block";
     }
   });
 }
