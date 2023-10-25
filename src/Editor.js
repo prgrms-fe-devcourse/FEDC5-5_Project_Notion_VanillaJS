@@ -64,7 +64,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
 
     function recursion(documents) {
       for (const document of documents) {
-        flatDocuments.push({ id: document.id, title: document.title });
+        if (document.title.length > 0) {
+          flatDocuments.push({ id: document.id, title: document.title });
+        }
 
         if (document.documents && document.documents.length > 0) {
           recursion(document.documents);

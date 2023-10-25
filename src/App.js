@@ -234,7 +234,7 @@ export default function App({ targetEl }) {
   };
 
   const createDocument = async (parent) => {
-    const body = { title: "제목 없음", parent };
+    const body = { title: "", parent };
 
     const res = await request(`/documents`, {
       method: "POST",
