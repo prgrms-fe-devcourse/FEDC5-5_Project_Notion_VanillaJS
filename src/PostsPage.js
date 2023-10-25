@@ -12,11 +12,11 @@ export default function PostsPage({ $target }) {
   $page.appendChild($newPostButton);
 
   $newPostButton.addEventListener("click", () => {
-    push("/posts/new");
+    push("/documents/new");
   });
 
   const fetchPosts = async () => {
-    const posts = await request("/posts");
+    const posts = await request("/documents");
 
     postList.setState(posts);
   };

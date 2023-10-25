@@ -30,17 +30,17 @@ export default function ({ $target, initialState }) {
         const isNew = this.state.postId === "new";
 
         if (isNew) {
-          const createdPost = await request("/posts", {
+          const createdPost = await request("/documents", {
             method: "POST",
             body: JSON.stringify(post), //this.state에는 postId만 있으므로, 변경
           });
 
-          history.replaceState(null, null, `/posts/${createdPost.id}`); // 뒤로가기 시, new로 가지 않도록 지정
+          history.replaceState(null, null, `/documents/${createdPost.id}`); // 뒤로가기 시, new로 가지 않도록 지정
           removeItem(postLocalSaveKey); //temp=post-new가 이전 값을 가지고 있지 않도록 삭제
         } else {
           // update
           // 새 글 작성 후, 새로고침 시 update된 값 불러오기
-          await request(`/posts/${post.id}`, {
+          await request(`/documents/${post.id}`, {
             method: "PUT",
             body: JSON.stringify(post),
           });
@@ -76,7 +76,7 @@ export default function ({ $target, initialState }) {
     const { postId } = this.state;
 
     if (postId !== "new") {
-      const post = await request(`./posts/${postId}`);
+      const post = await request(`./documents/${postId}`);
 
       const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
 
