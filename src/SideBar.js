@@ -1,6 +1,8 @@
 import SideBarHeader from "./SideBarHeader.js";
 import SideBarList from "./SideBarList.js";
 import { deleteDocument, getRootDocument, makeNewDocument } from "./api.js";
+import { push } from "./router.js";
+import { removeItem } from "./storage.js";
 
 export default function SideBar({ $target }) {
     const $sideBar = document.createElement("div");
@@ -12,20 +14,27 @@ export default function SideBar({ $target }) {
         $target: $sideBar,
         initialState: [],
         addSubDocument: async (documentId) => {
-            const data = await makeNewDocument("", {
+            const newDocument = await makeNewDocument("", {
                 title: "빈 페이지",
                 parent: documentId,
             });
-            const { id } = data;
-            console.log(data);
-            console.log(id);
+            const { id } = newDocument;
+            push(`/documents/${id}`);
+
+            // console.log(newDocument);
+            // console.log(id);
 
             self.render();
         },
         deleteCurrDocument: async (documentId) => {
             await deleteDocument(`/${documentId}`);
-
+            push("/");
+            history.replaceState(null, null, "/");
+            removeItem(`temp-post-${documentId}`);
             self.render();
+        },
+        onClick: async (documentId) => {
+            push(`/documents/${documentId}`);
         },
     });
 
@@ -36,11 +45,13 @@ export default function SideBar({ $target }) {
     $addButton.addEventListener("click", async (event) => {
         event.preventDefault();
 
-        const data = await makeNewDocument("", {
-            title: "빈 페이지",
+        const newDocument = await makeNewDocument("", {
+            title: null,
             parent: null,
         });
 
+        const { id } = newDocument;
+        push(`/documents/${id}`);
         self.render();
     });
 
@@ -51,7 +62,7 @@ export default function SideBar({ $target }) {
 
     this.render = async () => {
         await getAllDocument();
-        $target.appendChild($sideBar);
+        $target.prepend($sideBar);
 
         console.log(sideBarList.state);
     };

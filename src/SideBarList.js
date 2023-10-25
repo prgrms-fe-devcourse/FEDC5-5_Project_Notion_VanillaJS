@@ -3,6 +3,7 @@ export default function SideBarList({
     initialState,
     addSubDocument,
     deleteCurrDocument,
+    onClick,
 }) {
     const $sideBarList = document.createElement("div");
 
@@ -21,7 +22,10 @@ export default function SideBarList({
         <ul>
         ${rootDocument
             ?.map(({ id, title, documents }) => {
-                const returnText = `<li id="documentList" data-documentid="${id}">${title}
+                const returnText = `<li id="documentContainer" data-documentid="${id}"> 
+                <span id="documentTitle" data-documentid="${id}">
+                ${title === null ? "제목을 입력해주세요." : title}
+                </span>
                 <button id="addButton" data-documentid="${id}">+</button>
                 <button id="deleteButton" data-documentid="${id}">-</button>
                 </li>
@@ -44,16 +48,18 @@ export default function SideBarList({
     this.render();
 
     $sideBarList.addEventListener("click", (e) => {
-        const $li = e.target.closest("#documentList");
+        const $li = e.target.closest("#documentContainer");
 
         if ($li) {
             const { id } = e.target;
+            if (id === "documentContainer") return;
             const { documentid } = e.target.dataset;
             console.log(id);
-            // console.log(documentid);
+            console.log(documentid);
             const actions = {
                 addButton: addSubDocument,
                 deleteButton: deleteCurrDocument,
+                documentTitle: onClick,
             };
             actions[id](documentid);
             return;

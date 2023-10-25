@@ -44,9 +44,10 @@ export const makeNewDocument = async (url, post) => {
 };
 
 // 특정 Document 수정하기
-export const updateDocument = async (url) => {
+export const updateDocument = async (url, post) => {
     const data = await request(url, {
         method: "PUT",
+        body: JSON.stringify(post),
     });
 
     return data;
