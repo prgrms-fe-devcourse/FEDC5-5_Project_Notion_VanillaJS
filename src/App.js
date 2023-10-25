@@ -15,7 +15,7 @@ export default function App({ targetEl }) {
     document: { ...asyncDataObj },
   };
 
-  this.setState = (nextState) => { console.log(nextState)
+  this.setState = (nextState) => {
     const prevState = JSON.parse(JSON.stringify(this.state));
 
     if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
@@ -265,6 +265,20 @@ export default function App({ targetEl }) {
     }
   };
 
+  const menualUpdateDocument = async (e) => {
+    if (e.ctrlKey && e.key === "s") {
+      e.preventDefault();
+
+      await updateDocument(editor.state.document.data);
+
+      const LOCAL_SAVE_KEY = getLocalSaveKey(editor.state.document.data.id);
+      removeItem(LOCAL_SAVE_KEY);
+
+      await fetchDocument(editor.state.document.data.id);
+      await fetchDocuments();
+    }
+  };
+
   const onRouterChange = (pathname) => {
     const arr = pathname.substring(1).split("/");
     const id = arr.length > 1 ? Number(arr[1]) : null;
@@ -286,6 +300,7 @@ export default function App({ targetEl }) {
     if (!this.isInit) {
       router.init(onRouterChange);
       onRouterChange(window.location.pathname);
+      window.addEventListener("keydown", menualUpdateDocument);
 
       indicator.render();
       sidebar.render();
