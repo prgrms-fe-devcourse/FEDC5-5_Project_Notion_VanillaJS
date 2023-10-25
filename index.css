@@ -156,6 +156,10 @@ main.app {
   height: 1.25rem;
 }
 
+.sidebar .document .document-title span {
+  white-space: nowrap;
+}
+
 .documents li[data-selected="true"] > .document {
   background-color: var(--grey200);
 }
