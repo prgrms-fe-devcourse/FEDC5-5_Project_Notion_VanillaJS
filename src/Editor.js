@@ -15,7 +15,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
   const childPagesEl = document.createElement("div");
   const buttonsEl = document.createElement("div");
   buttonsEl.className = "buttons";
-  buttonsEl.innerHTML = editorCommands.map(({ command, variable, label, icon }) => `
+  buttonsEl.innerHTML = editorCommands
+    .map(
+      ({ command, variable, label, icon }) => `
     <button 
       data-command="${command}" 
       ${variable ? `data-variable="${variable}"` : ""} 
@@ -23,7 +25,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     >
       <img class="icon" src="${icon}" alt="${label} icon" />
     </button>
-  `).join("");
+  `
+    )
+    .join("");
 
   this.isInit = false;
 
@@ -237,7 +241,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
                     (document) => `
             <li class="child-page" data-id="${document.id}">
               <img class="icon" src="/svg/file.svg" alt="document icon" />
-              <span>${document.title}</span>
+              <span>${
+                document.title.length ? document.title : "제목 없음"
+              }</span>
             </li>
           `
                   )
