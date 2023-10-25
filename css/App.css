@@ -74,8 +74,8 @@ body {
 
 .top-root {
   font-size: 13px;
-  font-weight: 600;
-  color: grey;
+  font-weight: 550;
+  color: #afafaf;
   display: flex;
   cursor: default;
   position: relative; /* 상대 위치 설정 */
@@ -83,9 +83,15 @@ body {
 
 ul {
   list-style: none;
-  margin-left: -35px;
+  margin-left: -30px;
   color: grey;
   font-size: 14px;
+}
+.open {
+  display: block !important; /* !important를 사용하여 우선권을 강화 */
+}
+.closed {
+  display: none !important; /* !important를 사용하여 우선권을 강화 */
 }
 
 li {
@@ -96,14 +102,23 @@ li:hover {
   background-color: #efefef;
 }
 
-.arrow {
-  margin-left: 0px;
-  margin-right: 5px;
+.li-arrow {
   transition: 0.3s;
   transform: rotate(0deg);
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  justify-content: center;
 }
 
-.opened .arrow {
+.li-arrow:hover {
+  background-color: #dfdfdf;
+  width: 15px;
+  height: 15px;
+}
+
+.li-arrow.arrow-opened {
   transform: rotate(90deg);
 }
 
@@ -138,6 +153,9 @@ li:hover {
 
 .li-container {
   display: inline;
+}
+
+.li-title {
   cursor: pointer;
 }
 
