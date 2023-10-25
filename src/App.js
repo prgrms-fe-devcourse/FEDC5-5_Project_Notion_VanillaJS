@@ -14,23 +14,36 @@ export default function App({ targetEl }) {
     document: { ...asyncDataObj },
   };
 
-  this.setState = (nextState) => { 
+  this.setState = (nextState) => {
     const prevState = JSON.parse(JSON.stringify(this.state));
 
     if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
       this.state = nextState;
 
-      if(JSON.stringify(prevState.documents) !== JSON.stringify(nextState.documents)) {
+      if (
+        JSON.stringify(prevState.selectedDocumentId) !==
+          JSON.stringify(nextState.selectedDocumentId) ||
+        JSON.stringify(prevState.documents) !==
+          JSON.stringify(nextState.documents)
+      ) {
         sidebar.setState({
           selectedDocumentId: this.state.selectedDocumentId,
           documents: this.state.documents,
         });
       }
 
-      if(JSON.stringify(prevState.document) !== JSON.stringify(nextState.document)) {
+      if (
+        JSON.stringify(prevState.selectedDocumentId) !==
+          JSON.stringify(nextState.selectedDocumentId) ||
+        JSON.stringify(prevState.document) !==
+          JSON.stringify(nextState.document) ||
+        JSON.stringify(prevState.flatDocuments) !==
+          JSON.stringify(nextState.flatDocuments)
+      ) {
         editor.setState({
           selectedDocumentId: this.state.selectedDocumentId,
           document: this.state.document,
+          flatDocuments: this.state.flatDocuments,
         });
       }
 
@@ -95,6 +108,33 @@ export default function App({ targetEl }) {
     },
   });
 
+  const updateFlatDocuments = async () => {
+    const { isLoading, isError, data } = this.state.documents;
+
+    if (isLoading || isError || !data) {
+      return null;
+    }
+
+    const flatDocuments = [];
+
+    function recursion(documents) {
+      for (const document of documents) {
+        flatDocuments.push({ id: document.id, title: document.title });
+
+        if (document.documents && document.documents.length > 0) {
+          recursion(document.documents);
+        }
+      }
+    }
+
+    recursion(this.state.documents.data);
+
+    this.setState({
+      ...this.state,
+      flatDocuments,
+    });
+  };
+
   const optimisticUpdate = async ({ id, title }) => {
     const newData = JSON.parse(JSON.stringify(this.state.documents.data));
 
@@ -130,6 +170,7 @@ export default function App({ targetEl }) {
         ...this.state,
         documents: { ...asyncDataObj, data: res },
       });
+      updateFlatDocuments();
     } catch (e) {
       this.setState({
         ...this.state,
@@ -246,7 +287,7 @@ export default function App({ targetEl }) {
 
     clearTimeout(serverUpdateTimer);
     clearTimeout(localSaveTimer);
-    clearTimeout(optimisticUpdateTimer)
+    clearTimeout(optimisticUpdateTimer);
   };
 
   this.render = () => {
