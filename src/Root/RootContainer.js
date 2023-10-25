@@ -1,16 +1,14 @@
 import { request } from "../../library/api.js";
 import { push } from "../../library/router.js";
+import Title from "./Title.js";
 import RootList from "./RootList.js";
-export default function RootContainer({
-  $target,
-  initialState,
-  onRenderDoc,
-  onAddDoc,
-}) {
+export default function RootContainer({ $target, initialState, onAddDoc }) {
   this.setState = (nextState) => {
     this.state = nextState;
+    title.render();
     rootList.setState(this.state);
   };
+
   const $page = document.createElement("div");
   $page.className = "RootContainer";
   $target.appendChild($page);
@@ -38,11 +36,15 @@ export default function RootContainer({
   };
 
   this.state = initialState;
+
+  const title = new Title({
+    $page,
+  });
+
   const rootList = new RootList({
     $page,
     initialState,
     onClick: async (documentId) => {
-      onRenderDoc(documentId);
       push(documentId);
     },
 

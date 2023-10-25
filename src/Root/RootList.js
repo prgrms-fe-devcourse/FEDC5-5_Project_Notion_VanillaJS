@@ -5,6 +5,9 @@ export default function RootList({
   addNewDoc,
   addSibling,
 }) {
+  const $root = document.createElement("div");
+  $root.className = "root";
+  $page.appendChild($root);
   this.state = initialState;
 
   this.setState = (nextState) => {
@@ -13,13 +16,15 @@ export default function RootList({
   };
 
   function renderDocument(document) {
-    return `
-    <li data-id=${document.id} class="rootList">
+    return `<div class="li-container">
+    <li data-id=${
+      document.id
+    } class="rootList"><div class="arrow">&#10095</div> <div class="li-content">
       ${
         document.title.length > 8
           ? `${document.title.slice(0, 8)}...`
           : document.title
-      }
+      }</div>
       <button class="addSibling">+</button>
     </li>
     ${
@@ -29,13 +34,13 @@ export default function RootList({
             .join("")}</ul>`
         : ""
     }
-    `;
+    </div>`;
   }
 
   this.render = () => {
-    $page.innerHTML = `
+    $root.innerHTML = `
         <div class="document_tree">
-        <p>DocumentTree <button class="addParent">새 문서 추가</button></p>
+        <p class="top-root">개인 페이지 <button class="addParent">+</button></p>
             <ul>
             ${this.state.map((v) => renderDocument(v)).join("")}
             </ul>
@@ -43,14 +48,17 @@ export default function RootList({
         `;
   };
   //null에 addEvent막기 위해 page아래에서 타겟 찾음
-  $page.addEventListener("click", (e) => {
+  $root.addEventListener("click", (e) => {
     const $li = e.target.closest("li");
     const $button = e.target.closest("button");
+
     //li를 클릭시 문서로 이동
     if ($li) {
       const { id } = $li.dataset;
-      $li.classList.add("selected");
+      const $arrow = $li.querySelector(".arrow");
+      $li.classList.toggle("opened");
       if (e.target.className !== "addSibling") {
+        //추가버튼 말고
         onClick(id);
       }
     }
