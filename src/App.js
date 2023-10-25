@@ -25,6 +25,9 @@ export default function App({ $app }) {
   const rootContainer = new RootContainer({
     $target,
     initialState,
+    onRenderDoc: async (documentId) => {
+      await documentContainer.fetchDoc(documentId);
+    },
   });
 
   //EditDoc은 RootTree도 변화시켜야 하기 때문에 최상위로 끌고옴

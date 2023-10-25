@@ -2,7 +2,12 @@ import { request } from "../../library/api.js";
 import { push } from "../../library/router.js";
 import Title from "./Title.js";
 import RootList from "./RootList.js";
-export default function RootContainer({ $target, initialState, onAddDoc }) {
+export default function RootContainer({
+  $target,
+  initialState,
+  onRenderDoc,
+  onAddDoc,
+}) {
   this.setState = (nextState) => {
     this.state = nextState;
     title.render();
@@ -45,6 +50,7 @@ export default function RootContainer({ $target, initialState, onAddDoc }) {
     $page,
     initialState,
     onClick: async (documentId) => {
+      onRenderDoc(documentId); //낙관적 업데이트
       push(documentId);
     },
 
