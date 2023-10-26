@@ -24,7 +24,7 @@ export default function PostList({
         .map(
           (post) =>
             `<li data-id=${post.id} class="post-li">
-            <div class="parent-list">
+            <div class="post-list-block parent-list">
             <img class="toggle-img" src="/src/icons/arrow-${
               post.documents.length === 0 ? "right" : "bottom"
             }.svg" />
@@ -48,8 +48,10 @@ export default function PostList({
 
   this.render = () => {
     $postList.innerHTML = `
-    <img class="add-root-img" src="/src/icons/add.svg" />
-    <ul class="toggle-ul active">${recursiveList(this.state)}</ul>
+    <ul class="toggle-ul active" style="padding-left: 0px;">${recursiveList(
+      this.state
+    )}</ul>
+    <div class="post-list-block add-root-post"><img src="/src/icons/add.svg" /><span>페이지 추가<span/></div>
     `;
   };
 
@@ -75,9 +77,9 @@ export default function PostList({
   };
 
   $postList.addEventListener("click", (e) => {
+    console.log(e.target);
     // 루트 문서 생성
-    // ## 우측 상단으로 옮기기
-    if (e.target.matches(".add-root-img")) {
+    if (e.target.closest("div").matches(".add-root-post")) {
       push(`/documents/new`);
       handleAddPost();
       return;
