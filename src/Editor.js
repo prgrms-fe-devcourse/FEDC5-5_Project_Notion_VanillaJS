@@ -15,11 +15,13 @@ export default function Editor({
   $target.appendChild($editor);
 
   this.setState = (nextState) => {
-    this.state = nextState;
-    const titleElement = $editor.querySelector('[name=title]');
-    const contentElement = $editor.querySelector('[name=content]');
-    if (titleElement) titleElement.value = this.state.title;
-    if (contentElement) contentElement.value = this.state.content;
+    if (nextState) {
+      this.state = nextState;
+      const titleElement = $editor.querySelector('[name=title]');
+      const contentElement = $editor.querySelector('[name=content]');
+      if (titleElement) titleElement.value = this.state.title;
+      if (contentElement) contentElement.value = this.state.content;
+    }
     this.render();
   };
 
