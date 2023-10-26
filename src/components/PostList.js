@@ -18,14 +18,15 @@ export default function PostList({
   };
 
   // 자식 문서를 재귀로 리스트에 출력하는 함수
-  // ## 하위문서에도 hover 적용되는 것 고치기
   const recursiveList = (posts) => {
     if (posts.length !== 0) {
       return posts
         .map(
           (post) =>
             `<li data-id=${post.id} class="post-li">
-              <div class="post-list-block parent-list">
+              <div class="post-list-block parent-list ${
+                parseInt(this.state.selectedId) === post.id ? "selected" : ""
+              }">
                 <img class="toggle-img" src="/src/icons/arrow-${
                   post.documents.length === 0 ? "right" : "bottom"
                 }.svg" />
@@ -50,7 +51,7 @@ export default function PostList({
   this.render = () => {
     $postList.innerHTML = `
     <ul class="toggle-ul" style="padding-left: 0px;">${recursiveList(
-      this.state
+      this.state.posts
     )}</ul>
     <div class="post-list-block add-root-post"><img src="/src/icons/add.svg" /><span>페이지 추가<span/></div>
     `;

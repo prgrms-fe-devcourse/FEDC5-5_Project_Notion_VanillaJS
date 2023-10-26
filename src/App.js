@@ -7,7 +7,6 @@ import { request } from "./utils/api.js";
 export default function App({ $target }) {
   const postListPage = new PostListPage({
     $target,
-    initialState: [],
   });
 
   const postEditPage = new PostEditPage({
@@ -23,8 +22,6 @@ export default function App({ $target }) {
 
   this.route = async () => {
     const posts = await request("/documents");
-    postListPage.setState(posts);
-
     const { pathname } = window.location;
 
     // 루트 경로일 때 편집기가 보이지 않도록 설정
@@ -40,11 +37,20 @@ export default function App({ $target }) {
 
       if (id !== "new") {
         const post = await request(`/documents/${id}`);
+        postListPage.setState({
+          posts,
+          selectedId: id,
+        });
         postEditPage.setState({
           id,
           post,
         });
       }
+    } else {
+      postListPage.setState({
+        posts,
+        selectedId: null,
+      });
     }
   };
 

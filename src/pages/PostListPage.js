@@ -10,11 +10,14 @@ export default function PostListPage({ $target }) {
 
   new PostListTitle({
     $target: $postListPage,
-  })
+  });
 
   const postList = new PostList({
     $target: $postListPage,
-    initialState: [],
+    initialState: {
+      posts: [],
+      selectedId: null,
+    },
     handleDeletePost: async (selectedId) => await fetchDeletePost(selectedId),
     handleAddPost: async (selectedId) => await fetchAddPost(selectedId),
   });
