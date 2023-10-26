@@ -30,6 +30,7 @@ export default function PostList({
                 <img class="toggle-img" src="/src/icons/arrow-${
                   post.documents.length === 0 ? "right" : "bottom"
                 }.svg" />
+                <img src="/src/icons/notes-book-text.svg" />
                 <div class="post-title">${
                   post.title === "" ? "제목 없음" : post.title
                 }</div>

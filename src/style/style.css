@@ -40,6 +40,10 @@ body {
   color: #37352f;
 }
 
+.post-title {
+  margin-left: 3px;
+}
+
 .toggle-off {
   display: none;
 }
