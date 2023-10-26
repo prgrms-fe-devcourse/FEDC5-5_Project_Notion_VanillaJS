@@ -1,5 +1,6 @@
 import SideBar from "./SideBar.js";
 import PostEdit from "./PostEdit.js";
+import Header from "./Header.js";
 
 import { InitRouter } from "../utils/router.js";
 
@@ -11,9 +12,10 @@ export default function App({
 }) {
   const $main = document.createElement("main");
   $target.appendChild($main);
+  new Header({ $target: $main, text: "Notion Clone Coding" });
 
   const sideBar = new SideBar({
-    $target: $main,
+    $target,
     initialState: initialSideBarState,
     setPostIdState: (id) => {
       const nextState = { id };

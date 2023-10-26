@@ -17,7 +17,6 @@ export default function PostEdit({ $target, initialState, setSideBarState }) {
     getData(this.state.id).then((data) => {
       footer.setState(data.documents);
 
-      console.log(localData.tempUpdatedAt, data.updatedAt);
       if (localData.tempUpdatedAt > data.updatedAt) {
         const isConfirmed = confirm(
           "저장되지 않은 데이터가 있습니다. 불러오시겠습니까?"
@@ -43,7 +42,7 @@ export default function PostEdit({ $target, initialState, setSideBarState }) {
   });
 
   const footer = new Footer({
-    $target: document.querySelector("#app"),
+    $target: document.querySelector("main"),
     initialState: [],
   });
 }
