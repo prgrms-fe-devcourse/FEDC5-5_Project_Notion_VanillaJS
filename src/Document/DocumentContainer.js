@@ -39,6 +39,7 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
     $editor.setState(this.state);
     $editor.render();
     $button.setState(this.state);
+    //$button.render()
   };
 
   const $button = new RemoveButton({ $page, initialState });

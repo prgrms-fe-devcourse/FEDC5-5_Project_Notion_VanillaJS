@@ -42,7 +42,7 @@ export default function Editor({ $page, initialState, onEdit }) {
       `;
     } else {
       $page.innerHTML = `
-        <input type="text" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
+        <input type="text" class="input-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
         <textarea name="content" style="width:93%; height:70%; margin:20px;">${this.state.content}</textarea>
       `;
     }

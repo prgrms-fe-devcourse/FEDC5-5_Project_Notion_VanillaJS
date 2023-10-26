@@ -24,7 +24,9 @@ export default function RootList({
     }">
       ${
         //하위 documents가 있다면 토글을 위한 화살표 표시
-        hasChildren ? `<div class="li-arrow arrow-opened">&#10095</div>` : ""
+        hasChildren
+          ? `<img src="../../img/keyboard-arrow-right.svg"  class="li-arrow arrow-opened">`
+          : ""
       } 
       <div class="li-title">
         ${
@@ -33,7 +35,7 @@ export default function RootList({
             ? `${document.title.slice(0, 12)}...`
             : document.title
         }</div>
-        <button class="addSibling">+</button>
+        <img src="../../img/add.svg" class="addSibling">
       </li>
       ${
         //하위 documents가 있다면 재귀적으로 renerDocument함수 다시 호출
@@ -49,7 +51,7 @@ export default function RootList({
   this.render = () => {
     $root.innerHTML = `
           <div class="document_tree">
-          <p class="top-root">개인 페이지 <button class="addParent">+</button></p>
+          <p class="top-root">개인 페이지 <img src="../../img/add.svg" class="addParent"></p>
               <ul>
               ${this.state.map((v) => renderDocument(v)).join("")}
               </ul>
@@ -60,7 +62,7 @@ export default function RootList({
   $root.addEventListener("click", (e) => {
     //li, 버튼, 화살표, li의 title,
     const $li = e.target.closest("li");
-    const $button = e.target.closest("button");
+    const $button = e.target.closest("img");
     const $arrow = e.target.closest(".li-arrow");
     const $title = e.target.closest(".li-title");
     const $liContainer = e.target.closest(".li-container");
@@ -69,8 +71,9 @@ export default function RootList({
       //화살표 클릭 시 open className추가
       $liContainer.classList.toggle("content-opened");
       $arrow.classList.toggle("arrow-opened");
-    } else if ($title || $liContainer) {
-      //liContent클릭 시 해당 li로 화면 렌더링
+    } else if ($title) {
+      //liContent클릭 시 해당 li로 화면 렌더링c
+
       const { id } = $li.dataset;
       onClick(id);
     } else if ($button) {
@@ -78,7 +81,7 @@ export default function RootList({
       if ($button.className === "addParent") {
         addNewDoc();
         return;
-      } else {
+      } else if ($button.className === "addSibling") {
         const { id } = $li.dataset;
         addSibling(id);
         e.stopPropagation();

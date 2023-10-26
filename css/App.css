@@ -52,6 +52,13 @@ body {
 .rootList {
   position: relative;
   margin-bottom: 10px;
+
+}
+
+.li-title {
+  display: flex;
+  margin-top:3px;
+  text-align: center;
 }
 
 .document_tree {
@@ -106,16 +113,16 @@ li:hover {
   transition: 0.3s;
   transform: rotate(0deg);
   cursor: pointer;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   text-align: center;
   justify-content: center;
 }
 
 .li-arrow:hover {
-  background-color: #dfdfdf;
-  width: 15px;
-  height: 15px;
+  color: black;
+  width: 20px;
+  height: 20px;
 }
 
 .li-arrow.arrow-opened {
@@ -130,7 +137,8 @@ li:hover {
   cursor: pointer;
   position: absolute; /* 위치 설정을 위해 절대 위치 지정 */
   right: 0; /* 맨 오른쪽에 위치 */
-  font-size: 15px;
+  width: 20px;
+  height: 20px;
 }
 
 .addParent:hover,
@@ -153,6 +161,7 @@ li:hover {
 
 .li-container {
   display: inline;
+  
 }
 
 .li-title {
@@ -167,4 +176,21 @@ li:hover {
   #target {
     width: 100%; /* 원하는 크기로 조절 */
   }
+}
+
+input[type=text]{
+  border:none;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+input:focus {outline:none;}
+
+textarea{
+  font-size: 14px;
+  padding: 5px;
+}
+
+textarea:focus{
+  outline: auto;
 }

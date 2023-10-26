@@ -1,8 +1,9 @@
 import { request } from "../../library/api.js";
 import { push } from "../../library/router.js";
 export default function RemoveButton({ $page, initialState }) {
-  const $btn = document.createElement("button");
+  const $btn = document.createElement("img");
   $btn.className = "btn";
+  $btn.src = "../../img/delete.svg";
   this.state = initialState;
 
   this.setState = (nextState) => {
@@ -12,7 +13,7 @@ export default function RemoveButton({ $page, initialState }) {
   };
 
   this.render = () => {
-    $btn.innerHTML = "삭제버튼";
+    $btn.innerHTML = "1234";
   };
 
   const fetchRemove = async () => {

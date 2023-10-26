@@ -33,7 +33,7 @@ export default function RootContainer({
     const res = await request(`/documents`, {
       method: "POST",
       body: JSON.stringify({
-        title: "",
+        title: "제목없음",
         parent: id,
       }),
     });
