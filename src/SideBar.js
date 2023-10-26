@@ -15,7 +15,7 @@ export default function SideBar({ $target }) {
         initialState: [],
         addSubDocument: async (documentId) => {
             const newDocument = await makeNewDocument("", {
-                title: "빈 페이지",
+                title: null,
                 parent: documentId,
             });
             const { id } = newDocument;

@@ -21,6 +21,7 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
                 `/${documentId}`
             );
             console.log(selectedDocument);
+
             editor.setState(selectedDocument);
         }
 
@@ -44,11 +45,14 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
                 clearTimeout(timer);
             }
             timer = setTimeout(async () => {
-                setItem(postLocalSaveKey, {
-                    ...post,
-                    tempSaveDate: new Date(),
-                });
-                updateDocumentPage(post);
+                const isValidDocument = await updateDocumentPage(post);
+                if (isValidDocument) {
+                    // 디바운싱 중에 다른 문서 선택하면 로컬 스토리지에 다른 문서로 저장됨
+                    setItem(`temp-post-${post.id}`, {
+                        ...post,
+                        tempSaveDate: new Date(),
+                    });
+                }
             }, 2000);
         },
     });
@@ -57,11 +61,13 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
         console.log(post);
         const { title } = post;
         if (title == null || title.trim() === "") {
-            return;
+            alert("제목을 작성해야 문서가 저장됩니다.");
+            return false;
         }
         await updateDocument(`/${post.id}`, post);
         history.replaceState(null, null, `/documents/${post.id}`);
         updateSideBar();
+        return true;
     };
 
     this.render = () => {
