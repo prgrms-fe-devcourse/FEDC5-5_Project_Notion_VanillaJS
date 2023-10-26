@@ -1,0 +1,107 @@
+.sidebar {
+  width: 240px;
+  height: 100%;
+  border-right: 1px solid #f5f6f5;
+  background: #fbfbfa;
+
+  position: fixed;
+}
+
+.document-list-container {
+  margin-top: 15px;
+}
+
+.profile-container {
+  display: flex;
+  padding: 16px 15px;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.profile-container img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.sidebar-element {
+  display: flex;
+  padding: 6px 15px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+}
+
+.sidebar-element:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+li:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.document-element {
+  width: 100%;
+  height: 27px;
+
+  padding: 7px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-btn {
+  min-width: 13px;
+  margin-right: 5px;
+  transition: transform 0.2s;
+  padding: 5px;
+}
+
+.rotate-90deg {
+  transform: rotate(90deg);
+}
+
+.document {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(55, 53, 47);
+}
+
+.document:hover {
+  cursor: pointer;
+}
+.control-button {
+  margin-left: auto;
+
+  min-width: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.remove-btn,
+.add-sub-btn {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-btn {
+  padding-bottom: 4px;
+}
+
+.remove-btn:hover {
+  cursor: pointer;
+
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.add-sub-btn:hover {
+  cursor: pointer;
+
+  background-color: rgba(0, 0, 0, 0.04);
+}

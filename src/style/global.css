@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Rubik:wght@300;400;500&display=swap");
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+}
+
+#left-container {
+  height: 100%;
+}
+
+#right-container {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  margin-left: 240px;
+
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+}

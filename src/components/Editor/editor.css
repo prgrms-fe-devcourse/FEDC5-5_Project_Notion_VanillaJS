@@ -1,0 +1,48 @@
+.editor {
+  margin-top: 45px;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+}
+
+.editor > textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: none;
+  background: none;
+  outline: none;
+
+  color: #37352f;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  resize: none;
+}
+
+.editor > textarea::placeholder {
+  color: #eaeaea;
+}
+
+.editor > div {
+  width: 100%;
+
+  min-height: 300px;
+  padding-left: 5px;
+
+  resize: none;
+
+  background: none;
+
+  color: #37352f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+
+  overflow: auto;
+}
+.editor > div:focus {
+  outline: none;
+}

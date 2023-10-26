@@ -1,0 +1,32 @@
+.footer {
+  border-top: 1px solid rgba(55, 53, 47, 0.16);
+
+  display: flex;
+  align-items: center;
+
+  height: 45px;
+  padding: 7.5px 10px 7.5px 12px;
+  box-sizing: border-box;
+
+  margin: 15px 240px 0 240px;
+}
+
+.footer p {
+  margin-right: 10px;
+  overflow: hidden;
+  color: #37352f;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16.8px;
+
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+.footer p:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.04);
+}
