@@ -16,7 +16,7 @@ export default function App({ $target }) {
 
     if (pathname === "/") {
       postsPage.render();
-    } else if (pathname.indexOf("/document/") === 0) {
+    } else if (pathname.indexOf("/documents/") === 0) {
       const [, , postId] = pathname.split("/");
       postEditPage.setState({ postId });
     }
