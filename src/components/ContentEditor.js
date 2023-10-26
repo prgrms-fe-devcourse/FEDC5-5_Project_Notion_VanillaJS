@@ -5,7 +5,7 @@ export default function ContentEditor({ $target, initialState, onEditing }) {
   $contentContainer.className = "text-container";
 
   $contentContainer.innerHTML = `
-    <div class="input-content" contenteditable="true"></div>
+    <div class="input-content" contenteditable="true" data-text="내용을 입력하세요."></div>
   `;
 
   this.state = {
