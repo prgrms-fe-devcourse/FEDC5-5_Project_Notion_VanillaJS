@@ -30,7 +30,6 @@ export default function App({ $target }) {
       return;
     }
 
-    // 이 부분은 함수로 빼서 fetchDeletePost에서도 쓰기
     if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
       console.log("URL 변경");

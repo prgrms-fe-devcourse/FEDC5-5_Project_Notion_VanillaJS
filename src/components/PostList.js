@@ -59,8 +59,6 @@ export default function PostList({
   };
 
   // 토글 기능 수행 함수
-  // ## render 될 때 처음부터 하위페이지가 모두 펼쳐져서 지저분
-  // ## 하위 요소가 펼쳐진 상태에서 다른 li를 누르면 닫히는 버그
   const handleToggle = (e) => {
     const $childrenUl = e.target.closest("li").querySelector(".toggle-ul");
 

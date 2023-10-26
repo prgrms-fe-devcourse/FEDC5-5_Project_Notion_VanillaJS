@@ -1,5 +1,6 @@
 const ROUTER_CHANGE_EVENT_NAME = "router-change";
 
+// URL이 변경될 때 동작
 export const initRouter = (onRouter) => {
   window.addEventListener(ROUTER_CHANGE_EVENT_NAME, (e) => {
     const { nextUrl } = e.detail;
@@ -11,6 +12,7 @@ export const initRouter = (onRouter) => {
   });
 };
 
+// URL 이동
 export const push = (nextUrl) => {
   window.dispatchEvent(
     new CustomEvent(ROUTER_CHANGE_EVENT_NAME, {

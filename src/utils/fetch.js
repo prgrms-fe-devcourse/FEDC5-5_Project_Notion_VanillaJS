@@ -7,7 +7,6 @@ export const fetchDeletePost = async (selectedId) => {
     method: "DELETE",
   });
 
-  // 함수로 빼기
   const { pathname } = window.location;
   if (pathname === "/") {
     push("/");

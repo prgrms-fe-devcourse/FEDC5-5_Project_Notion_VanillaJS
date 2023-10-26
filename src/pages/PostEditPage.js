@@ -22,7 +22,6 @@ export default function PostEditPage({ $target, initialState }) {
     $target: $page,
     initialState: savedPost,
     onEditing: (post) => {
-      // 디바운스 적용 (추후 함수로 따로 뺄 것)
       setItem(postLocalSaveKey, {
         ...post,
         tempSaveDate: new Date(),
@@ -30,6 +29,7 @@ export default function PostEditPage({ $target, initialState }) {
 
       const initId = this.state.id;
 
+      // 디바운스 (편집기 입력을 마치고 1.5초 뒤 실행)
       if (timer !== null) clearTimeout(timer);
 
       timer = setTimeout(async () => {
@@ -48,7 +48,7 @@ export default function PostEditPage({ $target, initialState }) {
         }
 
         removeItem(postLocalSaveKey);
-      }, 2000);
+      }, 1500);
     },
   });
 
@@ -57,12 +57,18 @@ export default function PostEditPage({ $target, initialState }) {
     this.state = nextState;
 
     const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
+
+    // 작성중인 내용이 서버에 저장되지 않은 경우
     if (
       tempPost.tempSaveDate &&
       tempPost.tempSaveDate > this.state.post.updatedAt
     ) {
       if (confirm("작성중인 글이 있습니다. 불러오시겠습니까?")) {
-        editor.setState(tempPost);
+        editor.setState({
+          ...tempPost,
+          originalContent: tempPost.content,
+        });
+        
         await request(`/documents/${this.state.id}`, {
           method: "PUT",
           body: JSON.stringify({
@@ -82,7 +88,7 @@ export default function PostEditPage({ $target, initialState }) {
       editor.setState({
         title: this.state.post.title,
         content: this.state.post.content,
-        originalContent: this.state.post.content
+        originalContent: this.state.post.content,
       });
     }
 

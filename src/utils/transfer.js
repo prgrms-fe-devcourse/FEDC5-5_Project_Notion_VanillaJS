@@ -1,3 +1,4 @@
+// innerText로 추출한 text를 마크다운 문법에 따라 HTML로 변환
 export const textToHtml = (text) => {
   if (!text) return text;
   const html = text
@@ -15,6 +16,8 @@ export const textToHtml = (text) => {
   return html;
 };
 
+// 마크다운 문법이 포함된 HTML로 변환
+// 저장된 내용을 다시 편집할 때
 export const textToHtmlWithTag = (text) => {
   if (!text) return text;
   const htmlWithTag = text
