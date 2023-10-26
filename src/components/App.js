@@ -4,6 +4,7 @@ import Header from "./Header.js";
 
 import { InitRouter } from "../utils/router.js";
 import { updatePostToSideBar } from "../utils/dataManager.js";
+import { push } from "../utils/router.js";
 
 // fetch 로 얻은 초기값을 App 컴포넌트에 전달합니다.
 export default function App({
@@ -49,4 +50,6 @@ export default function App({
   this.route(window.location.pathname);
 
   InitRouter(() => this.route(window.location.pathname));
+
+  push(`/documents/${initialEditorState.id}`);
 }

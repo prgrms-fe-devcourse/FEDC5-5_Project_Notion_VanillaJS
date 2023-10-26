@@ -8,7 +8,7 @@ const initialId = getIDs(initialSideBarState)[0];
 
 let initialEditorState = { id: -1, title: "", content: "" };
 
-if (initialId && initialId.length > 0) {
+if (typeof initialId === "number") {
   initialEditorState = await getData(initialId);
 }
 
