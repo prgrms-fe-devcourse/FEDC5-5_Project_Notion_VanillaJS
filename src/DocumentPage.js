@@ -11,16 +11,13 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
     this.setState = async (nextState) => {
         this.state = nextState;
         const { documentId } = this.state;
-        console.log(this.state);
-        postLocalSaveKey = `temp-post-${documentId}`;
-        console.log(postLocalSaveKey);
 
-        console.log(documentId);
+        postLocalSaveKey = `temp-post-${documentId}`;
+
         if (documentId != null) {
             const selectedDocument = await getSelectedDocument(
                 `/${documentId}`
             );
-            console.log(selectedDocument);
 
             editor.setState(selectedDocument);
         }
@@ -28,7 +25,6 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
         this.render();
     };
     let postLocalSaveKey = `temp-post-${this.state.documentId}`;
-    console.log(postLocalSaveKey);
 
     const post = getItem(postLocalSaveKey, {
         title: "",
@@ -58,7 +54,6 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
     });
 
     const updateDocumentPage = async (post) => {
-        console.log(post);
         const { title } = post;
         if (title == null || title.trim() === "") {
             alert("제목을 작성해야 문서가 저장됩니다.");

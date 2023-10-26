@@ -34,17 +34,14 @@ export default function App({ $target }) {
     };
 
     this.route = () => {
-        console.log("window.location.pathname : ", window.location.pathname);
         const { pathname } = window.location;
 
         if (pathname === "/") {
-            console.log("SideBar render");
             // ToggleDocumentVisibility("none");
             removeDocumentVisibility($target);
 
             sideBar.render();
         } else if (pathname.includes("/documents/")) {
-            console.log("documentPage render");
             const [, , documentId] = pathname.split("/");
             documentPage.setState({ documentId });
 
