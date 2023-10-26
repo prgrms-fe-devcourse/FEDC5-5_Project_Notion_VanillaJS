@@ -6,7 +6,7 @@ export default function Header({ $target, text }) {
 
   this.render = () => {
     $h1.innerHTML = `
-      🐱${text}🐱
+      🐱 ${text} 🐱
     `;
   };
 

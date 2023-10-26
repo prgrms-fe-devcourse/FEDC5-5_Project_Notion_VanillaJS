@@ -14,7 +14,7 @@ export default function RichView({ $target, initialState }) {
 
   this.render = () => {
     $div.innerHTML = `
-      <div  style="width: 500px;border: 1px solid;word-wrap:break-word ">
+      <div  style="word-wrap:break-word ">
       <h1>${this.state.title ? this.state.title : ""} </h1>
       ${this.state.content ? mdToHtml(this.state.content) : ""}</div>
     `;

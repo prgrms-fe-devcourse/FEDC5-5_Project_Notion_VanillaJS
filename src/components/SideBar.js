@@ -37,7 +37,7 @@ export default function SideBar({ $target, initialState, setPostIdState }) {
 
   this.render = () => {
     $div.innerHTML =
-      documentTreeToHTML(this.state) + "<button id='null'>+</button>";
+      "<button id='null'>new</button>" + documentTreeToHTML(this.state);
   };
 
   this.render();

@@ -12,8 +12,6 @@ const LINK_REGEX = /\[([^\]]+)\]\(([^)]+)\)/g;
 
 export function mdToHtml(mdText) {
   mdText = mdText.split("\n").map((line) => {
-    console.log(line);
-    if (line === "") return line;
     let result = line.replace(H1_REGEX, makeHtmlTag("h1", "$1", style));
     result = result.replace(H2_REGEX, makeHtmlTag("h2", "$1", style));
     result = result.replace(H3_REGEX, makeHtmlTag("h3", "$1", style));
@@ -30,6 +28,7 @@ export function mdToHtml(mdText) {
     }
     return result;
   });
+  // join li tags with ul tags
   mdText = mdText.join("");
   return mdText;
 }
