@@ -250,18 +250,19 @@ export default function App({ targetEl }) {
   };
 
   const onRouterChange = (pathname) => {
-    console.log(pathname, this.state);
     const pattern = new RegExp(/^\/documents\/(?<id>\d+)/);
     const match = pattern.exec(pathname);
     const id = match?.groups?.id ? Number(match.groups.id) : null;
 
     if (pathname === "/" || (match && id)) {
-      this.setState({
-        ...this.state,
-        selectedDocumentId: id,
-      });
+      if(id !== this.state.selectedDocumentId) {
+        this.setState({
+          ...this.state,
+          selectedDocumentId: id,
+        });
 
-      fetchDocument(id);
+        fetchDocument(id); 
+      }
     } else {
       router.replace("/");
     }
