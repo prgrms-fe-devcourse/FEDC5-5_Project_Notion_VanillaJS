@@ -9,7 +9,6 @@ export const HEADER_OPTION = {
 // fetch 함수를 이용해 데이터를 불러오는 함수입니다.
 async function fetchData(url, options = { method: "GET" }) {
   try {
-    console.log(options, url);
     const result = await fetch(url, options);
     if (!result.ok) {
       throw new Error("데이터를 불러오는데 실패했습니다.");

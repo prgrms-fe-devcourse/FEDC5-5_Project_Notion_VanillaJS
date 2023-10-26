@@ -11,7 +11,7 @@ export function findDocumentFromTree(documents, id) {
     return result;
   }
   copiedDocuments.forEach((item) => {
-    if (item.documents.length > 0) {
+    if (item.documents && item.documents.length > 0) {
       result = findDocumentFromTree(item.documents, id);
     }
   });
@@ -34,7 +34,7 @@ export function updateDocumentToTree(documents, id, data, callback) {
     if (item.id === Number(id)) {
       callback(item, data);
       return copiedDocuments;
-    } else if (item.documents.length > 0) {
+    } else if (item.documents && item.documents.length > 0) {
       const children = updateDocumentToTree(item.documents, id, data, callback);
       if (children) {
         item.documents = children;
@@ -60,7 +60,7 @@ export function updatePostToSideBar(sideBarData, postData) {
 // updateDocumentToTree 함수를 이용한 인터페이스 함수입니다. 트리 구조인 sideBarData 에서 parentId 를 통해 해당 데이터를 찾아 수정합니다.
 export function appendPostToSideBar(sideBarData, postData, parentId) {
   // postData 의 documents 를 초기화 합니다.st copiedSideBarData = JSON.parse(JSON.stringify(sideBarData));
-  const copiedSideBarData = JSON.pTs(JSON.stringify(sideBarData));
+  const copiedSideBarData = JSON.parse(JSON.stringify(sideBarData));
   const resultData = updateDocumentToTree(
     copiedSideBarData,
     parentId,
@@ -72,33 +72,16 @@ export function appendPostToSideBar(sideBarData, postData, parentId) {
 
   return resultData;
 }
-export async function deleteDocumentWithValidation(
-  url,
-  headerOption = { "x-username": "ienrum" },
-  id
-) {
-  url = url + "/" + id;
-  const options = {
-    method: "DELETE",
-    headers: headerOption,
-  };
-  const data = await fetchData(url, options);
-  if (data === null) {
-    return {};
-  }
-  return data;
-}
 
-// 트리 구조인 sideBarData 를 flat 하게 만들어줍니다.  const result = [];
+// 트리 구조인 sideBarData 를 flat 하게 만들어줍니다.
 export const flatSideBarData = (sideBarData) => {
   const result = [];
-
   sideBarData.forEach((item) => {
     result.push({
       id: item.id,
       title: item.title,
     });
-    if (item.documents.length > 0) {
+    if (item.documents && item.documents.length > 0) {
       result.push(...flatSideBarData(item.documents));
     }
   });
@@ -109,9 +92,22 @@ export const getIDs = (sideBarData) => {
   const result = [];
   sideBarData.forEach((item) => {
     result.push(item.id);
-    if (item.documents.length > 0) {
+    if (item.documents && item.documents.length > 0) {
       result.push(...getIDs(item.documents));
     }
   });
   return result;
 };
+
+// 트리 구조인 sideBarData 를 html 로 만들어줍니다.
+export function documentTreeToHTML(sideBarData) {
+  const result = sideBarData.map((item) => {
+    let HtmlResult = `<div><li id=${item.id}>${item.title}</li><button id=${item.id}>+</button></div>`;
+    if (item.documents && item.documents.length > 0) {
+      HtmlResult += "<ul>" + documentTreeToHTML(item.documents) + "</ul>";
+    }
+    return HtmlResult;
+  });
+
+  return "<ul>" + result.join("") + "</ul>";
+}

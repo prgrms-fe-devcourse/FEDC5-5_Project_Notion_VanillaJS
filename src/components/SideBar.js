@@ -1,6 +1,9 @@
 import { postData } from "../utils/fetchData.js";
 import { setFlatSideBarData } from "../utils/storage.js";
-import { appendPostToSideBar } from "../utils/dataManager.js";
+import {
+  appendPostToSideBar,
+  documentTreeToHTML,
+} from "../utils/dataManager.js";
 import { pushHistoryById } from "../utils/router.js";
 
 export default function SideBar({ $target, initialState, setPostIdState }) {
@@ -39,16 +42,4 @@ export default function SideBar({ $target, initialState, setPostIdState }) {
   };
 
   this.render();
-}
-
-function documentTreeToHTML(data) {
-  const result = data.map((item) => {
-    let HtmlResult = `<div><li id=${item.id}>${item.title}</li><button id=${item.id}>+</button></div>`;
-    if (item.documents.length > 0) {
-      HtmlResult += "<ul>" + documentTreeToHTML(item.documents) + "</ul>";
-    }
-    return HtmlResult;
-  });
-
-  return "<ul>" + result.join("") + "</ul>";
 }
