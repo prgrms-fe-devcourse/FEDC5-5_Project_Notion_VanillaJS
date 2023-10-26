@@ -24,7 +24,10 @@ export default function Editor({
   };
 
   this.render = () => {
-    if (!$editor.querySelector('[name=title]') && !$editor.querySelector('[name=content]')) {
+    if (
+      !$editor.querySelector('[name=title]') &&
+      !$editor.querySelector('[name=content]')
+    ) {
       $editor.innerHTML = `
       <input type="text" name='title' class='title' placeholder='제목 없음' value="${this.state.title}" />
       <textarea name='content' class='content' placeholder='...'>${this.state.content}</textarea>

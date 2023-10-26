@@ -6,17 +6,7 @@ export const initRouter = (onRoute) => {
 
     if (nextUrl) {
       history.pushState(null, null, nextUrl);
-      onRoute()
+      onRoute();
     }
   });
-};
-
-export const push = (nextUrl) => {
-  window.dispatchEvent(
-    new CustomEvent('route-change', {
-      detail: {
-        nextUrl,
-      },
-    })
-  );
 };

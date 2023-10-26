@@ -48,7 +48,11 @@ export default function DocumentsList({ $target, onSelect }) {
           </div>
         </summary>
         <ul>
-        ${doc.documents && doc.documents.length > 0 ? `<li>${renderDocuments(doc.documents)}</li>` : '<li class="empty">하위 페이지 없음</li>'}
+        ${
+          doc.documents && doc.documents.length > 0
+            ? `<li>${renderDocuments(doc.documents)}</li>`
+            : '<li class="empty">하위 페이지 없음</li>'
+        }
         <ul>
       </details>`
       )
