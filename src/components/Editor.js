@@ -21,8 +21,8 @@ export default function Editor({ $target, initialState, onEditing }) {
   });
 
   this.setState = (nextState) => {
-    titleEditor.setState(nextState.title);
-    contentEditor.setState(nextState.content);
+    titleEditor.setState(nextState);
+    contentEditor.setState(nextState);
   };
 
   this.render = () => {

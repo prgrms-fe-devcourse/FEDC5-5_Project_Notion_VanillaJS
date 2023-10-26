@@ -48,18 +48,13 @@ export default function PostEditPage({ $target, initialState }) {
         }
 
         removeItem(postLocalSaveKey);
-      }, 1000);
+      }, 2000);
     },
   });
 
   this.setState = async (nextState) => {
     postLocalSaveKey = `temp-post-${nextState.id}`;
     this.state = nextState;
-
-    // editor.setState({
-    //   title: this.state.post.title,
-    //   content: this.state.post.content,
-    // });
 
     const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
     if (
@@ -87,6 +82,7 @@ export default function PostEditPage({ $target, initialState }) {
       editor.setState({
         title: this.state.post.title,
         content: this.state.post.content,
+        originalContent: this.state.post.content
       });
     }
 

@@ -13,7 +13,8 @@ export default function TitleEditor({ $target, initialState, onEditing }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    $titleContainer.querySelector(".input-title").textContent = this.state;
+    $titleContainer.querySelector(".input-title").textContent =
+      this.state.title;
   };
 
   this.render = () => {
