@@ -32,6 +32,7 @@ body {
   display: flex;
   align-items: center;
   color: #6d6c69;
+  cursor: pointer;
 }
 
 .post-list-title {
@@ -39,21 +40,13 @@ body {
   color: #37352f;
 }
 
-.toggle-ul {
+.toggle-off {
   display: none;
-}
-
-.active {
-  display: block;
 }
 
 .post-list {
   display: flex;
   flex-direction: column;
-}
-
-.post-list li:hover {
-  background-color: #ebebea;
 }
 
 .post-list ul {
@@ -64,6 +57,12 @@ body {
 .parent-list {
   display: flex;
   flex-direction: row;
+  padding: 2px;
+  border-radius: 3px;
+}
+
+.parent-list:hover {
+  background-color: #ebebea;
 }
 
 .post-title {

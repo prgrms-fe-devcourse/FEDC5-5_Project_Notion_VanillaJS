@@ -18,26 +18,27 @@ export default function PostList({
   };
 
   // 자식 문서를 재귀로 리스트에 출력하는 함수
+  // ## 하위문서에도 hover 적용되는 것 고치기
   const recursiveList = (posts) => {
     if (posts.length !== 0) {
       return posts
         .map(
           (post) =>
             `<li data-id=${post.id} class="post-li">
-            <div class="post-list-block parent-list">
-            <img class="toggle-img" src="/src/icons/arrow-${
+              <div class="post-list-block parent-list">
+                <img class="toggle-img" src="/src/icons/arrow-${
               post.documents.length === 0 ? "right" : "bottom"
             }.svg" />
-            <div class="post-title">${post.title}</div>
-            <img class="add-child-img" src="/src/icons/add.svg" />
-            <img class="delete-post-img" src="/src/icons/delete.svg" />
-            </div>
+                <div class="post-title">${post.title}</div>
+                <img class="add-child-img" src="/src/icons/add.svg" />
+                <img class="delete-post-img" src="/src/icons/delete.svg" />
+              </div>
             ${
               post.documents.length !== 0
-                ? `<ul class="toggle-ul active">${recursiveList(
+                ? `<ul class="toggle-ul">${recursiveList(
                     post.documents
                   )}</ul>`
-                : "<ul class='toggle-ul'><div style='color: darkgrey'>하위 문서 없음</div></ul>"
+                : "<ul class='toggle-ul toggle-off'><div style='color: darkgrey'>하위 문서 없음</div></ul>"
             }
           </li>`
         )
@@ -48,7 +49,7 @@ export default function PostList({
 
   this.render = () => {
     $postList.innerHTML = `
-    <ul class="toggle-ul active" style="padding-left: 0px;">${recursiveList(
+    <ul class="toggle-ul" style="padding-left: 0px;">${recursiveList(
       this.state
     )}</ul>
     <div class="post-list-block add-root-post"><img src="/src/icons/add.svg" /><span>페이지 추가<span/></div>
@@ -67,17 +68,17 @@ export default function PostList({
 
     const $toggleImg = e.target;
 
-    if ($childrenUl.classList.contains("active")) {
-      $childrenUl.classList.remove("active");
-      $toggleImg.src = "/src/icons/arrow-right.svg";
-    } else {
-      $childrenUl.classList.add("active");
+    if ($childrenUl.classList.contains("toggle-off")) {
+      $childrenUl.classList.remove("toggle-off");
       $toggleImg.src = "/src/icons/arrow-bottom.svg";
-    }
+    } else {
+      $childrenUl.classList.add("toggle-off");
+      $toggleImg.src = "/src/icons/arrow-right.svg";
+        }
   };
 
   $postList.addEventListener("click", (e) => {
-    console.log(e.target);
+
     // 루트 문서 생성
     if (e.target.closest("div").matches(".add-root-post")) {
       push(`/documents/new`);
@@ -85,6 +86,7 @@ export default function PostList({
       return;
     }
 
+    if (!e.target.closest("li")) return;
     const { id } = e.target.closest("li").dataset;
 
     // 문서 열람 & 편집
