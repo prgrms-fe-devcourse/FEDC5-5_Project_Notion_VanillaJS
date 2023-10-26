@@ -1,0 +1,251 @@
+html,
+body {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  width: 100vw;
+  height: 100%;
+  color: #37352f;
+  line-height: 1.5;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
+    sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+button {
+  border: transparent;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 230px;
+  height: 100%;
+  color: rgba(25, 23, 17, 0.6);
+  font-weight: 500;
+  font-size: 14px;
+  background: #fbfbfa;
+  box-shadow: rgb(0 0 0 / 2%) -1px 0px 0px 0px inset;
+}
+
+.sidebar button {
+  color: #a3a29d;
+  padding: 1px 3px;
+}
+
+.sidebar button.add,
+.sidebar button.delete {
+  color: inherit;
+}
+
+.sidebar-header {
+  display: flex;
+  color: #37352f;
+  margin: 15px 0;
+  padding-left: 15px;
+  cursor: default;
+}
+
+.document-list {
+  overflow: auto;
+  height: 87.5%;
+}
+
+.document-list li {
+  display: flex;
+  margin: 2px;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+.document-list li:not(.no-subpages) {
+  cursor: pointer;
+}
+.document-list li:not(.no-subpages):hover {
+  background-color: #ebebea;
+}
+.document-list li:not(.no-subpages):active {
+  background-color: #d7d7d5;
+}
+
+.document-list li.selected {
+  background-color: #f1f1f0;
+}
+
+.document-list li.selected p {
+  font-weight: 600;
+}
+
+.document-list p.document-item {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.document-list p.document-item.block {
+  width: calc(100% - 75px);
+}
+
+.document-list .no-subpages {
+  font-weight: 400;
+  color: #989893;
+  cursor: default;
+}
+
+.document-list button:hover {
+  background-color: #dededd;
+}
+
+.document-list .buttons {
+  display: none;
+}
+
+.document-list .buttons.block {
+  display: block;
+  float: left;
+}
+
+.document-add-button.document-list-bottom {
+  display: flex;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.document-add-button.document-list-bottom button {
+  color: inherit;
+  margin: 0 10px;
+}
+
+.document-add-button.sidebar-bottom {
+  display: inline-flex;
+  position: fixed;
+  bottom: 0;
+  width: inherit;
+  padding: 12px 0;
+  border-top: 1.5px solid #ededec;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.document-add-button.document-list-bottom:hover,
+.document-add-button.sidebar-bottom:hover {
+  background-color: #ebebea;
+}
+
+.document-add-button.sidebar-bottom button {
+  margin: 0 10px;
+}
+
+.document-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.document-header .title {
+  max-width: 80%;
+  margin-left: 15px;
+  padding: 3px 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: default;
+}
+
+.document-header .buttons {
+  padding-right: 20px;
+}
+
+.document-header button {
+  padding: 5px;
+}
+.document-header button:hover {
+  background-color: #efefef;
+  padding: 5px;
+}
+
+.document-edit-page {
+  width: calc(100vw - 230px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editor {
+  width: 75%;
+  height: 92%;
+  margin: 50px;
+  background: #ffffff;
+  caret-color: #37352f;
+}
+
+.editor .title,
+.editor .content {
+  width: 100%;
+  padding: 10px;
+  color: inherit;
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+.editor .title {
+  font-size: 40px;
+  font-weight: 700;
+  overflow: hidden;
+  resize: none;
+}
+.editor .title::placeholder {
+  color: #e1e1e0;
+}
+
+.editor .content {
+  height: 85%;
+  font-size: 16px;
+  resize: none;
+  line-height: 1.8rem;
+}
+.editor .content::placeholder {
+  color: #9c9c98;
+}
+
+.document-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.document-footer .titles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.document-footer .title {
+  border-radius: 5px;
+  border: 0.5px solid #efefef;
+  padding: 5px 10px;
+  margin-left: 15px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  box-shadow: 0px 2px 1px 1px #efefef;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.document-footer .title:hover {
+  background-color: #fbfbfa;
+}
