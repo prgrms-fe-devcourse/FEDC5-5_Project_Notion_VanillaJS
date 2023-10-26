@@ -39,6 +39,8 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
       this.state = nextState;
 
+      updateFlatDocuments();
+
       if (onEditing && this.state.document.data) {
         onEditing(this.state.document.data);
       }
@@ -49,9 +51,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
 
       if (
         prevState.selectedDocumentId !== nextState.selectedDocumentId ||
-        prevState.document !== nextState.document
+        JSON.stringify(prevState.document) !==
+          JSON.stringify(nextState.document)
       ) {
-        updateFlatDocuments();
         this.render();
       }
     }
@@ -114,8 +116,9 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     if (this.state.flatDocuments) {
       this.state.flatDocuments.forEach(({ id, title }) => {
         const titleRegex = new RegExp(`@${title}`);
+        const titleInputRegex = new RegExp(`@${title}[\\s|&nbsp;]`);
 
-        if (innerHTML?.match(titleRegex)) {
+        if (innerHTML?.match(titleInputRegex)) {
           const nodeName =
             oldNode instanceof HTMLElement ? oldNode.nodeName : "div";
           const newNode = document.createElement(nodeName);
@@ -126,10 +129,12 @@ export default function Editor({ targetEl, initialState, onEditing }) {
             <a class="item-blcok link-block" href="/documents/${id}" contenteditable="false">
               <span class="icon">🔗</span>
               <span class="document-title">${title}</span>
-            </a>
+            </a>&nbsp;
             <span class="temp" />
             `
           );
+
+          editableEl.blur();
 
           oldNode.parentNode.insertBefore(newNode, oldNode);
           oldNode.parentNode.removeChild(oldNode);
@@ -142,7 +147,10 @@ export default function Editor({ targetEl, initialState, onEditing }) {
           const selection = window.getSelection();
           selection.removeAllRanges();
           selection.addRange(range);
+
           range.deleteContents();
+
+          editableEl.focus();
         }
       });
     }
@@ -200,6 +208,8 @@ export default function Editor({ targetEl, initialState, onEditing }) {
       editorEl.appendChild(editableEl);
       editorEl.appendChild(childPagesEl);
       targetEl.appendChild(editorEl);
+
+      updateFlatDocuments();
 
       this.isInit = true;
     }

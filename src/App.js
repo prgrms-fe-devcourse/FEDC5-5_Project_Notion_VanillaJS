@@ -21,6 +21,7 @@ export default function App({ targetEl }) {
     if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
       this.state = nextState;
 
+      // 선택된 문서가 변경된 경우, 문서 목록이 변경된 경우
       if (
         JSON.stringify(prevState.selectedDocumentId) !==
           JSON.stringify(nextState.selectedDocumentId) ||
@@ -33,15 +34,10 @@ export default function App({ targetEl }) {
         });
       }
 
-      if (
-        JSON.stringify(prevState.selectedDocumentId) !==
-          JSON.stringify(nextState.selectedDocumentId) ||
-        JSON.stringify(prevState.document) !==
-          JSON.stringify(nextState.document)
-      ) {
-        editor.setState({ ...this.state });
-      }
+      // 항상
+      editor.setState({ ...this.state });
 
+      // 문서가 변경된 경우, 문서 목록이 변경된 경우
       if (
         JSON.stringify(prevState.document) !==
           JSON.stringify(nextState.document) ||
@@ -92,10 +88,7 @@ export default function App({ targetEl }) {
 
   const editor = new Editor({
     targetEl,
-    initialState: {
-      selectedDocumentId: this.state.selectedDocumentId,
-      document: this.state.document,
-    },
+    initialState: { ...this.state },
     onEditing: (document) => {
       clearTimeout(serverUpdateTimer);
       clearTimeout(localSaveTimer);
