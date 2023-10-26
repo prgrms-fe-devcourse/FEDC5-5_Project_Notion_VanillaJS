@@ -132,6 +132,7 @@ body {
 }
 
 .input-title {
+  cursor: text;
   border: 0px;
   width: 100%;
 }
@@ -147,5 +148,6 @@ body {
 }
 
 .input-content {
+  cursor: text;
   line-height: 2.5;
 }
