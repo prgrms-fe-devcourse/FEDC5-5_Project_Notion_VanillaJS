@@ -117,10 +117,10 @@ export default function DocumentsList({ $target, onSelect }) {
     onSelect(newDocument.id);
   });
 
-  // 문서 클릭 (단 버튼은 클릭하지 않음)
+  // 문서 클릭시 이벤트
   $documentsList.addEventListener('click', (e) => {
     const $summary = e.target.closest('summary');
-
+    
     // 문서 제목 클릭시에만 반응 
     if (e.target.matches('span')) {
       const { id } = $summary.dataset;
