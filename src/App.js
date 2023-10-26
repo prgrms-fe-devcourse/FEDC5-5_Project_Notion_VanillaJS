@@ -2,6 +2,7 @@ import RootContainer from "./Root/RootContainer.js";
 import DocumentContainer from "./Document/DocumentContainer.js";
 import { request } from "../library/api.js";
 import { initRouter, push } from "../library/router.js";
+import { getChangedTitle } from "../library/titleChanger.js";
 
 export default function App({ $app }) {
   const $target = document.createElement("div");
@@ -15,6 +16,7 @@ export default function App({ $app }) {
     this.state = nextState;
     rootContainer.setState(this.state);
   };
+  //
 
   //이 fetch들은 this.state로 해서 아래로 각자 넘겨줍시다.
   const fetchRoot = async () => {
@@ -29,19 +31,6 @@ export default function App({ $app }) {
       await documentContainer.fetchDoc(documentId);
     },
   });
-
-  //EditDoc은 RootTree도 변화시켜야 하기 때문에 최상위로 끌고옴
-  const fetchEditingDoc = async (document) => {
-    await request(`/documents/${document.id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        title: `${document.title}`,
-        content: `${document.content}`,
-      }),
-    });
-    const res = await request(`/documents`);
-    this.setState(res);
-  };
 
   const documentContainer = new DocumentContainer({
     $target,
@@ -82,5 +71,9 @@ export default function App({ $app }) {
     const [, , docId] = pathname.split("/");
     fetchRoot();
     documentContainer.fetchDoc(docId);
+  });
+
+  getChangedTitle(() => {
+    fetchRoot();
   });
 }

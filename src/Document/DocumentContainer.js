@@ -36,7 +36,6 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-
     $editor.setState(this.state);
     $editor.render();
     $button.setState(this.state);
@@ -44,3 +43,5 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
 
   const $button = new RemoveButton({ $page, initialState });
 }
+//keyup이벤트를 윈도우에서 듣게 해서
+//app에서 window.addEveList(keyup)해서 설정
