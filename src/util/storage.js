@@ -24,3 +24,5 @@ export const removeItem = (key) => {
     alert(e.message);
   }
 };
+
+export const getLocalSaveKey = (id) => `NOTION_CLONE_TEMP_${id}`;

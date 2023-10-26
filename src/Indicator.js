@@ -1,4 +1,4 @@
-import { AsyncRequestEvent } from "./api.js";
+import { AsyncRequestEvent } from "./util/api.js";
 
 export default function Indicator({ targetEl, initialState }) {
   const indicatorEl = document.createElement("div");

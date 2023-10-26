@@ -24,8 +24,6 @@ export const editorCommands = [
   },
 ];
 
-export const getLocalSaveKey = (id) => `NOTION_CLONE_TEMP_${id}`;
-
 export const getFlatDocuments = (asyncDocumentsData) => {
   const { isLoading, isError, data } = asyncDocumentsData;
 

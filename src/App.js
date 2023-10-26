@@ -1,10 +1,15 @@
 import Finder from "./Finder.js";
 import Editor from "./Editor.js";
 import Indicator from "./Indicator.js";
-import router from "./router.js";
-import { asyncDataObj, request } from "./api.js";
-import { setItem, getItem, removeItem } from "./storage.js";
-import { UNTITLED, compareObject, getLocalSaveKey } from "./utility.js";
+import router from "./util/router.js";
+import { asyncDataObj, request } from "./util/api.js";
+import {
+  setItem,
+  getItem,
+  removeItem,
+  getLocalSaveKey,
+} from "./util/storage.js";
+import { UNTITLED, compareObject } from "./util/index.js";
 
 export default function App({ targetEl }) {
   this.isInit = false;
@@ -255,13 +260,13 @@ export default function App({ targetEl }) {
     const id = match?.groups?.id ? Number(match.groups.id) : null;
 
     if (pathname === "/" || (match && id)) {
-      if(id !== this.state.selectedDocumentId) {
+      if (id !== this.state.selectedDocumentId) {
         this.setState({
           ...this.state,
           selectedDocumentId: id,
         });
 
-        fetchDocument(id); 
+        fetchDocument(id);
       }
     } else {
       router.replace("/");

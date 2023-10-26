@@ -1,13 +1,8 @@
-import router from "./router.js";
-import { X_USERNAME } from "./api.js";
-import { UNTITLED } from "./utility.js";
+import router from "./util/router.js";
+import { X_USERNAME } from "./util/api.js";
+import { UNTITLED } from "./util/index.js";
 
-export default function Finder({
-  targetEl,
-  initialState,
-  onCreate,
-  onDelete,
-}) {
+export default function Finder({ targetEl, initialState, onCreate, onDelete }) {
   const finderEl = document.createElement("div");
   const headerEl = document.createElement("div");
   const listEl = document.createElement("div");

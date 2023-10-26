@@ -1,10 +1,10 @@
-import router from "./router.js";
+import router from "./util/router.js";
 import {
   UNTITLED,
   compareObject,
   editorCommands,
   getFlatDocuments,
-} from "./utility.js";
+} from "./util/index.js";
 
 export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
