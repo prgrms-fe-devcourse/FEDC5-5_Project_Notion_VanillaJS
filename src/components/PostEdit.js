@@ -1,11 +1,8 @@
 import Editor from "./Editor.js";
 import Footer from "./Footer.js";
+
 import { getData, putData } from "../utils/fetchData.js";
-import {
-  isDataInLocalStorage,
-  getEditingPostData,
-  removeEditingPostData,
-} from "../utils/storage.js";
+import { getEditingPostData, removeEditingPostData } from "../utils/storage.js";
 
 export default function PostEdit({ $target, initialState, setSideBarState }) {
   this.state = initialState;

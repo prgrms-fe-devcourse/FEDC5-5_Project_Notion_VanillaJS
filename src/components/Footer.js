@@ -1,4 +1,4 @@
-import { push, pushHistoryById } from "../utils/router.js";
+import { push } from "../utils/router.js";
 
 export default function Footer({ $target, initialState = {} }) {
   const $footer = document.createElement("footer");

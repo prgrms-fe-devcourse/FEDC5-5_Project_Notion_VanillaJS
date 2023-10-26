@@ -1,16 +1,23 @@
+// markdown to html 함수
 const style = "style='margin: 0px; padding: 0px;'";
 
 const H1_REGEX = /^# (.*)/g;
 const H2_REGEX = /^## (.*)/g;
 const H3_REGEX = /^### (.*)/g;
+
 const BOLD_REGEX = /\*\*(.*)\*\*/g;
 const ITALIC_REGEX = /\*(.*)\*/g;
-const NEW_LINE_REGEX = /\n/g;
+
 const LIST_REGEX = /^- (.*)/g;
-const CHECKBOX_REGEX = /^\[(x| )\] (.*)/g;
+
 const LINK_REGEX = /\[([^\]]+)\]\(([^)]+)\)/g;
 
+const CHECKBOX_REGEX = /^\[(x| )\] (.*)/g;
+const NEW_LINE_REGEX = /\n/g;
+
+// markdown text 를 html 로 변환해주는 함수입니다.
 export function mdToHtml(mdText) {
+  let prevLine = "";
   mdText = mdText.split("\n").map((line) => {
     let result = line.replace(H1_REGEX, makeHtmlTag("h1", "$1", style));
     result = result.replace(H2_REGEX, makeHtmlTag("h2", "$1", style));
@@ -20,23 +27,20 @@ export function mdToHtml(mdText) {
     result = result.replace(LIST_REGEX, makeHtmlTag("li", "$1", style));
     result = result.replace(LINK_REGEX, makeHtmlTag("a", "$1", "href=$2"));
 
-    if (
-      result === line ||
-      result.indexOf("</a>", result.length - 4) === result.length - 4
-    ) {
-      result = result + "<br />";
+    // li 태그는 자동 줄바꿈이 되므로 줄바꿈을 제거해줍니다.
+    prevLine = line;
+    if (line.indexOf("- ") === 0 && prevLine.indexOf("- ") === 0) {
+      return `${result}`;
     }
-    return result;
+
+    // 나머지는 줄바꿈을 <br /> 태그로 바꿔줍니다.
+    return result + "<br />";
   });
-  // join li tags with ul tags
   mdText = mdText.join("");
   return mdText;
 }
 
-function makeHtmlTag(tagName, content, feature) {
-  if (tagName === "li" || tagName === "a") {
-    return `<${tagName} ${feature}>${content}</${tagName}>`;
-  } else {
-    return `<${tagName} ${feature}>${content}</${tagName}><br />`;
-  }
+// html tag 를 만들어주는 함수입니다.
+function makeHtmlTag(tagName, content, feature, listCount) {
+  return `<${tagName} ${feature}>${content}</${tagName}>`;
 }

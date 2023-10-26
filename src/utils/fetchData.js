@@ -5,9 +5,9 @@ export const HEADER_OPTION = {
   "x-username": "ienrum",
   "Content-Type": "application/json",
 };
-export const OPTIONS = { headers: HEADER_OPTION };
 
-export default async function fetchData(url, options = { method: "GET" }) {
+// fetch 함수를 이용해 데이터를 불러오는 함수입니다.
+async function fetchData(url, options = { method: "GET" }) {
   try {
     console.log(options, url);
     const result = await fetch(url, options);
@@ -20,7 +20,9 @@ export default async function fetchData(url, options = { method: "GET" }) {
     return null;
   }
 }
-export async function getDocumentsWithValidation(
+
+// get 요청을 보내는 함수입니다.
+async function getDocumentsWithValidation(
   url,
   headerOption = { "x-username": "ienrum" }
 ) {
@@ -35,7 +37,8 @@ export async function getDocumentsWithValidation(
   return data;
 }
 
-export async function postDocumentWithValidation(
+// post 요청을 보내는 함수입니다.
+async function postDocumentWithValidation(
   url,
   headerOption = { "x-username": "ienrum" },
   body
@@ -52,7 +55,8 @@ export async function postDocumentWithValidation(
   return data;
 }
 
-export async function getDocumentWithValidation(
+// id 를 통해 get 요청을 보내는 함수입니다.
+async function getDocumentWithValidation(
   url,
   headerOption = { "x-username": "ienrum" },
   id
@@ -68,7 +72,9 @@ export async function getDocumentWithValidation(
   }
   return data;
 }
-export async function putDocumentWithValidation(
+
+// id 를 통해 put 요청을 보내는 함수입니다.
+async function putDocumentWithValidation(
   url,
   headerOption = { "x-username": "ienrum" },
   id,
@@ -87,62 +93,9 @@ export async function putDocumentWithValidation(
   return data;
 }
 
-export async function deleteDocuments() {
-  const documents = await getDocumentsWithValidation(
-    ROOT_DOCUMETS_URL,
-    HEADER_OPTION
-  );
-  const ids = getIDs(documents);
-  ids.forEach(async (id) => {
-    await deleteDocumentWithValidation(ROOT_DOCUMETS_URL, HEADER_OPTION, id);
-  });
-}
+// 인터페이스 함수들입니다.
 
-export async function deleteEmptyStringDocuments() {
-  const documents = await getDocumentsWithValidation(
-    ROOT_DOCUMETS_URL,
-    HEADER_OPTION
-  );
-  const ids = getIDs(documents);
-  ids.forEach(async (id) => {
-    const data = await getDocumentWithValidation(
-      ROOT_DOCUMETS_URL,
-      HEADER_OPTION,
-      id
-    );
-    if (data.title === "") {
-      await deleteDocumentWithValidation(ROOT_DOCUMETS_URL, HEADER_OPTION, id);
-    }
-  });
-}
-
-export async function deleteDocumentWithValidation(
-  url,
-  headerOption = { "x-username": "ienrum" },
-  id
-) {
-  url = url + "/" + id;
-  const options = {
-    method: "DELETE",
-    headers: headerOption,
-  };
-  const data = await fetchData(url, options);
-  if (data === null) {
-    return {};
-  }
-  return data;
-}
-
-export function getIDs(documents) {
-  let ids = [];
-  documents.forEach((item) => {
-    ids.push(item.id);
-    if (item.documents.length > 0) {
-      ids = ids.concat(getIDs(item.documents));
-    }
-  });
-  return ids;
-}
+// getDocumentsWithValidation 함수를 이용한 인터페이스 함수입니다.
 export async function getDatas() {
   const documents = await getDocumentsWithValidation(
     ROOT_DOCUMETS_URL,
@@ -151,6 +104,7 @@ export async function getDatas() {
   return documents;
 }
 
+// getDocumentWithValidation 함수를 이용한 인터페이스 함수입니다.
 export async function getData(id) {
   const documents = await getDocumentWithValidation(
     ROOT_DOCUMETS_URL,
@@ -159,6 +113,8 @@ export async function getData(id) {
   );
   return documents;
 }
+
+// postDocumentWithValidation 함수를 이용한 인터페이스 함수입니다.
 export async function postData(data) {
   const documents = await postDocumentWithValidation(
     ROOT_DOCUMETS_URL,
@@ -168,6 +124,7 @@ export async function postData(data) {
   return documents;
 }
 
+// putDocumentWithValidation 함수를 이용한 인터페이스 함수입니다.
 export async function putData(id, data) {
   const documents = await putDocumentWithValidation(
     ROOT_DOCUMETS_URL,

@@ -1,13 +1,8 @@
-import { getFlatSideBarData, isDataInLocalStorage } from "../utils/storage.js";
-import { getData, putData } from "../utils/fetchData.js";
-import { mdToHtml } from "../utils/mdToHtml.js";
-
-import {
-  getEditingPostData,
-  setEditingPostData,
-  removeEditingPostData,
-} from "../utils/storage.js";
 import RichView from "./RichView.js";
+
+import { getFlatSideBarData } from "../utils/storage.js";
+import { putData } from "../utils/fetchData.js";
+import { setEditingPostData, removeEditingPostData } from "../utils/storage.js";
 
 export default function Editor({ $target, initalState, setSideBarState }) {
   const $div = document.createElement("div");

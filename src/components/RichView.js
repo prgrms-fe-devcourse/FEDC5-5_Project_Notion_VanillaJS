@@ -1,5 +1,6 @@
 import { mdToHtml } from "../utils/mdToHtml.js";
 import { push } from "../utils/router.js";
+
 export default function RichView({ $target, initialState }) {
   const $div = document.createElement("div");
   $div.id = "richView";

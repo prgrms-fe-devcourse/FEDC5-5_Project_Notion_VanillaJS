@@ -1,9 +1,16 @@
-export function findDocumentFromTree(data, id) {
-  let result = data.find((item) => item.id === Number(id));
+// 데이터 관리를 위한 함수들을 정의합니다.
+
+// api get 요청으로 받은 트리구조 Documents 데이터에서 id를 통해 해당 Document를 찾아 반환합니다.
+// dfs
+export function findDocumentFromTree(documents, id) {
+  // deep copy 를 수행
+  const copiedDocuments = JSON.parse(JSON.stringify(documents));
+
+  let result = copiedDocuments.find((item) => item.id === Number(id));
   if (result) {
     return result;
   }
-  data.forEach((item) => {
+  copiedDocuments.forEach((item) => {
     if (item.documents.length > 0) {
       result = findDocumentFromTree(item.documents, id);
     }
@@ -11,23 +18,24 @@ export function findDocumentFromTree(data, id) {
   return result;
 }
 
-export function updateDocumentFromTree(documents, id, data, callback) {
+// api get 요청으로 받은 트리구조 Documents 데이터를 callback 함수를 통해 수정합니다.
+// dfs
+export function updateDocumentToTree(documents, id, data, callback) {
+  // deep copy 를 수행
   const copiedDocuments = JSON.parse(JSON.stringify(documents));
+
+  // id 가 null 인 경우는 root 를 수정하는 경우입니다. 이때는 그냥 추가해주면 됩니다.
   if (id === "null") {
     copiedDocuments.push(data);
     return copiedDocuments;
   }
+
   copiedDocuments.forEach((item) => {
     if (item.id === Number(id)) {
       callback(item, data);
       return copiedDocuments;
     } else if (item.documents.length > 0) {
-      const children = updateDocumentFromTree(
-        item.documents,
-        id,
-        data,
-        callback
-      );
+      const children = updateDocumentToTree(item.documents, id, data, callback);
       if (children) {
         item.documents = children;
       }
@@ -35,23 +43,25 @@ export function updateDocumentFromTree(documents, id, data, callback) {
   });
   return copiedDocuments;
 }
-export function updateEditingPostToSideBar(sideBarData, editingPostData) {
+
+export function updatePostToSideBar(sideBarData, postData) {
   const copiedSideBarData = JSON.parse(JSON.stringify(sideBarData));
-  const nextState = updateDocumentFromTree(
+  const resultData = updateDocumentToTree(
     copiedSideBarData,
-    editingPostData.id,
-    editingPostData,
+    postData.id,
+    postData,
     (item, data) => {
       item.title = data.title;
     }
   );
-  return nextState;
+  return resultData;
 }
 
-export function appendEditingPostToSideBar(sideBarData, postData, parentId) {
-  postData.documents = [];
-  const copiedSideBarData = JSON.parse(JSON.stringify(sideBarData));
-  const nextState = updateDocumentFromTree(
+// updateDocumentToTree 함수를 이용한 인터페이스 함수입니다. 트리 구조인 sideBarData 에서 parentId 를 통해 해당 데이터를 찾아 수정합니다.
+export function appendPostToSideBar(sideBarData, postData, parentId) {
+  // postData 의 documents 를 초기화 합니다.st copiedSideBarData = JSON.parse(JSON.stringify(sideBarData));
+  const copiedSideBarData = JSON.pTs(JSON.stringify(sideBarData));
+  const resultData = updateDocumentToTree(
     copiedSideBarData,
     parentId,
     postData,
@@ -60,18 +70,47 @@ export function appendEditingPostToSideBar(sideBarData, postData, parentId) {
     }
   );
 
-  return nextState;
+  return resultData;
+}
+export async function deleteDocumentWithValidation(
+  url,
+  headerOption = { "x-username": "ienrum" },
+  id
+) {
+  url = url + "/" + id;
+  const options = {
+    method: "DELETE",
+    headers: headerOption,
+  };
+  const data = await fetchData(url, options);
+  if (data === null) {
+    return {};
+  }
+  return data;
 }
 
-export const flatSideBarData = (data) => {
+// 트리 구조인 sideBarData 를 flat 하게 만들어줍니다.  const result = [];
+export const flatSideBarData = (sideBarData) => {
   const result = [];
-  data.forEach((item) => {
+
+  sideBarData.forEach((item) => {
     result.push({
       id: item.id,
       title: item.title,
     });
     if (item.documents.length > 0) {
       result.push(...flatSideBarData(item.documents));
+    }
+  });
+  return result;
+};
+
+export const getIDs = (sideBarData) => {
+  const result = [];
+  sideBarData.forEach((item) => {
+    result.push(item.id);
+    if (item.documents.length > 0) {
+      result.push(...getIDs(item.documents));
     }
   });
   return result;

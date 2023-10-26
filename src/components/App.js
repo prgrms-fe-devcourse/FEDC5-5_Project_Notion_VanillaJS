@@ -3,8 +3,8 @@ import PostEdit from "./PostEdit.js";
 import Header from "./Header.js";
 
 import { InitRouter } from "../utils/router.js";
+import { updatePostToSideBar } from "../utils/dataManager.js";
 
-import { updateEditingPostToSideBar } from "../utils/dataManager.js";
 export default function App({
   $target,
   initialSideBarState,
@@ -27,10 +27,7 @@ export default function App({
     $target: $main,
     initalState: initialEditorState,
     setSideBarState: (editingPostData) => {
-      const nextState = updateEditingPostToSideBar(
-        sideBar.state,
-        editingPostData
-      );
+      const nextState = updatePostToSideBar(sideBar.state, editingPostData);
       sideBar.setState(nextState);
     },
   });

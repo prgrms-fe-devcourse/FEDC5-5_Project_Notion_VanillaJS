@@ -12,6 +12,7 @@ export function InitRouter(onRoute) {
     onRoute(window.location.pathname);
   });
 }
+
 export function push(path) {
   window.dispatchEvent(
     new CustomEvent(ROUTE_CHANGE_EVENT_NAME, { detail: { path } })

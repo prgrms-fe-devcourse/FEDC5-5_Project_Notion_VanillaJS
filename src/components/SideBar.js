@@ -1,8 +1,8 @@
 import { postData } from "../utils/fetchData.js";
 import { setFlatSideBarData } from "../utils/storage.js";
+import { appendPostToSideBar } from "../utils/dataManager.js";
+import { pushHistoryById } from "../utils/router.js";
 
-import { appendEditingPostToSideBar } from "../utils/dataManager.js";
-import { pushHistoryById, push } from "../utils/router.js";
 export default function SideBar({ $target, initialState, setPostIdState }) {
   const $div = document.createElement("div");
   $div.id = "sidebar";
@@ -23,9 +23,7 @@ export default function SideBar({ $target, initialState, setPostIdState }) {
         parent: e.target.id,
       };
       postData(data).then((data) => {
-        this.setState(
-          appendEditingPostToSideBar(this.state, data, e.target.id)
-        );
+        this.setState(appendPostToSideBar(this.state, data, e.target.id));
         setPostIdState(data.id);
         pushHistoryById(data.id);
       });
