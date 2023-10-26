@@ -1,3 +1,5 @@
+import checkNewComponent from "../../utils/checkNewComponent.js";
+
 export default function SideBarList({
     $target,
     initialState,
@@ -5,6 +7,9 @@ export default function SideBarList({
     deleteCurrDocument,
     onClick,
 }) {
+    const self = this;
+    checkNewComponent(SideBarList, self);
+
     const $sideBarList = document.createElement("div");
 
     $target.appendChild($sideBarList);
@@ -54,8 +59,7 @@ export default function SideBarList({
             const { id } = e.target;
             if (id === "documentContainer") return;
             const { documentid } = e.target.dataset;
-            console.log(id);
-            console.log(documentid);
+
             const actions = {
                 addButton: addSubDocument,
                 deleteButton: deleteCurrDocument,

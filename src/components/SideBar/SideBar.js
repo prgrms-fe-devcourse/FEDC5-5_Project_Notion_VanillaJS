@@ -1,14 +1,19 @@
-import SideBarHeader from "./SideBarHeader.js";
-import SideBarList from "./SideBarList.js";
-import { deleteDocument, getRootDocument, makeNewDocument } from "./api.js";
-import { push } from "./router.js";
-import { removeItem } from "./storage.js";
+import { SideBarHeader, SideBarList } from "./index.js";
+import {
+    deleteDocument,
+    getRootDocument,
+    makeNewDocument,
+} from "../../service/api.js";
+import { push } from "../../router.js";
+import { removeItem } from "../../utils/storage.js";
+import checkNewComponent from "../../utils/checkNewComponent.js";
 
 export default function SideBar({ $target }) {
+    const self = this;
+    checkNewComponent(SideBar, self);
+
     const $sideBar = document.createElement("div");
     new SideBarHeader({ $target: $sideBar });
-
-    const self = this;
 
     const sideBarList = new SideBarList({
         $target: $sideBar,
@@ -21,16 +26,15 @@ export default function SideBar({ $target }) {
             const { id } = newDocument;
             push(`/documents/${id}`);
 
-            // console.log(newDocument);
-            // console.log(id);
-
             self.render();
         },
         deleteCurrDocument: async (documentId) => {
             await deleteDocument(`/${documentId}`);
+            removeItem(`temp-post-${documentId}`);
+
             push("/");
             history.replaceState(null, null, "/");
-            removeItem(`temp-post-${documentId}`);
+
             self.render();
         },
         onClick: async (documentId) => {
@@ -52,6 +56,7 @@ export default function SideBar({ $target }) {
 
         const { id } = newDocument;
         push(`/documents/${id}`);
+
         self.render();
     });
 
@@ -63,8 +68,6 @@ export default function SideBar({ $target }) {
     this.render = async () => {
         await getAllDocument();
         $target.prepend($sideBar);
-
-        console.log(sideBarList.state);
     };
     this.render();
 }

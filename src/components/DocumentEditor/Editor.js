@@ -1,9 +1,15 @@
+import checkNewComponent from "../../utils/checkNewComponent.js";
+
 export default function Editor({
     $target,
     initialState = { title: "", content: "" },
     onEditing,
 }) {
+    const self = this;
+    checkNewComponent(Editor, self);
+
     const $editor = document.createElement("div");
+    $editor.id = "contentEditableItem";
     $target.appendChild($editor);
 
     $editor.innerHTML = `
@@ -64,6 +70,7 @@ export default function Editor({
         .querySelector("[name=content]")
         .addEventListener("input", (event) => {
             const { target } = event;
+
             const nextState = {
                 ...this.state,
                 content: target.innerHTML,

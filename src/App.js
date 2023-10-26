@@ -1,8 +1,12 @@
-import SideBar from "./SideBar.js";
-import DocumentPage from "./DocumentPage.js";
+import { SideBar } from "./components/SideBar/index.js";
+import { DocumentPage } from "./components/DocumentEditor/index.js";
 import { initRouter } from "./router.js";
+import checkNewComponent from "./utils/checkNewComponent.js";
 
 export default function App({ $target }) {
+    const self = this;
+    checkNewComponent(App, self);
+
     const sideBar = new SideBar({
         $target,
     });
@@ -17,15 +21,7 @@ export default function App({ $target }) {
         updateSideBar: () => sideBar.render(),
     });
 
-    const ToggleDocumentVisibility = (visible) => {
-        const documentVisibility =
-            document.querySelector(".documentItem") || null;
-        if (documentVisibility == null) {
-            return;
-        }
-        documentVisibility.style.display = visible;
-    };
-    const removeDocumentVisibility = (parent) => {
+    const ToggleDocumentVisibility = (parent) => {
         const childDocument = document.querySelector(".documentItem") || null;
         if (childDocument == null) {
             return;
@@ -37,15 +33,12 @@ export default function App({ $target }) {
         const { pathname } = window.location;
 
         if (pathname === "/") {
-            // ToggleDocumentVisibility("none");
-            removeDocumentVisibility($target);
+            ToggleDocumentVisibility($target);
 
             sideBar.render();
         } else if (pathname.includes("/documents/")) {
             const [, , documentId] = pathname.split("/");
             documentPage.setState({ documentId });
-
-            // ToggleDocumentVisibility("block");
         }
     };
     this.route();

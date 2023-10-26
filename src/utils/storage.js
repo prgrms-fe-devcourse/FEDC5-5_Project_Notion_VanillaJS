@@ -10,7 +10,6 @@ export const getItem = (key, defaultValue) => {
 };
 
 export const setItem = (key, value) => {
-    console.log(value);
     storage.setItem(key, JSON.stringify(value));
 };
 

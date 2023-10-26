@@ -1,8 +1,12 @@
 import Editor from "./Editor.js";
-import { getSelectedDocument, updateDocument } from "./api.js";
-import { getItem, setItem } from "./storage.js";
+import { getSelectedDocument, updateDocument } from "../../service/api.js";
+import { getItem, setItem } from "../../utils/storage.js";
+import checkNewComponent from "../../utils/checkNewComponent.js";
 
 export default function DocumentPage({ $target, initialState, updateSideBar }) {
+    const self = this;
+    checkNewComponent(DocumentPage, self);
+
     const $documentPage = document.createElement("div");
     $documentPage.className = "documentItem";
 
