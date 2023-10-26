@@ -33,36 +33,21 @@ export default function Editor({ $target, initalState, setSideBarState }) {
       if (acc.some((ac) => ac.title === cur.title)) return acc;
       else return [...acc, cur];
     }, []);
+
     tempLinkingPosts.sort((a, b) => {
-      return b.title.length - a.title.length;
+      return a.title.length - b.title.length;
     });
     const linkingPosts = tempLinkingPosts;
     if (linkingPosts) {
       linkingPosts.forEach((linkingPost) => {
         const link = `[${linkingPost.title}](/documents/${linkingPost.id})`;
-        console.log(
-          tempState.content.match(
-            new RegExp(`\[.*${linkingPost.title}.*\]`, "g")
-          ),
-          tempState.content
+
+        tempState.content = tempState.content.replaceAll(
+          new RegExp(`(\\b${linkingPost.title}\\b)`, "g"),
+          link
         );
-        if (
-          tempState.content.match(
-            new RegExp(`\[[^\]*${linkingPost.title}[^\]]*\]`, "g")
-          )
-        ) {
-        } else {
-          tempState.content = tempState.content.replaceAll(
-            new RegExp(
-              `(?!\[[^\]*${linkingPost.title}[^\]]*\])(${linkingPost.title})`,
-              "g"
-            ),
-            link
-          );
-        }
       });
     }
-    console.log(tempState.content, state.content);
     richView.setState(tempState);
   };
 
@@ -100,7 +85,7 @@ export default function Editor({ $target, initalState, setSideBarState }) {
       <input type="text" id="title" value="${
         this.state.title ? this.state.title : ""
       }" />
-      <textarea id="content" contentEditable="true" style="width:600px;height:400px;border: 1px solid">${
+      <textarea id="content" contentEditable="true" >${
         this.state.content ? this.state.content : ""
       }</textarea>
       `;
