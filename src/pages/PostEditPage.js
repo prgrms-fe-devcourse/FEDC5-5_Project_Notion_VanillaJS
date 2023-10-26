@@ -14,7 +14,7 @@ export default function PostEditPage({ $target, initialState }) {
   let timer = null;
 
   const savedPost = getItem(postLocalSaveKey, {
-    title: "제목 없음",
+    title: "",
     content: "",
   });
 

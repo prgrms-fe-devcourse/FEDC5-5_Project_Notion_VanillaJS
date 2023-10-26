@@ -27,17 +27,17 @@ export default function PostList({
             `<li data-id=${post.id} class="post-li">
               <div class="post-list-block parent-list">
                 <img class="toggle-img" src="/src/icons/arrow-${
-              post.documents.length === 0 ? "right" : "bottom"
-            }.svg" />
-                <div class="post-title">${post.title}</div>
+                  post.documents.length === 0 ? "right" : "bottom"
+                }.svg" />
+                <div class="post-title">${
+                  post.title === "" ? "제목 없음" : post.title
+                }</div>
                 <img class="add-child-img" src="/src/icons/add.svg" />
                 <img class="delete-post-img" src="/src/icons/delete.svg" />
               </div>
             ${
               post.documents.length !== 0
-                ? `<ul class="toggle-ul">${recursiveList(
-                    post.documents
-                  )}</ul>`
+                ? `<ul class="toggle-ul">${recursiveList(post.documents)}</ul>`
                 : "<ul class='toggle-ul toggle-off'><div style='color: darkgrey'>하위 문서 없음</div></ul>"
             }
           </li>`
@@ -74,11 +74,10 @@ export default function PostList({
     } else {
       $childrenUl.classList.add("toggle-off");
       $toggleImg.src = "/src/icons/arrow-right.svg";
-        }
+    }
   };
 
   $postList.addEventListener("click", (e) => {
-
     // 루트 문서 생성
     if (e.target.closest("div").matches(".add-root-post")) {
       push(`/documents/new`);
