@@ -29,8 +29,8 @@ export default function RootList({
       <div class="li-title">
         ${
           //제목이 길면 짤라줌
-          document.title.length > 8
-            ? `${document.title.slice(0, 8)}...`
+          document.title.length > 12
+            ? `${document.title.slice(0, 12)}...`
             : document.title
         }</div>
         <button class="addSibling">+</button>
@@ -69,7 +69,7 @@ export default function RootList({
       //화살표 클릭 시 open className추가
       $liContainer.classList.toggle("content-opened");
       $arrow.classList.toggle("arrow-opened");
-    } else if ($title) {
+    } else if ($title || $liContainer) {
       //liContent클릭 시 해당 li로 화면 렌더링
       const { id } = $li.dataset;
       onClick(id);
@@ -77,6 +77,7 @@ export default function RootList({
       //button클릭시 새 문서 혹은 하위문서 추가
       if ($button.className === "addParent") {
         addNewDoc();
+        return;
       } else {
         const { id } = $li.dataset;
         addSibling(id);

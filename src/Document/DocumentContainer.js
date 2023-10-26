@@ -19,8 +19,11 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
       //무한루프 방어코드
       return;
     }
+    if (doc.title === "제목없음") {
+      doc.content = "";
+    }
     this.setState(doc);
-    // console.log("fechDoc", doc);
+    //console.log("fechDoc", doc);
   };
 
   const $editor = new Editor({
@@ -33,9 +36,10 @@ export default function DocumentContainer({ $target, initialState, EditDoc }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    $editor.setState(nextState);
+
+    $editor.setState(this.state);
     $editor.render();
-    $button.setState(nextState);
+    $button.setState(this.state);
   };
 
   const $button = new RemoveButton({ $page, initialState });
