@@ -98,6 +98,24 @@ export async function deleteDocuments() {
   });
 }
 
+export async function deleteEmptyStringDocuments() {
+  const documents = await getDocumentsWithValidation(
+    ROOT_DOCUMETS_URL,
+    HEADER_OPTION
+  );
+  const ids = getIDs(documents);
+  ids.forEach(async (id) => {
+    const data = await getDocumentWithValidation(
+      ROOT_DOCUMETS_URL,
+      HEADER_OPTION,
+      id
+    );
+    if (data.title === "") {
+      await deleteDocumentWithValidation(ROOT_DOCUMETS_URL, HEADER_OPTION, id);
+    }
+  });
+}
+
 export async function deleteDocumentWithValidation(
   url,
   headerOption = { "x-username": "ienrum" },
