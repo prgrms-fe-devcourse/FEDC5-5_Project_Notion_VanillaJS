@@ -259,16 +259,20 @@ export default function App({ targetEl }) {
     }
   };
 
-  const onRouterChange = (pathname) => {
-    const arr = pathname.substring(1).split("/");
-    const id = arr.length > 1 ? Number(arr[1]) : null;
+  const onRouterChange = (pathname) => { console.log(pathname, this.state)
+    const pattern = new RegExp(/^\/documents\/(?<id>\d+)/);
+    const match = pattern.exec(pathname);
+    const id = match?.groups?.id ? Number(match.groups.id) : null;
 
-    if (this.state.selectedDocumentId !== id) {
+    if (pathname === "/" || (match && id)) {
       this.setState({
         ...this.state,
         selectedDocumentId: id,
       });
+
       fetchDocument(id);
+    } else {
+      router.replace("/");
     }
 
     clearTimeout(serverUpdateTimer);
