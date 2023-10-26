@@ -3,6 +3,8 @@
   --width: 230px;
 }
 
+109 108 104
+
 #app{
   margin: 0;
   padding: 0;
@@ -64,8 +66,18 @@ summary:hover{
 }
 
 .document-buttons {
+  display: none;
+}
+
+summary:hover > .document-buttons{
   display: flex;
   flex-direction: row;
+  color: rgba(25, 23, 17, 0.6);
+}
+
+summary:hover > .document-buttons > button:hover{
+  background-color: rgba(55, 53, 47, 0.08);
+  border-radius: 4px;
 }
 
 details[open] summary::before {
@@ -99,8 +111,9 @@ align-items: center;
 }
 
 button{
-  border: none;
-  border-radius: 6px;
+  background-color: rgb(235, 235, 235);
+  color: rgb(55, 53, 47);
+  font-weight: 600;
   width: 20px;
   height: 20px;
   margin: 0 0 0 2px;

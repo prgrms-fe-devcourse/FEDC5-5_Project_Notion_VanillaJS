@@ -16,7 +16,6 @@ export default function Editor({
   $target.appendChild($editor);
 
   this.setState = (nextState) => {
-    console.log('this.state',this.state, nextState)
     this.state = nextState;
     if (this.state) {
       $editor.querySelector('[name=title]').value = this.state.title;
