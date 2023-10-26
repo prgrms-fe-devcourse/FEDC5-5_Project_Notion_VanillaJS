@@ -6,7 +6,7 @@ import { push } from "../utils/router.js";
 
 export default function PostEditPage({ $target, initialState }) {
   const $page = document.createElement("div");
-  $page.className = "post-edit";
+  $page.className = "post-edit-page";
 
   this.state = initialState;
 
@@ -56,10 +56,10 @@ export default function PostEditPage({ $target, initialState }) {
     postLocalSaveKey = `temp-post-${nextState.id}`;
     this.state = nextState;
 
-    editor.setState({
-      title: this.state.post.title,
-      content: this.state.post.content,
-    });
+    // editor.setState({
+    //   title: this.state.post.title,
+    //   content: this.state.post.content,
+    // });
 
     const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
     if (

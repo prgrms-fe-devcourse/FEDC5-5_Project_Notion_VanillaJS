@@ -1,4 +1,9 @@
+html {
+  width: 100px;
+}
+
 body {
+  width: 100px;
   margin: 0px;
   font-weight: 500;
   font-size: 14px;
@@ -7,6 +12,31 @@ body {
 #app {
   display: flex;
   flex-direction: row;
+  width: 95vw;
+}
+
+/* PostListPage */
+
+.post-list-page {
+  width: 225px;
+  height: 100vh;
+  border: 1px solid #e1e1e1;
+  background-color: #fbfbfa;
+  margin: 1px 0;
+  padding: 2px 10px;
+}
+
+/* PostList */
+
+.post-list-block {
+  display: flex;
+  align-items: center;
+  color: #6d6c69;
+}
+
+.post-list-title {
+  height: 37px;
+  color: #37352f;
 }
 
 .toggle-ul {
@@ -17,35 +47,13 @@ body {
   display: block;
 }
 
-.post-list-page {
-  width: 225px;
-  height: 100vh;
-  border: 1px solid #e1e1e1;
-  background-color: #fbfbfa;
-  margin: 1px 0;
-  padding: 2px 10px;
-
-}
-
-.post-list-block {
-  display: flex;
-  align-items: center;
-  color: #6D6C69;
-}
-
-.post-list-title {
-  height: 37px;
-  color: #37352F;
-}
-
-/* .add-root-post {
-  display: flex;
-  align-items: center;
-} */
-
 .post-list {
   display: flex;
   flex-direction: column;
+}
+
+.post-list li:hover {
+  background-color: #ebebea;
 }
 
 .post-list ul {
@@ -66,19 +74,57 @@ body {
   text-overflow: ellipsis;
 }
 
-.post-edit {
+/* PostEditPage */
+
+.post-edit-page {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 100vh;
-  border: 1px solid black;
+}
+
+/* Editor */
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+
+[contenteditable]:empty:not(:focus):before {
+  content: attr(data-text);
+  color: #e1e1e1;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+}
+
+.text-container {
+  display: flex;
+  width: 100%;
+  margin: 10px 300px;
+}
+
+/* TitleEditor */
+
+.title-box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.title-top-margin {
+  margin: 80px 0 4px 1px;
 }
 
 .input-title {
-  width: 90%;
+  border: 0px;
+  width: 100%;
 }
 
-.render-content {
+/* .render-content {
   width: 90%;
   height: 90vh;
   border: 1px solid black;
@@ -90,4 +136,4 @@ body {
 .input-content h4,
 .input-content h5 {
   display: inline;
-}
+} */

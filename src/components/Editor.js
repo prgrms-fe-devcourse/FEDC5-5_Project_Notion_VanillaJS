@@ -1,21 +1,27 @@
+import TitleEditor from "./TitleEditor.js";
+import ContentEditor from "./ContentEditor.js";
+
 export default function Editor({ $target, initialState, onEditing }) {
   const $editor = document.createElement("div");
+  $editor.className = "editor-container";
 
   this.state = initialState;
 
-  $editor.innerHTML = `
-    <input type="text" class="input-title" name="title" value="${
-      this.state.title
-    }"/>
-    <textarea class="input-content" name="content">${
-      this.state.content ? this.state.content : ""
-    }</textarea>
-  `;
+  const titleEditor = new TitleEditor({
+    $target: $editor,
+    initialState: initialState.title,
+    onEditing,
+  });
+
+  const contentEditor = new ContentEditor({
+    $target: $editor,
+    initialState: initialState.content,
+    onEditing,
+  });
 
   this.setState = (nextState) => {
-    this.state = nextState;
-    $editor.querySelector(".input-title").value = this.state.title;
-    $editor.querySelector(".input-content").value = this.state.content;
+    titleEditor.setState(nextState.title);
+    contentEditor.setState(nextState.content);
   };
 
   this.render = () => {
@@ -23,22 +29,4 @@ export default function Editor({ $target, initialState, onEditing }) {
   };
 
   this.render();
-
-  // 편집기 제목 입력
-  $editor.querySelector(".input-title").addEventListener("keyup", (e) => {
-    this.setState({
-      ...this.state,
-      title: e.target.value,
-    });
-    onEditing(this.state);
-  });
-
-  // 편집기 내용 입력
-  $editor.querySelector(".input-content").addEventListener("input", (e) => {
-    this.setState({
-      ...this.state,
-      content: e.target.value,
-    });
-    onEditing(this.state);
-  });
 }

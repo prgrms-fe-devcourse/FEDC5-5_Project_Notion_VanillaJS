@@ -28,8 +28,8 @@ export default function App({ $target }) {
     const { pathname } = window.location;
 
     // 루트 경로일 때 편집기가 보이지 않도록 설정
-    if (pathname === "/" && $target.querySelector(".post-edit")) {
-      $target.removeChild($target.querySelector(".post-edit"));
+    if (pathname === "/" && $target.querySelector(".post-edit-page")) {
+      $target.removeChild($target.querySelector(".post-edit-page"));
       return;
     }
 
