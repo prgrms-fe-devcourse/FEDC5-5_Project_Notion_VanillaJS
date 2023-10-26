@@ -3,7 +3,8 @@ export default function RootList({
   initialState,
   onClick,
   addNewDoc,
-  addSibling,
+  addSubDoc,
+  deleteDoc,
 }) {
   const $root = document.createElement("div");
   $root.className = "root";
@@ -30,12 +31,13 @@ export default function RootList({
       } 
       <div class="li-title">
         ${
-          //제목이 길면 짤라줌
+          //제목이 길면 잘라줌
           document.title.length > 12
             ? `${document.title.slice(0, 12)}...`
             : document.title
         }</div>
-        <img src="../../img/add.svg" class="addSibling">
+        <img src="../../img/delete.svg" class="deleteButton">
+        <img src="../../img/add.svg" class="addSubDoc">
       </li>
       ${
         //하위 documents가 있다면 재귀적으로 renerDocument함수 다시 호출
@@ -48,6 +50,7 @@ export default function RootList({
       </div>`;
   }
 
+  //this.render 내부에서 renderDocument 실행
   this.render = () => {
     $root.innerHTML = `
           <div class="document_tree">
@@ -60,7 +63,7 @@ export default function RootList({
   };
 
   $root.addEventListener("click", (e) => {
-    //li, 버튼, 화살표, li의 title,
+    //root 내부의 요소들 클릭 시 요소 별 액션 분할
     const $li = e.target.closest("li");
     const $button = e.target.closest("img");
     const $arrow = e.target.closest(".li-arrow");
@@ -72,28 +75,30 @@ export default function RootList({
       $liContainer.classList.toggle("content-opened");
       $arrow.classList.toggle("arrow-opened");
     } else if ($title) {
-      //liContent클릭 시 해당 li로 화면 렌더링c
-
+      //글 제목 클릭 시 해당 글로 화면 렌더링
       const { id } = $li.dataset;
       onClick(id);
     } else if ($button) {
-      //button클릭시 새 문서 혹은 하위문서 추가
+      //button 클래그 별로 클릭시 새 문서 혹은 하위문서 추가 및 삭제
       if ($button.className === "addParent") {
         addNewDoc();
         return;
-      } else if ($button.className === "addSibling") {
+      } else if ($button.className === "addSubDoc") {
         const { id } = $li.dataset;
-        addSibling(id);
+        addSubDoc(id);
         e.stopPropagation();
+      } else {
+        const { id } = $li.dataset;
+        deleteDoc(id);
       }
     } else {
       //컨테이너 클릭 시 아무일도 안일어나도록.
       return;
     }
 
-    const $ul = $liContainer.querySelector("ul"); // 하위 docs ul
+    const $ul = $liContainer.querySelector("ul"); // 하위 documents를 나타내는 ul
     if ($ul) {
-      // 하위 문서가 있다면 디스플레이 상태 조절
+      // 하위 문서의 화면 표시 여부 결정
       $ul.style.display = $liContainer.classList.contains("content-opened")
         ? "none"
         : "block";

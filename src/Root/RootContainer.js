@@ -8,39 +8,17 @@ export default function RootContainer({
   onRenderDoc,
   onAddDoc,
 }) {
+  const $page = document.createElement("div");
+  $page.className = "RootContainer";
+  $target.appendChild($page);
+
+  this.state = initialState;
+
   this.setState = (nextState) => {
     this.state = nextState;
     title.render();
     rootList.setState(this.state);
   };
-
-  const $page = document.createElement("div");
-  $page.className = "RootContainer";
-  $target.appendChild($page);
-
-  const fetchNewPost = async () => {
-    const res = await request(`/documents`, {
-      method: "POST",
-      body: JSON.stringify({
-        title: "제목없음",
-        parent: "",
-      }),
-    });
-    return res;
-  };
-
-  const fetchSiblingPost = async (id) => {
-    const res = await request(`/documents`, {
-      method: "POST",
-      body: JSON.stringify({
-        title: "제목없음",
-        parent: id,
-      }),
-    });
-    return res;
-  };
-
-  this.state = initialState;
 
   const title = new Title({
     $page,
@@ -59,10 +37,42 @@ export default function RootContainer({
       push(res.id);
     },
 
-    addSibling: async (id) => {
-      const res = await fetchSiblingPost(id);
+    addSubDoc: async (id) => {
+      const res = await fetchSubPost(id);
       console.log("adS", res);
       push(res.id);
     },
+    deleteDoc: async (id) => {
+      await fetchDelete(id);
+      push("");
+    },
   });
+
+  const fetchNewPost = async () => {
+    const res = await request(`/documents`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: "제목없음",
+        parent: "",
+      }),
+    });
+    return res;
+  };
+
+  const fetchSubPost = async (id) => {
+    const res = await request(`/documents`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: "제목없음",
+        parent: id,
+      }),
+    });
+    return res;
+  };
+
+  const fetchDelete = async (id) => {
+    const res = await request(`/documents/${id}`, {
+      method: "DELETE",
+    });
+  };
 }

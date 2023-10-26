@@ -3,7 +3,6 @@ export const getChangedTitle = (fetchRoot) => {
     const { nextTitle } = e.detail;
     if (nextTitle) {
       fetchRoot();
-      console.log("nextTitle", nextTitle);
     }
   });
 };
@@ -16,4 +15,4 @@ export const changeRootTitle = (state) => {
       },
     })
   );
-}; //Editor에서 실행되는거고
+};

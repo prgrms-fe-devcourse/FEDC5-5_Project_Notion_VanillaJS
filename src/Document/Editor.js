@@ -1,23 +1,44 @@
+//import FindTitle from "./FindTitle.js"; 구현 실패
 import { request } from "../../library/api.js";
 import { changeRootTitle } from "../../library/titleChanger.js";
-export default function Editor({ $page, initialState, onEdit }) {
+import { markdownToHtml, htmlToMarkdown } from "../../library/convert.js";
+export default function Editor({ $page, initialState }) {
   this.state = initialState;
 
   const handleKeyUp = async (e) => {
-    const name = e.target.name; //타겟이 제목인지 내용인풋인지
+    if (e.target.className === "editor-title") {
+      handleTitle(e.target.value);
+    } else if (e.target.className === "editor-content") {
+      handleContent(e.target);
+    }
+  };
+
+  const handleTitle = async (e) => {
     const nextState = {
       ...this.state,
-      [name]: e.target.value,
-    }; //nextState를 keyup있을 때마다 실시간으로 바꿔주는데
-    if (name === "title" && e.target.value === "") {
-      //제목이 없으면 제목없음으로 하는 예외처리
+      title: e,
+    };
+    if (e === "") {
       nextState.title = "제목없음";
     }
     this.setState(nextState);
-    await fetchEditDoc(nextState);
-    changeRootTitle(this.state); //root에 제목변화 반영해주자.
+    await fetchEditDoc(this.state);
+    changeRootTitle(this.state);
   };
 
+  const handleContent = async (e) => {
+    const content = markdownToHtml(e.innerText);
+    const nextState = {
+      ...this.state,
+      content: content,
+    };
+    this.setState(nextState);
+    //findTitle.setState(nextState); Find Title 실패
+    //await findTitle.findMatchedTitle(nextState.content);
+    await fetchEditDoc(this.state);
+  };
+
+  //const findTitle = new FindTitle({ $page, initialState }); 실패
   const fetchEditDoc = async (document) => {
     await request(`/documents/${document.id}`, {
       method: "PUT",
@@ -30,25 +51,45 @@ export default function Editor({ $page, initialState, onEdit }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    //console.log("EditorState", this.state);
   };
-  // let isInit = false;
 
   this.render = () => {
+    console.log("d", this.state, this.state.content);
     if (this.state.title === "제목없음") {
       $page.innerHTML = `
-        <input type="text" name="title" style="width:93%; height:5%; margin:20px;" placeholder="제목을 입력하세요"> <!-- Use placeholder attribute -->
-        <textarea name="content" style="width:93%; height:70%; margin:20px;">${this.state.content}</textarea>
+        <input type="text" class="editor-title" style="width:93%; height:5%; margin:20px;" placeholder="제목을 입력하세요">
+        <div contenteditable="true" class="editor-content" id="contentInput" style="border:1px solid black;border-radius: 0.5rem;">${this.state.content}</div>
       `;
     } else {
       $page.innerHTML = `
-        <input type="text" class="input-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
-        <textarea name="content" style="width:93%; height:70%; margin:20px;">${this.state.content}</textarea>
+        <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${
+          this.state.title
+        }">
+        <div contenteditable="true" class="editor-content" id="contentInput" style="${
+          this.state.content === ""
+            ? "border:1px solid black; border-radius: 0.5rem"
+            : ""
+        }">${this.state.content}</div>
       `;
     }
-    // isInit = true;
+    if (this.state.content === "") {
+      console.log("adf");
+    }
+    this.focused(); //render가 될때마다 addEventListener가 되는걸 고치고 싶었는데 실패함.
   };
 
-  //if문이 어딘가에 있고 명령어에 따라 마크업 태그를 JSON으로 변환해서
+  this.focused = () => {
+    const $contentInput = $page.querySelector(".editor-content");
+    //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어준다.
+    $contentInput.addEventListener("focus", () => {
+      const contentEditableContent = htmlToMarkdown(this.state.content);
+      $page.innerHTML = `
+      <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
+      <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
+    `;
+    });
+  };
+
+  // editor에 입력이 있으면 handleKeyUp 실행
   $page.addEventListener("keyup", (e) => handleKeyUp(e));
 }

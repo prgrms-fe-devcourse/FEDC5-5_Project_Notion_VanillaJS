@@ -5,14 +5,14 @@ export default function Title({ $page }) {
   $titleContainer.className = "title-container";
   $page.appendChild($titleContainer);
 
-  // Image Element
+  // 좌측 상단 노션 이미지
   const $image = document.createElement("img");
   $titleContainer.appendChild($image);
   $image.src = "/img/notionTitle.JPG";
   $image.alt = "Notion Title";
   $image.className = "title-image";
 
-  // Title Element
+  // 좌측 상단 제목
   const $title = document.createElement("div");
   $titleContainer.appendChild($title);
   $title.className = "title";
@@ -25,6 +25,7 @@ export default function Title({ $page }) {
     $title.innerHTML = "이재준의 Notion";
   };
 
+  //클릭 시 홈으로 이동
   $titleContainer.addEventListener("click", (e) => {
     push("");
   });

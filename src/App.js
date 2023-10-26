@@ -16,13 +16,17 @@ export default function App({ $app }) {
     this.state = nextState;
     rootContainer.setState(this.state);
   };
-  //
 
-  //이 fetch들은 this.state로 해서 아래로 각자 넘겨줍시다.
+  //fetchRoot로 rootContainer를 렌더해줍니다.
   const fetchRoot = async () => {
     const roots = await request(`/documents`);
     this.setState(roots);
   };
+
+  //게시글 제목이 바뀌는 경우 Root Render
+  getChangedTitle(() => {
+    fetchRoot();
+  });
 
   const rootContainer = new RootContainer({
     $target,
@@ -41,9 +45,6 @@ export default function App({ $app }) {
       documents: [],
       createAt: null,
       updatedAt: null,
-    },
-    EditDoc: (document) => {
-      fetchEditingDoc(document);
     },
   });
 
@@ -71,9 +72,5 @@ export default function App({ $app }) {
     const [, , docId] = pathname.split("/");
     fetchRoot();
     documentContainer.fetchDoc(docId);
-  });
-
-  getChangedTitle(() => {
-    fetchRoot();
   });
 }
