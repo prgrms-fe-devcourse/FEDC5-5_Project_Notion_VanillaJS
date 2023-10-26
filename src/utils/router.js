@@ -7,6 +7,10 @@ export function InitRouter(onRoute) {
       onRoute(window.location.pathname);
     }
   });
+
+  window.addEventListener("popstate", () => {
+    onRoute(window.location.pathname);
+  });
 }
 export function push(path) {
   window.dispatchEvent(
@@ -15,5 +19,5 @@ export function push(path) {
 }
 export function pushHistoryById(id) {
   const path = `/documents/${id}`;
-  window.history.pushState(null, null, path);
+  push(path);
 }
