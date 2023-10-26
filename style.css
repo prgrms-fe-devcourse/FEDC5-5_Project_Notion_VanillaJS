@@ -1,36 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root{
+  --sans-serif: 'ui-sans-serif', '-apple-system', 'BlinkMacSystemFont';
+  --width: 230px;
+}
 
 #app{
   margin: 0;
   padding: 0;
   border: 0;
-  color: rgb(99, 98, 97);
-  font-family: 'Noto Sans KR', sans-serif;
+  color: rgba(99, 98, 97);
+  font-family: var(--sans-serif)
 }
 
 .sidebar{
   background-color: rgb(251, 251, 251);
+  color: rgba(25, 23, 17, 0.6);
+  border-right: 1px solid rgb(245, 245, 245);
   height: 100vh;
-  width: 230px;
-  padding-left: 4px;
-  box-sizing: border-box;
+  width: var(--width);
+  font-size: 14px;
+  min-height: 27px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 4px;
+  box-sizing: border-box;
+  padding-left: 8px;
 }
 
 h3{
-  padding: 16px;
+  padding: 14px;
   font-weight: 600;
-  color: #37352f;
+  color: rgb(55, 53, 47)
 }
 
-.sidebar ul{
-  width: calc(100% - 16px);
-}
-
-details {
-  padding: 4px 0 4px 4px;
+details{
+  color: rgba(25, 23, 17, 0.6);
 }
 
 details > ul {
@@ -39,9 +42,11 @@ details > ul {
 
 summary {
   list-style-type: none;
-  font-weight: 300;
+  font-weight: 500;
   display: flex;
   align-items: center;
+  margin: 1px 0;
+  padding: 2px 10px;
 }
 
 .title {
@@ -62,26 +67,30 @@ summary:hover{
 }
 
 details[open] summary::before {
-  content: '⮟';
+  content: '-';
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='10px' transform='rotate(90)' viewBox='0 0 320 512'%3E%3Cstyle%3Esvg%7Bfill:%237c7a76%7D%3C/style%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E");
   display: inline-block;
-
+  padding: 4px; 
 }
 
 details:not([open]) summary::before {
-  content: '⮞';
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='10px' viewBox='0 0 320 512'%3E%3Cstyle%3Esvg%7Bfill:%237c7a76%7D%3C/style%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E");
   display: inline-block;
-
+  padding: 4px;
 }
 
 .sidebar h4 {
 border: none;
 padding: 2px 10px;
+display: flex;
+align-items: center;
 }
 
 .sidebar h4::before{
   content: '+';
+  width: 10px;
   display: inline-block;
-
+  padding-right: 4px;
 }
 
 .sidebar h4:hover{
@@ -94,11 +103,12 @@ button{
   width: 20px;
   height: 20px;
   margin: 0 0 0 2px;
+  cursor: pointer;
 }
 
 .editor{
   padding: 0px 50px;
-  width: calc(100vw - 230px);
+  width: calc(100vw - var(--width));
   box-sizing: border-box;
 }
 
@@ -107,7 +117,7 @@ font-size: 40px;
 border: none;
 outline: none;
 margin: 120px 0 30px 0;
-font-family: 'Noto Sans KR', sans-serif;
+font-family: var(--sans-serif);
 font-weight: 700;
 }
 
@@ -116,5 +126,5 @@ font-weight: 700;
   height: 400px;
   border: none;
   outline: none;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: var(--sans-serif);
 }
