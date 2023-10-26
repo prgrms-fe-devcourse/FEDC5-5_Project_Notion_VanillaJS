@@ -1,6 +1,6 @@
 import { asyncDataObj } from "./api.js";
 
-export const getLocalSaveKey = (id) => `NOTION_CLONE_TEMP_${id}`;
+export const UNTITLED = "제목 없음";
 
 export const editorCommands = [
   { command: "bold", label: "bold", icon: "/svg/bold.svg" },
@@ -23,6 +23,8 @@ export const editorCommands = [
     icon: "/svg/align-right.svg",
   },
 ];
+
+export const getLocalSaveKey = (id) => `NOTION_CLONE_TEMP_${id}`;
 
 export const getFlatDocuments = (asyncDocumentsData) => {
   const { isLoading, isError, data } = asyncDocumentsData;

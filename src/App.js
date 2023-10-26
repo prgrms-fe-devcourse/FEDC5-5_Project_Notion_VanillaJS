@@ -1,10 +1,10 @@
-import Editor from "./Editor.js";
 import Sidebar from "./Sidebar.js";
+import Editor from "./Editor.js";
+import Indicator from "./Indicator.js";
 import router from "./router.js";
 import { asyncDataObj, request } from "./api.js";
 import { setItem, getItem, removeItem } from "./storage.js";
-import { compareObject, getLocalSaveKey } from "./utility.js";
-import Indicator from "./Indicator.js";
+import { UNTITLED, compareObject, getLocalSaveKey } from "./utility.js";
 
 export default function App({ targetEl }) {
   this.isInit = false;
@@ -52,6 +52,46 @@ export default function App({ targetEl }) {
     }
   };
 
+  const onCreate = async (parent) => {
+    const res = await createDocument(parent);
+
+    await fetchDocuments();
+
+    if (res.id) {
+      router.push(`/documents/${res.id}`);
+    } else {
+      throw new Error("문서 생성 과정에서 에러가 발생하였습니다!");
+    }
+  };
+
+  const onDelete = async (id) => {
+    const res = await deleteDocument(id);
+    router.replace(res.parent?.id ? `/documents/${res.parent.id}` : "/");
+    await fetchDocuments();
+  };
+
+  const onEditing = (document) => {
+    clearTimeout(serverUpdateTimer);
+    clearTimeout(localSaveTimer);
+    clearTimeout(optimisticUpdateTimer);
+    serverUpdateTimer = setTimeout(async () => {
+      await updateDocument(document);
+
+      const LOCAL_SAVE_KEY = getLocalSaveKey(document.id);
+      removeItem(LOCAL_SAVE_KEY);
+
+      await fetchDocument(document.id);
+
+      await fetchDocuments();
+    }, 3000);
+    localSaveTimer = setTimeout(async () => {
+      localSaveDocument(document);
+    }, 250);
+    optimisticUpdateTimer = setTimeout(async () => {
+      optimisticUpdate(document);
+    }, 50);
+  };
+
   let serverUpdateTimer = null;
   let localSaveTimer = null;
   let optimisticUpdateTimer = null;
@@ -67,76 +107,24 @@ export default function App({ targetEl }) {
       selectedDocumentId: this.state.selectedDocumentId,
       documents: this.state.documents,
     },
-    onCreate: async (parent) => {
-      const res = await createDocument(parent);
-
-      await fetchDocuments();
-
-      if (res.id) {
-        router.push(`/documents/${res.id}`);
-      } else {
-        throw new Error("문서 생성 과정에서 에러가 발생하였습니다!");
-      }
-    },
-    onDelete: async (id) => {
-      const res = await deleteDocument(id);
-      router.replace(res.parent?.id ? `/documents/${res.parent.id}` : "/");
-      await fetchDocuments();
-    },
+    onCreate,
+    onDelete,
   });
 
   const editor = new Editor({
     targetEl,
     initialState: { ...this.state },
-    onEditing: (document) => {
-      clearTimeout(serverUpdateTimer);
-      clearTimeout(localSaveTimer);
-      clearTimeout(optimisticUpdateTimer);
-      serverUpdateTimer = setTimeout(async () => {
-        await updateDocument(document);
-
-        const LOCAL_SAVE_KEY = getLocalSaveKey(document.id);
-        removeItem(LOCAL_SAVE_KEY);
-
-        await fetchDocument(document.id);
-
-        await fetchDocuments();
-      }, 3000);
-      localSaveTimer = setTimeout(async () => {
-        localSaveDocument(document);
-      }, 250);
-      optimisticUpdateTimer = setTimeout(async () => {
-        optimisticUpdate(document);
-      }, 50);
-    },
+    onEditing,
   });
 
   const optimisticUpdate = async ({ id, title }) => {
-    const newData = JSON.parse(JSON.stringify(this.state.documents.data));
+    const spanEl = document.querySelector(
+      `.documents li[data-id="${id}"] .document-title span`
+    );
 
-    function recursion(id, documents, title) {
-      for (const document of documents) {
-        if (document.id === id) {
-          if (document.title !== title) {
-            document.title = title;
-          }
-          return null;
-        }
-        if (document.documents && document.documents.length > 0) {
-          recursion(id, document.documents, title);
-        }
-      }
+    if (spanEl) {
+      spanEl.innerHTML = title.length ? title : UNTITLED;
     }
-
-    await recursion(id, newData, title);
-
-    this.setState({
-      ...this.state,
-      documents: {
-        ...asyncDataObj,
-        data: newData,
-      },
-    });
   };
 
   const fetchDocuments = async () => {

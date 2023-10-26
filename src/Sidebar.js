@@ -1,5 +1,6 @@
 import router from "./router.js";
 import { X_USERNAME } from "./api.js";
+import { UNTITLED } from './utility.js'
 
 export default function Sidebar({
   targetEl,
@@ -62,7 +63,7 @@ export default function Sidebar({
           <div class="document">
             <span class="document-title">
               <img class="icon" src="/svg/file.svg" alt="file icon" />
-              <span>${document.title.length ? document.title : "제목 없음"}</span>
+              <span>${document.title.length ? document.title : UNTITLED}</span>
             </span>
             <div class="buttons">
               <button class="delete-button"><img src="/svg/trash.svg" alt="delete document icon"/></button>

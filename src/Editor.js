@@ -1,5 +1,5 @@
 import router from "./router.js";
-import { compareObject, editorCommands, getFlatDocuments } from "./utility.js";
+import { UNTITLED, compareObject, editorCommands, getFlatDocuments } from "./utility.js";
 
 export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
@@ -232,7 +232,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
             <li class="child-page" data-id="${document.id}">
               <img class="icon" src="/svg/file.svg" alt="document icon" />
               <span>${
-                document.title.length ? document.title : "제목 없음"
+                document.title.length ? document.title : UNTITLED
               }</span>
             </li>
           `
