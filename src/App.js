@@ -22,6 +22,11 @@ export default function App({ $target }) {
 
   this.route = async () => {
     const posts = await request("/documents");
+    postListPage.setState({
+      posts,
+      selectedId: null,
+    });
+
     const { pathname } = window.location;
 
     // 루트 경로일 때 편집기가 보이지 않도록 설정
@@ -45,11 +50,6 @@ export default function App({ $target }) {
           post,
         });
       }
-    } else {
-      postListPage.setState({
-        posts,
-        selectedId: null,
-      });
     }
   };
 

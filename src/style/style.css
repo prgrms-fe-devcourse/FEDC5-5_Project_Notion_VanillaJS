@@ -89,8 +89,8 @@ body {
 /* PostEditPage */
 
 .post-edit-page {
-  flex: 1;
   display: flex;
+  width: 80%;
   flex-direction: column;
   height: 100vh;
 }
