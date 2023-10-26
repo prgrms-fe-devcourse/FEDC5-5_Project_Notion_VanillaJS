@@ -3,6 +3,7 @@ import { push, pushHistoryById } from "../utils/router.js";
 export default function Footer({ $target, initialState = {} }) {
   const $footer = document.createElement("footer");
   $target.appendChild($footer);
+  $footer.id = "footer";
 
   $footer.addEventListener("click", (e) => {
     if (e.target.tagName !== "BUTTON") return;

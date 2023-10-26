@@ -1,4 +1,5 @@
 import { mdToHtml } from "../utils/mdToHtml.js";
+import { push } from "../utils/router.js";
 export default function RichView({ $target, initialState }) {
   const $div = document.createElement("div");
   $div.id = "richView";
@@ -17,5 +18,12 @@ export default function RichView({ $target, initialState }) {
       <h1>${this.state.title ? this.state.title : ""} </h1>
       ${this.state.content ? mdToHtml(this.state.content) : ""}</div>
     `;
+    document.querySelectorAll("#richView a").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = e.target.getAttribute("href").split("/documents/")[1];
+        push(`/documents/${id}`);
+      });
+    });
   };
 }

@@ -4,6 +4,7 @@ import Header from "./components/Header.js";
 import { getData, getDatas, getIDs } from "./utils/fetchData.js";
 
 import { deleteDocuments } from "./utils/fetchData.js";
+
 const initialSideBarState = await getDatas();
 const initialId = getIDs(initialSideBarState)[0];
 let initialEditorState = { id: -1, title: "", content: "" };

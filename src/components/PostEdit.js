@@ -33,12 +33,17 @@ export default function PostEdit({ $target, initialState, setSideBarState }) {
       }
     });
   };
-
+  const $div = document.createElement("div");
+  $target.appendChild($div);
+  $div.id = "editorView";
   const editor = new Editor({
-    $target,
+    $target: $div,
     initialState: this.state,
     setSideBarState,
   });
 
-  const footer = new Footer({ $target, initialState: [] });
+  const footer = new Footer({
+    $target: document.querySelector("#app"),
+    initialState: [],
+  });
 }

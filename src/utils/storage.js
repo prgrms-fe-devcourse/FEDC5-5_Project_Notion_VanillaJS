@@ -1,6 +1,11 @@
-import { findDocumentFromTree, updateDocumentFromTree } from "./dataManager.js";
+import {
+  findDocumentFromTree,
+  updateDocumentFromTree,
+  flatSideBarData,
+} from "./dataManager.js";
 const SIDE_BAR_KEY = "side-bar";
 const EDITING_POST_KEY = "editing-post";
+const FLAT_SIDE_BAR_KEY = "flat-side-bar";
 
 export const getStorageData = (key, init) => {
   const data = localStorage.getItem(key);
@@ -53,3 +58,11 @@ export function isDataInLocalStorage(id) {
   }
   return false;
 }
+export const setFlatSideBarData = (data) => {
+  const flatData = flatSideBarData(data);
+  setStorageData(FLAT_SIDE_BAR_KEY, flatData);
+};
+
+export const getFlatSideBarData = () => {
+  return getStorageData(FLAT_SIDE_BAR_KEY, []);
+};

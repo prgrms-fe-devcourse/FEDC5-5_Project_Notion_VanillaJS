@@ -1,4 +1,4 @@
-import { isDataInLocalStorage } from "../utils/storage.js";
+import { getFlatSideBarData, isDataInLocalStorage } from "../utils/storage.js";
 import { getData, putData } from "../utils/fetchData.js";
 import { mdToHtml } from "../utils/mdToHtml.js";
 
@@ -21,6 +21,51 @@ export default function Editor({ $target, initalState, setSideBarState }) {
     this.render();
   };
 
+  this.setLinkPosts = (state) => {
+    const tempState = { ...state };
+    const flatSideBarData = getFlatSideBarData().filter((item) =>
+      tempState.content ? -1 !== tempState.content.indexOf(item.title) : false
+    );
+
+    const tempLinkingPosts = flatSideBarData.reduce((acc, cur) => {
+      if (cur.title === "documents" || cur.title === "") return acc;
+      if (flatSideBarData.some((item) => item.id === cur.title)) return acc;
+      if (acc.some((ac) => ac.title === cur.title)) return acc;
+      else return [...acc, cur];
+    }, []);
+    tempLinkingPosts.sort((a, b) => {
+      return b.title.length - a.title.length;
+    });
+    const linkingPosts = tempLinkingPosts;
+    if (linkingPosts) {
+      linkingPosts.forEach((linkingPost) => {
+        const link = `[${linkingPost.title}](/documents/${linkingPost.id})`;
+        console.log(
+          tempState.content.match(
+            new RegExp(`\[.*${linkingPost.title}.*\]`, "g")
+          ),
+          tempState.content
+        );
+        if (
+          tempState.content.match(
+            new RegExp(`\[[^\]*${linkingPost.title}[^\]]*\]`, "g")
+          )
+        ) {
+        } else {
+          tempState.content = tempState.content.replaceAll(
+            new RegExp(
+              `(?!\[[^\]*${linkingPost.title}[^\]]*\])(${linkingPost.title})`,
+              "g"
+            ),
+            link
+          );
+        }
+      });
+    }
+    console.log(tempState.content, state.content);
+    richView.setState(tempState);
+  };
+
   this.debounce = debounce(() => {
     const body = {
       title: this.state.title,
@@ -41,7 +86,7 @@ export default function Editor({ $target, initalState, setSideBarState }) {
       }
       this.state.tempUpdatedAt = new Date().toISOString();
 
-      richView.setState(this.state);
+      this.setLinkPosts(this.state);
 
       setEditingPostData(this.state.id, this.state);
       this.debounce();
@@ -49,6 +94,8 @@ export default function Editor({ $target, initalState, setSideBarState }) {
   };
 
   this.render = () => {
+    if (!this.state) return;
+    this.setLinkPosts(this.state);
     $div.innerHTML = `
       <input type="text" id="title" value="${
         this.state.title ? this.state.title : ""
@@ -57,14 +104,13 @@ export default function Editor({ $target, initalState, setSideBarState }) {
         this.state.content ? this.state.content : ""
       }</textarea>
       `;
-    richView.setState(this.state);
   };
 
   const richView = new RichView({
     $target,
     initialState: this.state,
   });
-
+  this.render();
   this.init();
 }
 
