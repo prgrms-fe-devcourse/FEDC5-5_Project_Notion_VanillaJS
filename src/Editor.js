@@ -1,5 +1,5 @@
 import router from "./router.js";
-import { editorCommands, getFlatDocuments } from "./utility.js";
+import { compareObject, editorCommands, getFlatDocuments } from "./utility.js";
 
 export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
@@ -39,7 +39,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
   this.setState = (nextState) => {
     const prevState = JSON.parse(JSON.stringify(this.state));
 
-    if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
+    if (compareObject(prevState, nextState).isDifferent) {
       this.state = {
         ...nextState,
         flatDocuments: getFlatDocuments(nextState.documents).data,
@@ -49,14 +49,21 @@ export default function Editor({ targetEl, initialState, onEditing }) {
         onEditing(this.state.document.data);
       }
 
-      if (prevState.selectedDocumentId !== nextState.selectedDocumentId) {
+      if (
+        compareObject(
+          prevState.selectedDocumentId,
+          nextState.selectedDocumentId
+        ).isDifferent
+      ) {
         this.isInit = false;
       }
 
       if (
-        prevState.selectedDocumentId !== nextState.selectedDocumentId ||
-        JSON.stringify(prevState.document) !==
-          JSON.stringify(nextState.document)
+        compareObject(
+          prevState.selectedDocumentId,
+          nextState.selectedDocumentId
+        ).isDifferen ||
+        compareObject(prevState.document, nextState.document).isDifferent
       ) {
         this.render();
       }

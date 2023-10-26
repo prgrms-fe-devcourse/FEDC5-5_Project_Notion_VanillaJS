@@ -48,3 +48,13 @@ export const getFlatDocuments = (asyncDocumentsData) => {
 
   return { ...asyncDataObj, data: flatDocuments };
 };
+
+export const compareObject = (obj1, obj2) => {
+  const jsonObj1 = JSON.stringify(obj1);
+  const jsonObj2 = JSON.stringify(obj2);
+
+  return {
+    isSame: jsonObj1 === jsonObj2,
+    isDifferent: jsonObj1 !== jsonObj2,
+  };
+};

@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar.js";
 import router from "./router.js";
 import { asyncDataObj, request } from "./api.js";
 import { setItem, getItem, removeItem } from "./storage.js";
-import { getLocalSaveKey } from "./utility.js";
+import { compareObject, getLocalSaveKey } from "./utility.js";
 import Indicator from "./Indicator.js";
 
 export default function App({ targetEl }) {
@@ -18,15 +18,16 @@ export default function App({ targetEl }) {
   this.setState = (nextState) => {
     const prevState = JSON.parse(JSON.stringify(this.state));
 
-    if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
+    if (compareObject(prevState, nextState).isDifferent) {
       this.state = nextState;
 
       // 선택된 문서가 변경된 경우, 문서 목록이 변경된 경우
       if (
-        JSON.stringify(prevState.selectedDocumentId) !==
-          JSON.stringify(nextState.selectedDocumentId) ||
-        JSON.stringify(prevState.documents) !==
-          JSON.stringify(nextState.documents)
+        compareObject(
+          prevState.selectedDocumentId,
+          nextState.selectedDocumentId
+        ).isDifferent ||
+        compareObject(prevState.documents, nextState.documents).isDifferent
       ) {
         sidebar.setState({
           selectedDocumentId: this.state.selectedDocumentId,
@@ -39,10 +40,8 @@ export default function App({ targetEl }) {
 
       // 문서가 변경된 경우, 문서 목록이 변경된 경우
       if (
-        JSON.stringify(prevState.document) !==
-          JSON.stringify(nextState.document) ||
-        JSON.stringify(prevState.documents) !==
-          JSON.stringify(nextState.documents)
+        compareObject(prevState.documents, nextState.documents).isDifferent ||
+        compareObject(prevState.document, nextState.document).isDifferent
       ) {
         indicator.setState(
           this.state.document.isLoading || this.state.documents.isLoading
