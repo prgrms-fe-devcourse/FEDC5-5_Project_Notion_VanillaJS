@@ -1,0 +1,11 @@
+.app {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.documentItem {
+    width:  min-content;
+    height: auto;
+    left: 50px;
+    position: relative;
+}

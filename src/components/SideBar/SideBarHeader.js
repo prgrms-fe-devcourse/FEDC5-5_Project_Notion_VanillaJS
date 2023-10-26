@@ -6,7 +6,7 @@ export default function SideBarHeader({ $target }) {
     checkNewComponent(SideBarHeader, self);
 
     const $header = document.createElement("h3");
-    $header.className = "header";
+
     $target.appendChild($header);
 
     this.render = () => {

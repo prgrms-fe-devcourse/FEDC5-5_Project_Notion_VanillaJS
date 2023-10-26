@@ -61,8 +61,8 @@ export default function SideBar({ $target }) {
     });
 
     const getAllDocument = async () => {
-        const ALLDOCUMENT = await getRootDocument();
-        sideBarList.setState(ALLDOCUMENT);
+        const allDocument = await getRootDocument();
+        sideBarList.setState(allDocument);
     };
 
     this.render = async () => {

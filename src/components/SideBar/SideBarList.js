@@ -1,4 +1,5 @@
 import checkNewComponent from "../../utils/checkNewComponent.js";
+import { getDocumentList } from "../../utils/GetDocumentList.js";
 
 export default function SideBarList({
     $target,
@@ -21,32 +22,9 @@ export default function SideBarList({
         this.render();
     };
 
-    const getDocumentList = (rootDocument, text) => {
-        if (rootDocument == null || rootDocument.length < 1) return "";
-        text += `
-        <ul>
-        ${rootDocument
-            ?.map(({ id, title, documents }) => {
-                const returnText = `<li id="documentContainer" data-documentid="${id}"> 
-                <span id="documentTitle" data-documentid="${id}">
-                ${title === null ? "제목을 입력해주세요." : title}
-                </span>
-                <button id="addButton" data-documentid="${id}">+</button>
-                <button id="deleteButton" data-documentid="${id}">-</button>
-                </li>
-                ${getDocumentList(documents, text)}
-                `;
-                return returnText;
-            })
-            .join("")}
-            </ul>
-            `;
-
-        return text;
-    };
-
     this.render = () => {
-        const documentList = getDocumentList(this.state, "");
+        console.log(this.state);
+        const documentList = getDocumentList(this.state, "", "$sideBarList");
 
         $sideBarList.innerHTML = `${documentList}`;
     };

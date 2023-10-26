@@ -18,22 +18,18 @@ export const request = async (url, options = {}) => {
     }
 };
 
-// root document 가져오기
-// 전체 Document의 구조를 트리 형태로 가져옵니다.
 export const getRootDocument = async (url = "") => {
     const data = await request(url);
 
     return data;
 };
 
-// 특정 Document의 content 조회하기
 export const getSelectedDocument = async (url) => {
     const data = await request(url);
 
     return data;
 };
 
-// Document 생성하기
 export const makeNewDocument = async (url, post) => {
     const data = await request(url, {
         method: "POST",
@@ -43,7 +39,6 @@ export const makeNewDocument = async (url, post) => {
     return data;
 };
 
-// 특정 Document 수정하기
 export const updateDocument = async (url, post) => {
     const data = await request(url, {
         method: "PUT",
@@ -53,7 +48,6 @@ export const updateDocument = async (url, post) => {
     return data;
 };
 
-// 특정 Document 삭제하기
 export const deleteDocument = async (url) => {
     await request(url, {
         method: "DELETE",

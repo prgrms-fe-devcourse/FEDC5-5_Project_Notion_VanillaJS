@@ -1,4 +1,4 @@
-import Editor from "./Editor.js";
+import { Editor, DocumentPageList } from "./index.js";
 import { getSelectedDocument, updateDocument } from "../../service/api.js";
 import { getItem, setItem } from "../../utils/storage.js";
 import checkNewComponent from "../../utils/checkNewComponent.js";
@@ -24,37 +24,17 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
             );
 
             editor.setState(selectedDocument);
+            documentPageList.setState(selectedDocument);
         }
 
         this.render();
     };
+
     let postLocalSaveKey = `temp-post-${this.state.documentId}`;
 
     const post = getItem(postLocalSaveKey, {
         title: "",
         content: "",
-    });
-
-    let timer = null;
-
-    const editor = new Editor({
-        $target: $documentPage,
-        initialState: post,
-        onEditing: (post) => {
-            if (timer !== null) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(async () => {
-                const isValidDocument = await updateDocumentPage(post);
-                if (isValidDocument) {
-                    // 디바운싱 중에 다른 문서 선택하면 로컬 스토리지에 다른 문서로 저장됨
-                    setItem(`temp-post-${post.id}`, {
-                        ...post,
-                        tempSaveDate: new Date(),
-                    });
-                }
-            }, 2000);
-        },
     });
 
     const updateDocumentPage = async (post) => {
@@ -69,9 +49,31 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
         return true;
     };
 
+    let timer = null;
+    const editor = new Editor({
+        $target: $documentPage,
+        initialState: post,
+        onEditing: (post) => {
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(async () => {
+                const isValidDocument = await updateDocumentPage(post);
+                if (isValidDocument) {
+                    setItem(`temp-post-${post.id}`, {
+                        ...post,
+                        tempSaveDate: new Date(),
+                    });
+                }
+            }, 2000);
+        },
+    });
+    const documentPageList = new DocumentPageList({
+        $target: $documentPage,
+        initialState: [],
+    });
+
     this.render = () => {
         $target.appendChild($documentPage);
     };
-
-    // this.render();
 }

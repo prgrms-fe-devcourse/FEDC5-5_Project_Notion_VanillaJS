@@ -9,7 +9,6 @@ export default function Editor({
     checkNewComponent(Editor, self);
 
     const $editor = document.createElement("div");
-    $editor.id = "contentEditableItem";
     $target.appendChild($editor);
 
     $editor.innerHTML = `
@@ -52,7 +51,7 @@ export default function Editor({
     };
     this.render();
 
-    $editor.querySelector("[name=title]").addEventListener("keyup", (event) => {
+    $editor.querySelector("[name=title]").addEventListener("input", (event) => {
         const { target } = event;
 
         if (this.state.title !== undefined) {
