@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: rgb(55, 53, 47);
+  outline: none;
+}
+
+#app {
+  display: flex;
+}
+
+/* === DocumentPage */
+.document-page {
+  height: 100vh;
+  width: 240px;
+  background-color: rgb(251, 251, 250);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.document-page .document-user {
+  height: 45px;
+  font-weight: 500;
+  line-height: 45px;
+  padding-left: 12px;
+  font-size: 18px;
+}
+
+.document-item {
+  list-style: none;
+}
+.document-page .document-item-container {
+  padding: 0px 8px;
+  color: rgba(25, 23, 17, 0.6);
+  line-height: 2;
+  font-weight: 500;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0px 4px 2px 4px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.document-item-container:hover {
+  background-color: rgb(226, 226, 225);
+  color: rgb(55, 53, 47);
+  box-shadow: rgba(0, 0, 0, 0.024) -1px 0px 0px 0px inset;
+}
+
+.item_buttons .blocked {
+  pointer-events: none;
+}
+
+.document-item .delete-btn {
+  width: 14px;
+  height: 14px;
+}
+
+.document-item .add-btn {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+}
+
+.document-item .document-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+}
+
+.document-item .item_content {
+  display: flex;
+  align-items: center;
+}
+
+.document-item .item_buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* === DocumentEditPage */
+.document-edit-page {
+  margin: 0 auto;
+  margin-top: 140px;
+  padding: 0px 80px;
+}
+
+.editor-input {
+  padding: 3px 2px;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  border: none;
+}
+
+.editor-input:focus {
+  outline: none;
+}
+
+.editor-input::placeholder {
+  color: rgba(55, 53, 47, 0.15);
+}
+
+.editor-content {
+  font-size: 16px;
+  text-align: left;
+}
+
+.editor-content:focus {
+  outline: none;
+}
+
+[contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+  color: rgba(55, 53, 47, 0.2);
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 50px;
+  left: 320px;
+}
+
+.footer .child-item {
+  font-size: 16px;
+  line-height: 2;
+  padding: 0px 10px;
+  border-radius: 16px;
+  border: 2px solid rgba(25, 23, 17, 0.4);
+  background-color: #f7f6f3;
+  cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+}
