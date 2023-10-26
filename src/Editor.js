@@ -1,5 +1,5 @@
 import router from "./router.js";
-import { editorCommands } from "./utility.js";
+import { editorCommands, getFlatDocuments } from "./utility.js";
 
 export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
@@ -31,15 +31,19 @@ export default function Editor({ targetEl, initialState, onEditing }) {
 
   this.isInit = false;
 
-  this.state = initialState;
+  this.state = {
+    ...initialState,
+    flatDocuments: getFlatDocuments(initialState.documents).data,
+  };
 
   this.setState = (nextState) => {
     const prevState = JSON.parse(JSON.stringify(this.state));
 
     if (JSON.stringify(prevState) !== JSON.stringify(nextState)) {
-      this.state = nextState;
-
-      updateFlatDocuments();
+      this.state = {
+        ...nextState,
+        flatDocuments: getFlatDocuments(nextState.documents).data,
+      };
 
       if (onEditing && this.state.document.data) {
         onEditing(this.state.document.data);
@@ -57,35 +61,6 @@ export default function Editor({ targetEl, initialState, onEditing }) {
         this.render();
       }
     }
-  };
-
-  const updateFlatDocuments = () => {
-    const { isLoading, isError, data } = this.state.documents;
-
-    if (isLoading || isError || !data) {
-      return null;
-    }
-
-    const flatDocuments = [];
-
-    function recursion(documents) {
-      for (const document of documents) {
-        if (document.title.length > 0) {
-          flatDocuments.push({ id: document.id, title: document.title });
-        }
-
-        if (document.documents && document.documents.length > 0) {
-          recursion(document.documents);
-        }
-      }
-    }
-
-    recursion(this.state.documents.data);
-
-    this.setState({
-      ...this.state,
-      flatDocuments,
-    });
   };
 
   const transformContent = (e) => {
@@ -208,8 +183,6 @@ export default function Editor({ targetEl, initialState, onEditing }) {
       editorEl.appendChild(editableEl);
       editorEl.appendChild(childPagesEl);
       targetEl.appendChild(editorEl);
-
-      updateFlatDocuments();
 
       this.isInit = true;
     }

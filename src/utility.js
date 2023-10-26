@@ -1,3 +1,5 @@
+import { asyncDataObj } from "./api.js";
+
 export const getLocalSaveKey = (id) => `NOTION_CLONE_TEMP_${id}`;
 
 export const editorCommands = [
@@ -21,3 +23,28 @@ export const editorCommands = [
     icon: "/svg/align-right.svg",
   },
 ];
+
+export const getFlatDocuments = (asyncDocumentsData) => {
+  const { isLoading, isError, data } = asyncDocumentsData;
+
+  if (isLoading) return { ...asyncDataObj, isLoading: true };
+  else if (isError) return { ...asyncDataObj, isError: isError };
+
+  const flatDocuments = [];
+
+  function recursion(documents) {
+    for (const document of documents) {
+      if (document.title.length > 0) {
+        flatDocuments.push({ id: document.id, title: document.title });
+      }
+
+      if (document.documents && document.documents.length > 0) {
+        recursion(document.documents);
+      }
+    }
+  }
+
+  recursion(data);
+
+  return { ...asyncDataObj, data: flatDocuments };
+};
