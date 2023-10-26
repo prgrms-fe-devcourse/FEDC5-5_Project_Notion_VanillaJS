@@ -73,7 +73,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     if (innerHTML?.match(headerRegex)) {
       const { level } = headerRegex.exec(innerHTML).groups;
       const newNode = document.createElement("h" + level.length);
-      newNode.classList.add(["item-block", "heading-block"]);
+      newNode.classList.add("item-block", "heading-block");
       newNode.innerHTML = innerHTML.replace(`${level} `, "");
       oldNode.parentNode.insertBefore(newNode, oldNode);
       oldNode.parentNode.removeChild(oldNode);
@@ -171,6 +171,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     titleEl.placeholder = "Title";
     contentEl.className = "content";
     contentEl.contentEditable = true;
+    contentEl.spellcheck = false;
     contentEl.name = "content";
     guideEl.className = "guide";
     commandsEl.className = "commands";

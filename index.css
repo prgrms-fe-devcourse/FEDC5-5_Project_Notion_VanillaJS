@@ -291,6 +291,11 @@ main.app {
 
 /* Content Blcok */
 
+.heading-block {
+  margin: 0;
+  margin: .25em 0;
+}
+
 .link-block {
   font-weight: 500;
   color: var(--grey700);

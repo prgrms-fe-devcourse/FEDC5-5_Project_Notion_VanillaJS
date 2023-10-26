@@ -60,6 +60,10 @@ export default function App({ targetEl }) {
     await fetchDocuments();
   };
 
+  let serverUpdateTimer = null;
+  let localSaveTimer = null;
+  let optimisticUpdateTimer = null;
+
   const onEditing = (document) => {
     clearTimeout(serverUpdateTimer);
     clearTimeout(localSaveTimer);
@@ -81,10 +85,6 @@ export default function App({ targetEl }) {
       optimisticUpdate(document);
     }, 50);
   };
-
-  let serverUpdateTimer = null;
-  let localSaveTimer = null;
-  let optimisticUpdateTimer = null;
 
   const indicator = new Indicator({
     targetEl,
