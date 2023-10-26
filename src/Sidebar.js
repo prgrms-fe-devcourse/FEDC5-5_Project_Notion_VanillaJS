@@ -1,6 +1,6 @@
 import router from "./router.js";
 import { X_USERNAME } from "./api.js";
-import { UNTITLED } from './utility.js'
+import { UNTITLED } from "./utility.js";
 
 export default function Sidebar({
   targetEl,
@@ -9,16 +9,8 @@ export default function Sidebar({
   onDelete,
 }) {
   const sidebarEl = document.createElement("div");
-  sidebarEl.className = "sidebar";
   const headerEl = document.createElement("div");
-  headerEl.className = "header";
-  headerEl.innerHTML = `
-    <span class="symbol">${X_USERNAME.substring(0, 1)}</span>
-    <span>${X_USERNAME}의 Notion</span>
-    <button class="create-button"><img src="/svg/plus.svg" alt="add document icon"/></button>
-  `;
   const listEl = document.createElement("div");
-  listEl.className = "documents";
 
   this.isInit = false;
 
@@ -66,8 +58,8 @@ export default function Sidebar({
               <span>${document.title.length ? document.title : UNTITLED}</span>
             </span>
             <div class="buttons">
-              <button class="delete-button"><img src="/svg/trash.svg" alt="delete document icon"/></button>
-              <button class="create-button"><img src="/svg/plus.svg" alt="add document icon"/></button>
+              <button class="delete-button"><img class="icon" src="/svg/trash.svg" alt="delete document icon"/></button>
+              <button class="create-button"><img class="icon" src="/svg/plus.svg" alt="add document icon"/></button>
             </div>
           </div>
         ${
@@ -87,13 +79,27 @@ export default function Sidebar({
     <ul>
   `;
 
+  this.init = () => {
+    sidebarEl.className = "sidebar";
+    headerEl.className = "header";
+    listEl.className = "documents";
+
+    sidebarEl.addEventListener("click", onClickDocument);
+
+    sidebarEl.appendChild(headerEl);
+    sidebarEl.appendChild(listEl);
+    targetEl.appendChild(sidebarEl);
+
+    headerEl.innerHTML = `
+      <span class="symbol">${X_USERNAME.substring(0, 1)}</span>
+      <span>${X_USERNAME}의 Notion</span>
+      <button class="create-button"><img class="icon" src="/svg/plus.svg" alt="add document icon"/></button>
+    `;
+  };
+
   this.render = () => {
     if (!this.isInit) {
-      sidebarEl.appendChild(headerEl);
-      sidebarEl.appendChild(listEl);
-      targetEl.appendChild(sidebarEl);
-      sidebarEl.addEventListener("click", onClickDocument);
-
+      this.init();
       this.isInit = true;
     }
 

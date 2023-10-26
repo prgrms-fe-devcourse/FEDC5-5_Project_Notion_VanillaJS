@@ -1,7 +1,5 @@
 export default function Indicator({ targetEl, initialState }) {
   const indicatorEl = document.createElement("div");
-  indicatorEl.classList.add("indicator");
-  indicatorEl.classList.add("spinner-hidden");
 
   this.isInit = false;
 
@@ -14,8 +12,14 @@ export default function Indicator({ targetEl, initialState }) {
 
   this.render = () => {
     if (!this.isInit) {
-      indicatorEl.innerHTML = `<img class="spinner spinner-spin" src="/svg/loader.svg" />`;
+      indicatorEl.classList.add("indicator");
+      indicatorEl.classList.add("spinner-hidden");
+
       targetEl.appendChild(indicatorEl);
+      
+      indicatorEl.innerHTML = `
+        <img class="icon spinner spinner-spin" src="/svg/loader.svg" alt="spinner image" />
+      `;
     }
 
     const spinnerEl = indicatorEl.querySelector(".spinner");

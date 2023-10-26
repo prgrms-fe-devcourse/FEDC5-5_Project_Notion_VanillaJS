@@ -276,18 +276,21 @@ export default function App({ targetEl }) {
     clearTimeout(optimisticUpdateTimer);
   };
 
+  this.init = () => {
+    router.init(onRouterChange);
+    onRouterChange(window.location.pathname);
+    window.addEventListener("keydown", menualUpdateDocument);
+
+    indicator.render();
+    sidebar.render();
+    editor.render();
+
+    fetchDocuments();
+  }
+
   this.render = () => {
     if (!this.isInit) {
-      router.init(onRouterChange);
-      onRouterChange(window.location.pathname);
-      window.addEventListener("keydown", menualUpdateDocument);
-
-      indicator.render();
-      sidebar.render();
-      editor.render();
-
-      fetchDocuments();
-
+      this.init();
       this.isInit = true;
     }
   };

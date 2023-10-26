@@ -1,33 +1,18 @@
 import router from "./router.js";
-import { UNTITLED, compareObject, editorCommands, getFlatDocuments } from "./utility.js";
+import {
+  UNTITLED,
+  compareObject,
+  editorCommands,
+  getFlatDocuments,
+} from "./utility.js";
 
 export default function Editor({ targetEl, initialState, onEditing }) {
   const editorEl = document.createElement("div");
-  editorEl.className = "editor";
-  const inputEl = document.createElement("input");
-  inputEl.name = "title";
-  inputEl.className = "title";
-  inputEl.placeholder = "Title";
-  const editableEl = document.createElement("div");
-  editableEl.contentEditable = true;
-  editableEl.className = "content";
-  editableEl.name = "content";
+  const titleEl = document.createElement("input");
+  const contentEl = document.createElement("div");
+  const commandsEl = document.createElement("div");
   const childPagesEl = document.createElement("div");
-  const buttonsEl = document.createElement("div");
-  buttonsEl.className = "buttons";
-  buttonsEl.innerHTML = editorCommands
-    .map(
-      ({ command, variable, label, icon }) => `
-    <button 
-      data-command="${command}" 
-      ${variable ? `data-variable="${variable}"` : ""} 
-      title="${label}"
-    >
-      <img class="icon" src="${icon}" alt="${label} icon" />
-    </button>
-  `
-    )
-    .join("");
+  const guideEl = document.createElement("div");
 
   this.isInit = false;
 
@@ -116,7 +101,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
             `
           );
 
-          editableEl.blur();
+          contentEl.blur();
 
           oldNode.parentNode.insertBefore(newNode, oldNode);
           oldNode.parentNode.removeChild(oldNode);
@@ -132,7 +117,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
 
           range.deleteContents();
 
-          editableEl.focus();
+          contentEl.focus();
         }
       });
     }
@@ -179,61 +164,93 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     }
   };
 
+  this.init = () => {
+    editorEl.className = "editor";
+    titleEl.name = "title";
+    titleEl.className = "title";
+    titleEl.placeholder = "Title";
+    contentEl.className = "content";
+    contentEl.contentEditable = true;
+    contentEl.name = "content";
+    guideEl.className = "guide";
+    commandsEl.className = "commands";
+
+    titleEl.addEventListener("keyup", updateState);
+    contentEl.addEventListener("input", updateState);
+    childPagesEl.addEventListener("click", onClickChildPage);
+    commandsEl.addEventListener("click", onClickCommand);
+
+    editorEl.appendChild(titleEl);
+    editorEl.appendChild(commandsEl);
+    editorEl.appendChild(contentEl);
+    editorEl.appendChild(guideEl);
+    editorEl.appendChild(childPagesEl);
+    targetEl.appendChild(editorEl);
+
+    guideEl.innerHTML = `
+      <span>편집할 문서를 선택하거나, 좌측 상단 <img class="icon" src="/svg/plus.svg" alt="create document icon" /> 버튼을 눌러 새 문서를 생성해주세요</span>
+    `;
+
+    commandsEl.innerHTML = editorCommands
+      .map(
+        ({ command, variable, label, icon }) => `
+      <button 
+        class="command"
+        data-command="${command}" 
+        ${variable ? `data-variable="${variable}"` : ""} 
+        title="${label}"
+      >
+        <img class="icon" src="${icon}" alt="${label} icon" />
+      </button>
+    `
+      )
+      .join("");
+  };
+
   this.render = () => {
     if (!this.isInit) {
-      inputEl.addEventListener("keyup", updateState);
-      editableEl.addEventListener("input", updateState);
-      childPagesEl.addEventListener("click", onClickChildPage);
-      buttonsEl.addEventListener("click", onClickCommand);
-      editorEl.appendChild(inputEl);
-      editorEl.appendChild(buttonsEl);
-      editorEl.appendChild(editableEl);
-      editorEl.appendChild(childPagesEl);
-      targetEl.appendChild(editorEl);
-
+      this.init();
       this.isInit = true;
     }
 
-    editorEl.classList.toggle(
-      "editor-disabled",
-      this.state.document.isLoading || !this.state.selectedDocumentId
-    );
-    inputEl.disabled =
-      this.state.document.isLoading || !this.state.selectedDocumentId;
-    editableEl.contentEditable = !(
-      this.state.document.isLoading || !this.state.selectedDocumentId
-    );
+    const { document, selectedDocumentId } = this.state;
 
-    if (this.state.document.data) {
-      if (this.state.document.data.title !== inputEl.value) {
-        inputEl.value = this.state.document.data.title;
+    titleEl.placeholder = selectedDocumentId ? "Title" : "문서를 선택해 주세요";
+    titleEl.disabled = selectedDocumentId ? false : true;
+    titleEl.value = selectedDocumentId ? titleEl.value : "";
+    guideEl.hidden = selectedDocumentId;
+    contentEl.hidden = selectedDocumentId ? false : true;
+    childPagesEl.hidden = selectedDocumentId ? false : true;
+
+    if (document.data) {
+      const { title, content, documents } = document.data;
+
+      if (title !== titleEl.value) {
+        titleEl.value = title;
       }
 
-      if (this.state.document.data.content !== editableEl.innerHTML) {
-        editableEl.innerHTML = this.state.document.data.content ?? "";
+      if (content !== contentEl.innerHTML) {
+        contentEl.innerHTML = content ?? "";
       }
 
       childPagesEl.innerHTML = `
         <h3 class="child-pages-header">하위 페이지</h3>
         <ul class="child-pages">
           ${
-            Array.isArray(this.state.document?.data?.documents) &&
-            this.state.document.data.documents.length === 0
+            Array.isArray(documents) && documents.length === 0
               ? `
             <li class="child-page">하위 페이지가 없습니다.</li>
           `
               : ""
           }
           ${
-            Array.isArray(this.state.document?.data?.documents)
-              ? this.state.document.data.documents
+            Array.isArray(documents)
+              ? documents
                   .map(
-                    (document) => `
-            <li class="child-page" data-id="${document.id}">
+                    ({ id, title }) => `
+            <li class="child-page" data-id="${id}">
               <img class="icon" src="/svg/file.svg" alt="document icon" />
-              <span>${
-                document.title.length ? document.title : UNTITLED
-              }</span>
+              <span>${title.length ? title : UNTITLED}</span>
             </li>
           `
                   )
@@ -242,10 +259,6 @@ export default function Editor({ targetEl, initialState, onEditing }) {
           }
         </ul>
       `;
-    } else {
-      inputEl.value = "";
-      editableEl.innerHTML = "";
-      childPagesEl.innerHTML = "";
     }
   };
 }

@@ -11,11 +11,32 @@
   --grey900: rgb(23, 23, 23);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --grey50: rgb(23, 23, 23);
+    --grey100: rgb(31, 31, 31);
+    --grey200: rgb(49, 49, 49);
+    --grey300: rgb(82, 82, 82);
+    --grey400: rgb(119, 119, 127);
+    --grey500: rgb(163, 163, 163);
+    --grey600: rgb(233, 233, 231);
+    --grey700: rgb(242, 242, 242);
+    --grey800: rgb(251, 251, 251);
+    --grey900: rgb(255, 255, 255);
+  }
+
+  .icon {
+    filter: invert();
+  }
+}
+
 html,
 body,
 main {
   width: 100%;
   height: 100%;
+  color: var(--grey900);
+  background-color: var(--grey50);
 }
 
 body {
@@ -32,6 +53,8 @@ main.app {
 .icon {
   opacity: 0.5;
 }
+
+/* Indicator 상태 표시 */
 
 .indicator {
   box-sizing: border-box;
@@ -70,6 +93,8 @@ main.app {
   animation: 1000ms ease-in-out forwards hide;
 }
 
+/* Sidebar 문서 목록 */
+
 .sidebar {
   width: 15rem;
   font-size: 0.875rem;
@@ -95,42 +120,15 @@ main.app {
 .sidebar .documents {
   padding-right: 0.5rem;
 }
+
 .sidebar .documents ul {
   margin: 0;
-}
-
-.sidebar .create-button,
-.sidebar .delete-button {
-  padding: 0;
-  border: 0;
-  background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 0.25rem;
-}
-
-.sidebar .create-button:hover,
-.sidebar .delete-button:hover {
-  background-color: var(--grey300);
-}
-
-.sidebar .create-button > img,
-.sidebar .delete-button > img {
-  width: 1rem;
-  height: 1rem;
-  opacity: 0.5;
-}
-
-.sidebar ul {
   list-style: none;
   padding-inline-start: 0rem;
   color: var(--grey500);
 }
 
-.sidebar ul li {
+.sidebar .documents ul li {
   line-height: 1.75rem;
   padding-inline-start: 1rem;
 }
@@ -160,18 +158,44 @@ main.app {
   white-space: nowrap;
 }
 
-.documents li[data-selected="true"] > .document {
+.sidebar li[data-selected="true"] > .document {
   background-color: var(--grey200);
 }
 
-.documents li[data-selected="true"] > .document > span {
+.sidebar li[data-selected="true"] > .document > span {
   font-weight: bold;
-  color: rgb(55, 53, 47);
+  color: var(--grey700);
 }
 
 .sidebar .document .buttons {
   display: flex;
 }
+
+.sidebar .create-button,
+.sidebar .delete-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.sidebar .create-button:hover,
+.sidebar .delete-button:hover {
+  background-color: var(--grey300);
+}
+
+.sidebar .create-button .icon,
+.sidebar .delete-button .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Editor 편집기 */
 
 .editor {
   display: flex;
@@ -191,17 +215,48 @@ main.app {
 .editor .title {
   font-size: 2.5rem;
   font-weight: bold;
+  color: inherit;
+  background: inherit;
 }
 
-.editor .content {
+.editor .content,
+.editor .guide {
   min-height: 15rem;
 }
 
-.editor-disabled .title,
-.editor-disabled .buttons,
-.editor-disabled .content {
-  pointer-events: none;
-  background: none;
+.editor .guide {
+  font-size: 0.875rem;
+  color: var(--grey500);
+}
+
+.editor .guide img {
+  vertical-align: bottom;
+}
+
+.editor .commands {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.editor .command {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--grey100);
+}
+
+.editor .command:hover {
+  background-color: var(--grey300);
+}
+
+.editor .command .icon {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .editor .child-pages-header {
@@ -209,7 +264,7 @@ main.app {
   align-items: center;
   gap: 0.25rem;
   font-size: 1.125rem;
-  color: rgb(55, 53, 47);
+  color: var(--grey700);
   margin: 0;
   padding: 0;
   margin: 0.5rem 0;
@@ -227,38 +282,14 @@ main.app {
   gap: 0.25rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(25, 23, 17, 0.6);
+  color: var(--grey500);
 }
 
 .editor .child-page .icon {
   width: 1.25rem;
 }
 
-.editor .buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  margin: 1rem 0;
-}
-
-.editor .buttons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: var(--grey100);
-}
-
-.editor .buttons button:hover {
-  background-color: var(--grey300);
-}
-
-.editor .buttons button .icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
+/* Content Blcok */
 
 .link-block {
   font-weight: 500;
