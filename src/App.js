@@ -38,16 +38,6 @@ export default function App({ targetEl }) {
       // 항상
       editor.setState({ ...this.state });
 
-      // 문서가 변경된 경우, 문서 목록이 변경된 경우
-      if (
-        compareObject(prevState.documents, nextState.documents).isDifferent ||
-        compareObject(prevState.document, nextState.document).isDifferent
-      ) {
-        indicator.setState(
-          this.state.document.isLoading || this.state.documents.isLoading
-        );
-      }
-
       this.render();
     }
   };
@@ -259,7 +249,8 @@ export default function App({ targetEl }) {
     }
   };
 
-  const onRouterChange = (pathname) => { console.log(pathname, this.state)
+  const onRouterChange = (pathname) => {
+    console.log(pathname, this.state);
     const pattern = new RegExp(/^\/documents\/(?<id>\d+)/);
     const match = pattern.exec(pathname);
     const id = match?.groups?.id ? Number(match.groups.id) : null;
@@ -290,7 +281,7 @@ export default function App({ targetEl }) {
     editor.render();
 
     fetchDocuments();
-  }
+  };
 
   this.render = () => {
     if (!this.isInit) {

@@ -1,3 +1,5 @@
+import { AsyncRequestEvent } from "./api.js";
+
 export default function Indicator({ targetEl, initialState }) {
   const indicatorEl = document.createElement("div");
 
@@ -10,22 +12,23 @@ export default function Indicator({ targetEl, initialState }) {
     this.render();
   };
 
+  this.init = () => {
+    indicatorEl.className = "indicator indicator-hidden";
+
+    targetEl.appendChild(indicatorEl);
+    AsyncRequestEvent.init((status) => this.setState(status));
+
+    indicatorEl.innerHTML = `
+      <img class="icon spinner spinner-spin" src="/svg/loader.svg" alt="spinner image" />
+    `;
+  };
+
   this.render = () => {
     if (!this.isInit) {
-      indicatorEl.classList.add("indicator");
-      indicatorEl.classList.add("spinner-hidden");
-
-      targetEl.appendChild(indicatorEl);
-      
-      indicatorEl.innerHTML = `
-        <img class="icon spinner spinner-spin" src="/svg/loader.svg" alt="spinner image" />
-      `;
+      this.init();
+      this.isInit = true;
     }
 
-    const spinnerEl = indicatorEl.querySelector(".spinner");
-
-    if (spinnerEl) {
-      spinnerEl.classList.toggle("spinner-hidden", this.state);
-    }
+    indicatorEl.classList.toggle("indicator-hidden", !this.state);
   };
 }

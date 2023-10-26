@@ -85,12 +85,12 @@ main.app {
   }
 }
 
-.spinner-spin {
-  animation: 1s linear 0s rotate infinite;
+.indicator-hidden {
+  animation: 1000ms ease-in-out forwards hide;
 }
 
-.spinner-hidden {
-  animation: 1000ms ease-in-out forwards hide;
+.spinner-spin {
+  animation: 1s linear 0s rotate infinite;
 }
 
 /* Sidebar 문서 목록 */
