@@ -174,6 +174,7 @@ export default function Editor({ targetEl, initialState, onEditing }) {
     contentEl.spellcheck = false;
     contentEl.name = "content";
     guideEl.className = "guide";
+    childPagesEl.className = "child";
     commandsEl.className = "commands";
 
     titleEl.addEventListener("keyup", updateState);
