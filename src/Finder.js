@@ -2,13 +2,13 @@ import router from "./router.js";
 import { X_USERNAME } from "./api.js";
 import { UNTITLED } from "./utility.js";
 
-export default function Sidebar({
+export default function Finder({
   targetEl,
   initialState,
   onCreate,
   onDelete,
 }) {
-  const sidebarEl = document.createElement("div");
+  const finderEl = document.createElement("div");
   const headerEl = document.createElement("div");
   const listEl = document.createElement("div");
 
@@ -80,15 +80,15 @@ export default function Sidebar({
   `;
 
   this.init = () => {
-    sidebarEl.className = "sidebar";
+    finderEl.className = "finder";
     headerEl.className = "header";
     listEl.className = "documents";
 
-    sidebarEl.addEventListener("click", onClickDocument);
+    finderEl.addEventListener("click", onClickDocument);
 
-    sidebarEl.appendChild(headerEl);
-    sidebarEl.appendChild(listEl);
-    targetEl.appendChild(sidebarEl);
+    finderEl.appendChild(headerEl);
+    finderEl.appendChild(listEl);
+    targetEl.appendChild(finderEl);
 
     headerEl.innerHTML = `
       <span class="symbol">${X_USERNAME.substring(0, 1)}</span>

@@ -94,9 +94,9 @@ main.app {
   animation: 1s linear 0s rotate infinite;
 }
 
-/* Sidebar 문서 목록 */
+/* Finder 문서 목록 */
 
-.sidebar {
+.finder {
   width: 15rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -104,13 +104,13 @@ main.app {
   border-right: 1px solid var(--grey200);
 }
 
-.sidebar .header {
+.finder .header {
   display: flex;
   gap: 0.5rem;
   padding: 1rem;
 }
 
-.sidebar .symbol {
+.finder .symbol {
   width: 1.3rem;
   height: 1.3rem;
   text-align: center;
@@ -118,30 +118,30 @@ main.app {
   background-color: var(--grey300);
 }
 
-.sidebar .documents {
+.finder .documents {
   padding-right: 0.5rem;
 }
 
-.sidebar .documents ul {
+.finder .documents ul {
   margin: 0;
   list-style: none;
   padding-inline-start: 0rem;
   color: var(--grey500);
 }
 
-.sidebar .documents ul li {
+.finder .documents ul li {
   line-height: 1.75rem;
   padding-inline-start: 1rem;
 }
 
-.sidebar .document {
+.finder .document {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.125rem;
 }
 
-.sidebar .document .document-title {
+.finder .document .document-title {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -150,30 +150,30 @@ main.app {
   overflow: hidden;
 }
 
-.sidebar .document .document-title .icon {
+.finder .document .document-title .icon {
   width: 1.25rem;
   height: 1.25rem;
 }
 
-.sidebar .document .document-title span {
+.finder .document .document-title span {
   white-space: nowrap;
 }
 
-.sidebar li[data-selected="true"] > .document {
+.finder li[data-selected="true"] > .document {
   background-color: var(--grey200);
 }
 
-.sidebar li[data-selected="true"] > .document > span {
+.finder li[data-selected="true"] > .document > span {
   font-weight: bold;
   color: var(--grey700);
 }
 
-.sidebar .document .buttons {
+.finder .document .buttons {
   display: flex;
 }
 
-.sidebar .create-button,
-.sidebar .delete-button {
+.finder .create-button,
+.finder .delete-button {
   padding: 0;
   border: 0;
   background: none;
@@ -185,13 +185,13 @@ main.app {
   border-radius: 0.25rem;
 }
 
-.sidebar .create-button:hover,
-.sidebar .delete-button:hover {
+.finder .create-button:hover,
+.finder .delete-button:hover {
   background-color: var(--grey300);
 }
 
-.sidebar .create-button .icon,
-.sidebar .delete-button .icon {
+.finder .create-button .icon,
+.finder .delete-button .icon {
   width: 1rem;
   height: 1rem;
 }

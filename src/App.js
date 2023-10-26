@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar.js";
+import Finder from "./Finder.js";
 import Editor from "./Editor.js";
 import Indicator from "./Indicator.js";
 import router from "./router.js";
@@ -29,7 +29,7 @@ export default function App({ targetEl }) {
         ).isDifferent ||
         compareObject(prevState.documents, nextState.documents).isDifferent
       ) {
-        sidebar.setState({
+        finder.setState({
           selectedDocumentId: this.state.selectedDocumentId,
           documents: this.state.documents,
         });
@@ -91,7 +91,7 @@ export default function App({ targetEl }) {
     initialState: false,
   });
 
-  const sidebar = new Sidebar({
+  const finder = new Finder({
     targetEl,
     initialState: {
       selectedDocumentId: this.state.selectedDocumentId,
@@ -278,7 +278,7 @@ export default function App({ targetEl }) {
     window.addEventListener("keydown", menualUpdateDocument);
 
     indicator.render();
-    sidebar.render();
+    finder.render();
     editor.render();
 
     fetchDocuments();
