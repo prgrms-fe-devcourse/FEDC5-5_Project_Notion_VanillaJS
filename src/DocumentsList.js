@@ -3,16 +3,16 @@ import { request } from './api.js';
 export default function DocumentsList({ $target, onSelect }) {
   /*
   영역 전체:    $listContainer
-  제목:        $title
+  제목:        $user
   문서 리스트:  $documentsList
   새글 버튼:    $addButton
   */
   const $listContainer = document.createElement('div');
   $listContainer.classList.add('sidebar');
 
-  const $title = document.createElement('h3');
-  $title.textContent = 'melo의 Notion';
-  $listContainer.appendChild($title);
+  const $user = document.createElement('h3');
+  $user.textContent = 'melo의 Notion';
+  $listContainer.appendChild($user);
 
   const $documentsList = document.createElement('div');
   $listContainer.appendChild($documentsList);
@@ -41,8 +41,8 @@ export default function DocumentsList({ $target, onSelect }) {
         (doc) => `
         <details>
         <summary data-id="${doc.id}">
-          <span class="title">${doc.title}</span>
-          <div class='buttons'>
+          <span class="document-title">${doc.title}</span>
+          <div class='document-buttons'>
           <button class="add-child-button">+</button>
           <button class="delete-button">-</button>
           </div>
