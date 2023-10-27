@@ -5,8 +5,8 @@ import { push } from "../utils/router.js";
 import { fetchPutPost } from "../utils/fetch.js";
 
 export default function PostEditPage({ $target, initialState }) {
-  const $page = document.createElement("div");
-  $page.className = "post-edit-page";
+  const $postEditPage = document.createElement("div");
+  $postEditPage.className = "post-edit-page";
 
   this.state = initialState;
 
@@ -19,7 +19,7 @@ export default function PostEditPage({ $target, initialState }) {
   });
 
   const editor = new Editor({
-    $target: $page,
+    $target: $postEditPage,
     initialState: savedPost,
     onEditing: (post) => {
       setItem(postLocalSaveKey, {
@@ -75,7 +75,6 @@ export default function PostEditPage({ $target, initialState }) {
         if (tempPost !== this.state.post) {
           push(`/documents/${this.state.id}`);
         }
-        
       } else {
         removeItem(postLocalSaveKey);
         push(`/documents/${this.state.id}`);
@@ -92,6 +91,6 @@ export default function PostEditPage({ $target, initialState }) {
   };
 
   this.render = () => {
-    $target.appendChild($page);
+    $target.appendChild($postEditPage);
   };
 }
