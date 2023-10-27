@@ -1,0 +1,60 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+ul {
+  margin: 0px;
+  padding-left: 8px;
+  list-style: none;
+}
+button {
+  border: none;
+}
+#app {
+  display: flex;
+  justify-content: flex-start;
+  height: 100%;
+}
+/* 사이드바 */
+#sidebar {
+  flex: none;
+  width: 240px;
+  background-color: #fbfaf6;
+}
+#sidebar div {
+  padding-top: 2px;
+}
+#sidebar li, .addRootDocButton {
+  padding: 2px 8px;
+}
+#sidebar .endList {
+  color: rgb(170, 170, 170)
+}
+/*hover*/
+#sidebar .listitem:hover, .addRootDocButton:hover {
+  background-color: rgb(230, 230, 230);
+}
+.addDocButton:hover, button:hover {
+  border: none;
+  background-color: rgb(200, 200, 200);
+}
+/* 편집기 */
+#document-contents {
+  flex: 1;
+  /* background-color: #fff8b8; */
+}
+#document-contents .editor-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#document-contents .editor-title {
+  display: block;
+  margin-top: 100px;
+  outline: none;
+}
+#document-contents .editor-content {
+  display: block;
+  margin-top: 2px;
+  outline: none;
+}
