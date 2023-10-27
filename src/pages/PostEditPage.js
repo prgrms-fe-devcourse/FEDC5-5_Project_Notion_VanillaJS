@@ -1,7 +1,6 @@
 import Editor from "../components/Editor/Editor.js";
 
 import { getItem, setItem, removeItem } from "../utils/storage.js";
-import { request } from "../utils/api.js";
 import { push } from "../utils/router.js";
 import { fetchPutPost } from "../utils/fetch.js";
 
@@ -53,7 +52,6 @@ export default function PostEditPage({ $target, initialState }) {
   this.setState = async (nextState) => {
     postLocalSaveKey = `temp-post-${nextState.id}`;
     this.state = nextState;
-    console.log("this.state", this.state);
     const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
 
     // 작성중인 내용이 서버에 저장되지 않은 경우
@@ -77,6 +75,7 @@ export default function PostEditPage({ $target, initialState }) {
         if (tempPost !== this.state.post) {
           push(`/documents/${this.state.id}`);
         }
+        
       } else {
         removeItem(postLocalSaveKey);
         push(`/documents/${this.state.id}`);

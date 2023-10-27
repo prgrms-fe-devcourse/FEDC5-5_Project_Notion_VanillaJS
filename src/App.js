@@ -3,6 +3,7 @@ import PostEditPage from "./pages/PostEditPage.js";
 
 import { initRouter } from "./utils/router.js";
 import { request } from "./utils/api.js";
+import { validPost, validPostsArray } from "./utils/validation.js";
 
 export default function App({ $target }) {
   const postListPage = new PostListPage({
@@ -22,6 +23,12 @@ export default function App({ $target }) {
 
   this.route = async () => {
     const posts = await request("/documents");
+    try {
+      validPostsArray(posts);
+    } catch (error) {
+      console.error(error);
+    }
+
     postListPage.setState({
       posts,
       selectedId: null,
@@ -37,14 +44,20 @@ export default function App({ $target }) {
 
     if (pathname.indexOf("/documents/") === 0) {
       const [, , id] = pathname.split("/");
-      console.log("URL 변경");
 
       if (id !== "new") {
         const post = await request(`/documents/${id}`);
+        try {
+          validPost(post);
+        } catch (error) {
+          console.error(error);
+        }
+
         postListPage.setState({
           posts,
           selectedId: id,
         });
+
         postEditPage.setState({
           id,
           post,

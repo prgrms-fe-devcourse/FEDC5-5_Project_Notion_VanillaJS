@@ -1,5 +1,32 @@
 import { request } from "./api.js";
 import { push } from "./router.js";
+import { validPost } from "./validation.js";
+
+// fetch - "POST" 요청
+export const fetchAddPost = async (selectedId) => {
+  const createdPost = await request(`/documents`, {
+    method: "POST",
+    body: JSON.stringify({
+      title: "",
+      parent: selectedId,
+    }),
+  });
+  push(`/documents/${createdPost.id}`);
+};
+
+// fetch - "PUT" 요청
+export const fetchPutPost = async (selectedId, editedPost) => {
+  try {
+    validPost(editedPost);
+  } catch (error) {
+    console.error(error);
+  }
+
+  await request(`/documents/${selectedId}`, {
+    method: "PUT",
+    body: JSON.stringify(editedPost),
+  });
+};
 
 // fetch - "DELETE" 요청
 export const fetchDeletePost = async (selectedId) => {
@@ -24,23 +51,3 @@ export const fetchDeletePost = async (selectedId) => {
     }
   }
 };
-
-// fetch - "POST" 요청
-export const fetchAddPost = async (selectedId) => {
-  const createdPost = await request(`/documents`, {
-    method: "POST",
-    body: JSON.stringify({
-      title: "",
-      parent: selectedId,
-    }),
-  });
-  push(`/documents/${createdPost.id}`);
-};
-
-// fetch - "PUT" 요청
-export const fetchPutPost = async (selectedId, editedPost) => {
-  await request(`/documents/${selectedId}`, {
-    method: "PUT",
-    body: JSON.stringify(editedPost)
-  });
-}
