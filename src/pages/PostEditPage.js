@@ -1,4 +1,4 @@
-import Editor from "../components/Editor.js";
+import Editor from "../components/Editor/Editor.js";
 
 import { getItem, setItem, removeItem } from "../utils/storage.js";
 import { request } from "../utils/api.js";

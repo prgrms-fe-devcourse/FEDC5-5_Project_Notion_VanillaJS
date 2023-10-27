@@ -1,4 +1,4 @@
-import { textToHtml, textToHtmlWithTag } from "../utils/transfer.js";
+import { textToHtml, textToHtmlWithTag } from "../../utils/transfer.js";
 
 export default function ContentEditor({ $target, initialState, onEditing }) {
   const $contentContainer = document.createElement("div");

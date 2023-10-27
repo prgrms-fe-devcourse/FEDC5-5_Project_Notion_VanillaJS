@@ -1,5 +1,5 @@
-import PostList from "../components/PostList.js";
-import PostListTitle from "../components/PostListTitle.js";
+import PostList from "../components/PostList/PostList.js";
+import PostListTitle from "../components/PostList/PostListTitle.js";
 
 import { fetchDeletePost, fetchAddPost } from "../utils/fetch.js";
 

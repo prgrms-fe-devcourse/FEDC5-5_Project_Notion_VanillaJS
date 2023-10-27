@@ -1,4 +1,4 @@
-import { push } from "../utils/router.js";
+import { push } from "../../utils/router.js";
 
 export default function PostList({
   $target,
