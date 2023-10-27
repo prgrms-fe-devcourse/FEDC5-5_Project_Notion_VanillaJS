@@ -1,11 +1,12 @@
 const API_END_POINT = "https://kdt-frontend.programmers.co.kr";
+const USERNAME = "hrdata";
 
 export const request = async (url, options = {}) => {
   try {
     const response = await fetch(`${API_END_POINT}${url}`, {
       ...options,
       headers: {
-        "x-username": "hrdata",
+        "x-username": USERNAME,
         "Content-Type": "application/json",
       },
     });
