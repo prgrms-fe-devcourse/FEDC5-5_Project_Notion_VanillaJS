@@ -3,6 +3,7 @@ import Editor from "../components/Editor/Editor.js";
 import { getItem, setItem, removeItem } from "../utils/storage.js";
 import { request } from "../utils/api.js";
 import { push } from "../utils/router.js";
+import { fetchPutPost } from "../utils/fetch.js";
 
 export default function PostEditPage({ $target, initialState }) {
   const $page = document.createElement("div");
@@ -38,10 +39,7 @@ export default function PostEditPage({ $target, initialState }) {
           return;
         }
 
-        await request(`/documents/${this.state.id}`, {
-          method: "PUT",
-          body: JSON.stringify(post),
-        });
+        await fetchPutPost(this.state.id, post);
 
         if (post !== this.state.post) {
           push(`/documents/${this.state.id}`);
@@ -55,7 +53,7 @@ export default function PostEditPage({ $target, initialState }) {
   this.setState = async (nextState) => {
     postLocalSaveKey = `temp-post-${nextState.id}`;
     this.state = nextState;
-
+    console.log("this.state", this.state);
     const tempPost = getItem(postLocalSaveKey, { title: "", content: "" });
 
     // 작성중인 내용이 서버에 저장되지 않은 경우
@@ -68,14 +66,12 @@ export default function PostEditPage({ $target, initialState }) {
           ...tempPost,
           originalContent: tempPost.content,
         });
-        
-        await request(`/documents/${this.state.id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            ...this.state,
-            title: tempPost.title,
-            content: tempPost.content,
-          }),
+        this.state.post = tempPost;
+
+        await fetchPutPost(this.state.id, {
+          ...this.state,
+          title: tempPost.title,
+          content: tempPost.content,
         });
 
         if (tempPost !== this.state.post) {
@@ -83,6 +79,7 @@ export default function PostEditPage({ $target, initialState }) {
         }
       } else {
         removeItem(postLocalSaveKey);
+        push(`/documents/${this.state.id}`);
       }
     } else {
       editor.setState({
@@ -92,7 +89,6 @@ export default function PostEditPage({ $target, initialState }) {
       });
     }
 
-    this.state = nextState;
     this.render();
   };
 

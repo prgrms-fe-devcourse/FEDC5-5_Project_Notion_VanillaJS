@@ -36,3 +36,11 @@ export const fetchAddPost = async (selectedId) => {
   });
   push(`/documents/${createdPost.id}`);
 };
+
+// fetch - "PUT" 요청
+export const fetchPutPost = async (selectedId, editedPost) => {
+  await request(`/documents/${selectedId}`, {
+    method: "PUT",
+    body: JSON.stringify(editedPost)
+  });
+}
