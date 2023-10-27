@@ -1,0 +1,89 @@
+html,
+body {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+    display: flex;
+    width: 100vw;
+    height: 100%;
+    color: #37352f;
+    line-height: 1.5;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
+        'Segoe UI Symbol';
+}
+
+button {
+    border: transparent;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    height: 100%;
+    color: rgba(25, 23, 17, 0.6);
+    font-weight: 500;
+    font-size: 14px;
+    background: #fbfbfa;
+    box-shadow: rgb(0 0 0 / 2%) -1px 0px 0px 0px inset;
+}
+
+/* .sidebar button {
+  color: #a3a29d;
+  padding: 3px;
+} */
+
+.sidebar-header {
+  display: flex;
+  color: #37352f;
+  margin: 15px 0;
+  padding-left: 15px;
+  cursor: default;
+}
+.sidebar-header > svg{
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+}
+
+.document-list li {
+    display: flex;
+    margin: 2px;
+    padding: 3px 5px;
+    border-radius: 3px;
+}
+
+.document-list li:not(.no-subpages) {
+    cursor: pointer;
+}
+
+.document-list li:not(.no-subpages):hover {
+    background-color: #ebebea;
+}
+
+.document-list li:not(.no-subpages):active {
+    background-color: #d7d7d5;
+}
+
+.document-edit-page {
+    width: calc(100vw - 230px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editor {
+    width: 75%;
+    height: 92%;
+    margin: 50px;
+    background: #ffffff;
+    caret-color: #37352f;
+}
