@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* App */
+#app {
+    display: flex;
+}
+
+/* side-bar */
+.side-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgb(251, 251, 250);
+    box-shadow: rgba(0, 0, 0, 0.024) -1px 0px 0px 0px inset;
+    padding-top: 30px;
+}
+
+/* side-bar - Header */
+
+.side-bar header {
+    
+}
+
+.side-bar header h1{
+    position: relative;
+    margin-bottom: 25px;
+    cursor: pointer;
+    padding: 10px 10px 10px 65px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+.side-bar header h1::before {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform:translateY(-50%);
+    content: '';
+    background-image: url('../images/header/notion-logo.png');
+    background-size: 50px 50px;
+    width: 50px;
+    height: 50px;
+}
+
+.side-bar header > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+    padding: 20px 10px;
+    background: rgb(127 127 127 / 10%);
+}
+
+.side-bar header > div strong {
+    font-size: 20px;
+    font-weight: bold
+}
+
+.side-bar header > div button {
+    position: relative;
+    top: 2px;
+    width: 18px;
+    height:18px;
+    background-image: url('../images/nav/add.png');
+    cursor: pointer;
+    text-indent: -9999px;
+    border: 0;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0;
+    z-index: 1;
+}
+
+/* side-bar - Nav */
+
+.side-bar .left-bar {
+    width: 400px;
+    height: 100vh;
+    overflow: auto;
+    max-height: 646px;
+}
+
+.side-bar .left-bar button {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: 0;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0;
+}
+
+.side-bar .left-bar li .toggle {
+    margin-left: 10px;
+    background-image: url('../images/nav/toggle.png');
+    background-size: 10px 11px;
+    background-position: center;
+    transition: all 0.2s;
+    transform: rotate(90deg);
+}
+
+.side-bar .left-bar li.hide .toggle {
+    transform: rotate(0);
+}
+
+.side-bar .left-bar .remove {
+    position: relative;
+    top: -2px;
+    background-image: url('../images/nav/trash.png');
+    margin-right: 5px;
+}
+
+.side-bar .left-bar .create {
+    width: 18px;
+    height:21px;
+    background-image: url('../images/nav/add.png');
+    background-position-y: 1px;
+    margin-right: 10px;
+}
+
+.side-bar .left-bar > ul {
+    position: relative;
+}
+
+.side-bar .left-bar ul li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    line-height: 40px;
+}
+
+.side-bar .left-bar ul li span {
+    width: calc(100% - 88px);
+    text-align: left;
+    cursor: pointer;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.side-bar .left-bar ul li:hover {
+    background-color: #e9e9e9;
+    color: rgb(55, 53, 47);
+}
+
+.side-bar .left-bar ul li:hover span {
+    font-weight: 600;
+}
+
+.side-bar .left-bar ul li > ul {
+    display: block;
+    width: 100%;
+}
+
+.side-bar .left-bar ul li ul {
+    margin-left: 1em;
+}
+
+.side-bar .left-bar ul li.hide > ul {
+    display: none;
+}
+
+/* side-bar - footer */
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+}
+
+footer a {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: 0;
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 5px;
+}
+
+footer a.github {
+    background-image: url('../images/footer/github-logo.png');
+}
+
+footer a.velog {
+    background-image: url('../images/footer/velog-logo.png');
+    margin-right: 10px;
+}
+
+/* Editor */
+.editor-wrap {
+    display: none;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 30px;
+    padding-left: 400px;
+    padding-top : 40px;
+}
+
+.editor-wrap.show {
+    display: block;
+}
+
+.editor-wrap .editor {
+    width: 100%;
+}
+
+.editor-wrap .editor input {
+    width: 100%;
+    height: 60px;
+    font-size: 30px;
+    padding: 0 10px;
+    outline: none;
+    border: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+}
+
+.editor-wrap .editor textarea {
+    width: 100%;
+    height: 750px;
+    padding: 10px;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.editor-footer {
+    display: none;
+}
+
+.editor-footer.show {
+    display: block;
+}
+
+.editor-footer ul {
+    border-top: 2px solid #737373;
+    margin-bottom: 20px;
+}
+
+.editor-footer ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    line-height:40px;
+    border-bottom: 1px solid #ccc;
+    transition: background 0.2s;
+    padding: 5px 10px;
+}
+
+.editor-footer ul li:hover{
+    background: #fbfbfa;
+}
+
+.editor-footer ul li:hover strong {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.editor-footer ul li strong {
+    display: inline-block;
+    width: calc(100% - 104px);
+    font-size: 18px;
+    margin: 10px 0;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.editor-footer ul li span {
+    display: inline-block;
+    width: 84px;
+    font-size: 16px;
+    color: #ccc;
+}
+
+/* contenteditable */
+.content {
+    width: 100%;
+    height: 750px;
+    /* border:1px solid red; */
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+}
+
+[contenteditable="true"]:empty:before {
+    content: attr(placeholder);
+ }
