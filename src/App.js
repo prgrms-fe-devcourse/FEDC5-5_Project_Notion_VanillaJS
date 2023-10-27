@@ -68,7 +68,6 @@ export default function App({ $app }) {
 
   window.addEventListener("popstate", (e) => {
     const { pathname } = e.target.location;
-    console.log("pop", pathname);
     const [, , docId] = pathname.split("/");
     fetchRoot();
     documentContainer.fetchDoc(docId);

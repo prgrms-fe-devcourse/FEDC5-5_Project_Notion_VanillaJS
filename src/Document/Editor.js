@@ -54,7 +54,6 @@ export default function Editor({ $page, initialState }) {
   };
 
   this.render = () => {
-    console.log("d", this.state, this.state.content);
     if (this.state.title === "제목없음") {
       $page.innerHTML = `
         <input type="text" class="editor-title" style="width:93%; height:5%; margin:20px;" placeholder="제목을 입력하세요">
@@ -73,7 +72,6 @@ export default function Editor({ $page, initialState }) {
       `;
     }
     if (this.state.content === "") {
-      console.log("adf");
     }
     this.focused(); //render가 될때마다 addEventListener가 되는걸 고치고 싶었는데 실패함.
   };

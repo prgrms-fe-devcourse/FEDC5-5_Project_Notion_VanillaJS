@@ -30,9 +30,7 @@ export default function Editor({ $page, initialState, onEdit }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    //console.log("EditorState", this.state);
   };
-  // let isInit = false;
 
   this.render = () => {
     if (this.state.title === "제목없음") {
@@ -46,9 +44,6 @@ export default function Editor({ $page, initialState, onEdit }) {
         <textarea name="content" style="width:93%; height:70%; margin:20px;">${this.state.content}</textarea>
       `;
     }
-    // isInit = true;
   };
-
-  //if문이 어딘가에 있고 명령어에 따라 마크업 태그를 JSON으로 변환해서
   $page.addEventListener("keyup", (e) => handleKeyUp(e));
 }

@@ -39,7 +39,6 @@ export default function RootContainer({
 
     addSubDoc: async (id) => {
       const res = await fetchSubPost(id);
-      console.log("adS", res);
       push(res.id);
     },
     deleteDoc: async (id) => {
