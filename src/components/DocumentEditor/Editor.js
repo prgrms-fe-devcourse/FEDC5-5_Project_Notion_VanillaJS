@@ -9,6 +9,7 @@ export default function Editor({
     checkNewComponent(Editor, self);
 
     const $editor = document.createElement("div");
+    $editor.className = "editor";
     $target.appendChild($editor);
 
     $editor.innerHTML = `

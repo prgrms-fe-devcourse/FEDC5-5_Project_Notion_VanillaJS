@@ -12,7 +12,6 @@ export default function SideBarList({
     checkNewComponent(SideBarList, self);
 
     const $sideBarList = document.createElement("div");
-
     $target.appendChild($sideBarList);
 
     this.state = initialState;
@@ -23,7 +22,6 @@ export default function SideBarList({
     };
 
     this.render = () => {
-        console.log(this.state);
         const documentList = getDocumentList(this.state, "", "$sideBarList");
 
         $sideBarList.innerHTML = `${documentList}`;

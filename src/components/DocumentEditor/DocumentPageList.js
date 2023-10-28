@@ -16,11 +16,11 @@ export default function DocumentPageList({ $target, initialState }) {
     };
 
     this.render = () => {
-        console.log(this.state);
-        const docs = [];
-        docs.push(this.state);
-        console.log(docs);
-        const documentList = getDocumentList(docs, "", "$documentPageList");
+        const documentList = getDocumentList(
+            [{ ...this.state }],
+            "",
+            "$documentPageList"
+        );
 
         $documentPageList.innerHTML = `${documentList}`;
     };

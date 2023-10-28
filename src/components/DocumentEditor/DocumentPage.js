@@ -8,7 +8,7 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
     checkNewComponent(DocumentPage, self);
 
     const $documentPage = document.createElement("div");
-    $documentPage.className = "documentItem";
+    $documentPage.className = "documentPage";
 
     this.state = initialState;
 
@@ -68,6 +68,7 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
             }, 2000);
         },
     });
+
     const documentPageList = new DocumentPageList({
         $target: $documentPage,
         initialState: [],

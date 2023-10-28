@@ -22,7 +22,7 @@ export default function App({ $target }) {
     });
 
     const ToggleDocumentVisibility = (parent) => {
-        const childDocument = document.querySelector(".documentItem") || null;
+        const childDocument = document.querySelector(".documentPage") || null;
         if (childDocument == null) {
             return;
         }
@@ -34,9 +34,9 @@ export default function App({ $target }) {
 
         if (pathname === "/") {
             ToggleDocumentVisibility($target);
-
             sideBar.render();
         } else if (pathname.includes("/documents/")) {
+            sideBar.render();
             const [, , documentId] = pathname.split("/");
             documentPage.setState({ documentId });
         }

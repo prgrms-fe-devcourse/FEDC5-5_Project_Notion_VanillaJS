@@ -1,11 +1,81 @@
-.app {
-    display: flex;
-    justify-content: flex-start;
+*{
+    /* margin: 0;
+    padding: 0; */
+    box-sizing: border-box;
 }
 
-.documentItem {
-    width:  min-content;
-    height: auto;
-    left: 50px;
+.app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    justify-content :space-between;
+
+}
+
+.sidebar {
+    min-width:350px;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    background: #e2e2e2;
+    border-right: 1px solid #fff;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 4px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgb(55, 53, 47);
+    cursor: pointer;
+
+}
+
+.notion-icon {
+    display: block;
+    object-fit: cover;
+    border-radius: 4px;
+    width: 50px;
+    height: 50px;
+    transition: opacity 100ms ease-out 0s;
+}
+
+.addButton{
+    /* border: none; */
+
+    background-size: 15px 15px;
+    cursor: pointer;
     position: relative;
+    background: #f3f2f2;
+
+}
+
+.deleteButton{
+    /* border: none; */
+    background-size: 15px 15px;
+    cursor: pointer;
+    position: relative;
+    background: #f3f2f2;
+}
+
+.editor input[name="title"] {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.documentPage {
+    width:  min-content;
+    height: 300px;
+    left: 50px;
+
+}
+
+.documentContainer{
+    /* display: flex; */
+    width: 200px;
+    /* justify-content: flex-start; */
 }

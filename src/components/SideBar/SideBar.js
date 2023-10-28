@@ -13,6 +13,7 @@ export default function SideBar({ $target }) {
     checkNewComponent(SideBar, self);
 
     const $sideBar = document.createElement("div");
+    $sideBar.className = "sidebar";
     new SideBarHeader({ $target: $sideBar });
 
     const sideBarList = new SideBarList({
@@ -44,8 +45,9 @@ export default function SideBar({ $target }) {
 
     const $addButton = document.createElement("button");
     $sideBar.appendChild($addButton);
+    $addButton.className = "addButton";
 
-    $addButton.innerText = `새로운 루트 페이지 추가`;
+    $addButton.innerText = `새로운 페이지 추가`;
     $addButton.addEventListener("click", async (event) => {
         event.preventDefault();
 
