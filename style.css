@@ -1,0 +1,84 @@
+#app > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.documents_page {
+    width: 20%;
+    height: 100vh;
+    background-color: rgb(226, 226, 226, 0.3);
+}
+
+.contents_page {
+    width:calc(100% - 20%);
+    height: 100vh
+}
+
+.contents_page > div {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.documents_header {
+    margin-bottom: 10px;
+    padding: 15px 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.documents_header > span {
+    font-size: 14px;
+    color: rgb(157, 153, 153);
+    cursor: default;
+}
+
+.documents_header > span:hover {
+    color: #000;
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.document {
+    width: 100%;
+    margin-bottom: 2%;
+    display: flex;
+    align-items: center;
+}
+
+.document > span {
+    word-break: break-all;
+}
+
+.document > img, .documents_header > .addButton {
+    width: 10px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.document_title {
+    padding: 2px;
+    color: rgb(121, 117, 117);
+}
+
+.document > img:hover, .documents_header > .addButton:hover, .document_title:hover {
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+.leaf_document {
+    font-size: 14px;
+    color: rgb(185, 183, 183);
+}
+
+.editor_header, .editor_content:focus {
+    outline: none;
+}
+
+.editor_header {
+    margin: 5% 0 5% 0;
+    font-size: 30px;
+    font-weight: 900;
+}
