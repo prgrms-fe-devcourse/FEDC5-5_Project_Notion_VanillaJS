@@ -47,7 +47,7 @@ export default function SideBar({ $target }) {
     $sideBar.appendChild($addButton);
     $addButton.className = "addButton";
 
-    $addButton.innerText = `새로운 페이지 추가`;
+    $addButton.innerText = `새로운 루트 페이지 추가`;
     $addButton.addEventListener("click", async (event) => {
         event.preventDefault();
 

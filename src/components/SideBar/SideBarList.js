@@ -1,5 +1,5 @@
 import checkNewComponent from "../../utils/checkNewComponent.js";
-import { getDocumentList } from "../../utils/GetDocumentList.js";
+import { getDocumentList } from "../../utils/getDocumentList.js";
 
 export default function SideBarList({
     $target,
