@@ -51,6 +51,7 @@ export default function Editor({ $page, initialState }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
+    //this.focused(); 여기로 옮겨도 안돼요
   };
 
   this.render = () => {
@@ -74,20 +75,49 @@ export default function Editor({ $page, initialState }) {
     if (this.state.content === "") {
     }
     this.focused(); //render가 될때마다 addEventListener가 되는걸 고치고 싶었는데 실패함.
+    this.focusOut();
   };
 
   this.focused = () => {
     const $contentInput = $page.querySelector(".editor-content");
     //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어준다.
-    $contentInput.addEventListener("focus", () => {
+    $contentInput.addEventListener("click", (event) => {
       const contentEditableContent = htmlToMarkdown(this.state.content);
       $page.innerHTML = `
       <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
       <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
+      <div class="test" style="background-color:pink;">asdfadf</div>
     `;
+      // console.log("포커스된 변환 전", this.state.content);
+      // console.log("포커스된 변환 후", contentEditableContent);
+      console.log(event.target);
+      event.target.style.backgroundcolor = "pink";
+      const $test = $page.querySelector(".test");
+      $test.style.backgroundcolor = "red";
+      console.log("focus", cnt);
+    });
+  };
+
+  // if (this.state.content !== "") {
+  //   this.focused(); //이걸 여기로 빼는건 옳지 않은건가? 무조건 this.render안에 넣어야하나?
+  //   console.log("Editor", "focus hello");
+  // }
+
+  this.focusOut = () => {
+    const $contentInput = $page.querySelector(".editor-content");
+    //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어준다.
+    $contentInput.addEventListener("blur", () => {
+      const contentEditableContent = markdownToHtml(this.state.content);
+      $page.innerHTML = `
+      <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
+      <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
+    `;
+      // console.log("포커스아웃 변환 전", this.state.content);
+      // console.log("포커스아웃 변환 후", contentEditableContent);
     });
   };
 
   // editor에 입력이 있으면 handleKeyUp 실행
   $page.addEventListener("keyup", (e) => handleKeyUp(e));
 }
+var cnt = 0;

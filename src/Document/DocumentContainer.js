@@ -36,5 +36,6 @@ export default function DocumentContainer({ $target, initialState }) {
     this.state = nextState;
     $editor.setState(this.state);
     $editor.render();
+    console.log("DocumentSetstate", "editor.render");
   };
 }
