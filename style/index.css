@@ -1,0 +1,135 @@
+@import "reset.css";
+:root {
+  --color_border_white: #ebebeb;
+  --color_border_dark: #404040;
+  --color_bg_white: #edede9;
+  --color_bg_white_200: #ffffff;
+  --color_bg_dark: #212529;
+  --color_bg_dark_200: #474c50;
+  --color_font_white: #e9ecef;
+  --color_font_dark: #051923;
+}
+
+body.light {
+  --sidebar: var(--color_bg_white);
+  --content: var(--color_bg_white_200);
+  --border: var(--color_border_dark);
+  --fontColor: var(--color_font_dark);
+}
+
+body.dark {
+  --sidebar: var(--color_bg_dark);
+  --content: var(--color_bg_dark_200);
+  --border: var(--color_border_white);
+  --fontColor: var(--color_font_white);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  height: 100%;
+  color: var(--fontColor);
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  background-color: var(--sidebar);
+  height: 100%;
+  position: relative;
+}
+
+#directory {
+  display: flex;
+  flex-direction: column;
+}
+
+#directory div {
+  margin-left: 10px;
+}
+
+.title {
+  margin: 8px 0;
+}
+
+.title:hover .tool {
+  display: inline-flex;
+}
+
+/* .title:hover {
+  background-color: #d3d1cb;
+} */
+
+.flip.fold::after {
+  content: "📁";
+  margin-right: 1px;
+}
+.flip.unfold::after {
+  content: "📂";
+  margin-right: 1px;
+}
+
+#add {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  background: var(--content);
+  width: 100%;
+}
+
+#editor,
+#header {
+  padding: 30px;
+  box-sizing: content-box;
+  text-align: left;
+}
+
+#header {
+  font-size: 30px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  top: 50px;
+}
+
+#editor {
+  margin-top: 10px;
+  font-size: 2rem;
+  border-radius: 4px;
+  background-color: rgba(173, 181, 189, 0.5);
+  line-height: 1.5;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+#footer li {
+  margin: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.clicked {
+  background-color: #d3d1cb;
+}
