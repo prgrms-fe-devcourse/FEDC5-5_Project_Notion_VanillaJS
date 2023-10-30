@@ -1,0 +1,86 @@
+@import "reset.css";
+
+@font-face {
+  font-family: "GangwonEdu_OTFBoldA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "GangwonEdu_OTFBoldA";
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+main {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 전체적인 사이드바 스타일 */
+.side-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #fbfbfa;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+  padding: 1.25rem;
+}
+
+.side-bar-header-title {
+  padding: 1rem 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-document {
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+.side-bar-document {
+  margin-bottom: 0.3125rem;
+}
+
+.side-bar-leaf-documents {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  margin-top: 0.1rem;
+}
+
+img {
+  width: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+img,
+span {
+  cursor: pointer;
+}
+
+/* 문서 작성 */
+.edit-container {
+  flex: 5;
+}
+
+.editable {
+  padding: 2rem;
+  line-height: 1.5;
+  word-break: break-word;
+  outline: none;
+  font-size: 1.4rem;
+}
+
+#editable-title {
+  font-size: xx-large;
+}
