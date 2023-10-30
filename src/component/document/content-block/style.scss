@@ -1,0 +1,21 @@
+.content-block {
+	padding: 3px 2px;
+	width: 100%;
+	outline: none;
+}
+.content-block:empty::after {
+	content: attr(placeholder);
+	color: rgb(55, 53, 47, 0.5);
+}
+h1 {
+	margin-top: 2em;
+	margin-bottom: 4px;
+}
+h2 {
+	margin-top: 1.4em;
+	margin-bottom: 1px;
+}
+h3 {
+	margin-top: 1em;
+	margin-bottom: 1px;
+}

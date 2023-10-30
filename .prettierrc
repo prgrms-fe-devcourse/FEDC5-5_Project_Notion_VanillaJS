@@ -1,0 +1,9 @@
+{
+	"singleQuote": true,
+	"semi": true,
+	"tabWidth": 4,
+	"useTabs": true,
+	"printWidth": 120,
+	"importOrder": ["^@api/(.*)$", "^@asset/(.*)$", "^@component/(.*)$", "^@layout/(.*)$", "^@util/(.*)$", "^[./]"],
+	"importOrderSortSpecifiers": true
+}

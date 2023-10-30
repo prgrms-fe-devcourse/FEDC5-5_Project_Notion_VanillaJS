@@ -1,0 +1,52 @@
+{
+	"name": "fedc5-5_project_notion_vanillajs",
+	"version": "1.0.0",
+	"description": "[programmers_5_Project_Notion_VanillaJS] vanillaJS를 이용한 노션 클로닝 프로젝트",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "webpack-dev-server --mode development",
+		"lint": "eslint --fix ./src",
+		"build": "yarn lint && webpack --mode=development"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS.git"
+	},
+	"keywords": [],
+	"author": "Mo Youkyeong",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS/issues"
+	},
+	"homepage": "https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS#readme",
+	"dependencies": {
+		"dotenv": "^16.0.3"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.21.0",
+		"@babel/preset-env": "^7.20.2",
+		"autoprefixer": "^10.4.13",
+		"babel-loader": "^9.1.2",
+		"css-loader": "^6.7.3",
+		"eslint": "^8.24.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"file-loader": "^6.2.0",
+		"html-webpack-plugin": "^5.5.0",
+		"mini-css-extract-plugin": "^2.7.2",
+		"node": "^19.3.0",
+		"prettier": "2.7.1",
+		"process": "^0.11.10",
+		"sass": "^1.55.0",
+		"sass-loader": "^13.0.2",
+		"style-loader": "^3.3.1",
+		"url-loader": "^4.1.1",
+		"webpack": "^5.76.0",
+		"webpack-cli": "^5.0.1",
+		"webpack-dev-server": "^4.11.1"
+	},
+	"packageManager": "yarn@3.5.0"
+}
