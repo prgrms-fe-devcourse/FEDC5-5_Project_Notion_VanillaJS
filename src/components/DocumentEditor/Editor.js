@@ -82,6 +82,6 @@ export default function Editor({
             timer = setTimeout(() => {
                 this.setState(nextState);
                 onEditing(this.state);
-            }, 2000);
+            }, 1000);
         });
 }

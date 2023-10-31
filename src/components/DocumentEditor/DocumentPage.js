@@ -44,7 +44,7 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
             return false;
         }
         await updateDocument(`/${post.id}`, post);
-        history.replaceState(null, null, `/documents/${post.id}`);
+
         updateSideBar();
         return true;
     };
@@ -65,7 +65,7 @@ export default function DocumentPage({ $target, initialState, updateSideBar }) {
                         tempSaveDate: new Date(),
                     });
                 }
-            }, 2000);
+            }, 1000);
         },
     });
 
