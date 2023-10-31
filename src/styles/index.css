@@ -10,7 +10,7 @@
     display: flex;
     gap: 20px;
     overflow: hidden;
-    justify-content :space-between;
+    justify-content :start;
 
 }
 
