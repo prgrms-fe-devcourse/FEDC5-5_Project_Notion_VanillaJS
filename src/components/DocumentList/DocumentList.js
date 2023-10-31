@@ -1,14 +1,14 @@
 import { push } from "../../utils/router.js";
 
-export default function PostList({
+export default function DocumentList({
   $target,
   initialState,
-  handleDeletePost,
-  handleAddPost,
+  handleDeleteDocument,
+  handleAddDocument,
 }) {
-  const $postList = document.createElement("div");
-  $postList.className = "post-list";
-  $target.appendChild($postList);
+  const $documentList = document.createElement("div");
+  $documentList.className = "document-list";
+  $target.appendChild($documentList);
 
   this.state = initialState;
 
@@ -18,28 +18,28 @@ export default function PostList({
   };
 
   // 자식 문서를 재귀로 리스트에 출력하는 함수
-  const recursiveList = (posts) => {
-    if (posts.length !== 0) {
-      return posts
+  const recursiveList = (documents) => {
+    if (documents.length !== 0) {
+      return documents
         .map(
-          (post) =>
-            `<li data-id=${post.id} class="post-li">
-              <div class="post-list-block parent-list ${
-                parseInt(this.state.selectedId) === post.id ? "selected" : ""
+          (document) =>
+            `<li data-id=${document.id} class="document-li">
+              <div class="document-list-block parent-list ${
+                parseInt(this.state.selectedId) === document.id ? "selected" : ""
               }">
                 <img class="toggle-img" src="/src/icons/arrow-${
-                  post.documents.length === 0 ? "right" : "bottom"
+                  document.documents.length === 0 ? "right" : "bottom"
                 }.svg" />
                 <img src="/src/icons/notes-book-text.svg" />
-                <div class="post-title">${
-                  post.title === "" ? "제목 없음" : post.title
+                <div class="document-title">${
+                  document.title === "" ? "제목 없음" : document.title
                 }</div>
                 <img class="add-child-img" src="/src/icons/add.svg" />
-                <img class="delete-post-img" src="/src/icons/delete.svg" />
+                <img class="delete-document-img" src="/src/icons/delete.svg" />
               </div>
             ${
-              post.documents.length !== 0
-                ? `<ul class="toggle-ul">${recursiveList(post.documents)}</ul>`
+              document.documents.length !== 0
+                ? `<ul class="toggle-ul">${recursiveList(document.documents)}</ul>`
                 : "<ul class='toggle-ul toggle-off'><div style='color: darkgrey'>하위 문서 없음</div></ul>"
             }
           </li>`
@@ -50,11 +50,11 @@ export default function PostList({
   };
 
   this.render = () => {
-    $postList.innerHTML = `
+    $documentList.innerHTML = `
     <ul class="toggle-ul" style="padding-left: 0px;">${recursiveList(
-      this.state.posts
+      this.state.documents
     )}</ul>
-    <div class="post-list-block add-root-post"><img src="/src/icons/add.svg" /><span>페이지 추가<span/></div>
+    <div class="document-list-block add-root-document"><img src="/src/icons/add.svg" /><span>페이지 추가<span/></div>
     `;
   };
 
@@ -77,11 +77,11 @@ export default function PostList({
     }
   };
 
-  $postList.addEventListener("click", (e) => {
+  $documentList.addEventListener("click", (e) => {
     // 루트 문서 생성
-    if (e.target.closest("div").matches(".add-root-post")) {
+    if (e.target.closest("div").matches(".add-root-document")) {
       push(`/documents/new`);
-      handleAddPost();
+      handleAddDocument();
       return;
     }
 
@@ -89,7 +89,7 @@ export default function PostList({
     const { id } = e.target.closest("li").dataset;
 
     // 문서 열람 & 편집
-    if (e.target.matches(".post-title")) {
+    if (e.target.matches(".document-title")) {
       const { pathname } = location;
       if (pathname === "/") {
         push(`/documents/${id}`);
@@ -104,15 +104,15 @@ export default function PostList({
     }
 
     // 문서 삭제
-    if (e.target.matches(".delete-post-img")) {
-      handleDeletePost(parseInt(id));
+    if (e.target.matches(".delete-document-img")) {
+      handleDeleteDocument(parseInt(id));
       return;
     }
 
     // 자식 문서 생성
     if (e.target.matches(".add-child-img")) {
       push(`/documents/new`);
-      handleAddPost(parseInt(id));
+      handleAddDocument(parseInt(id));
       handleToggle(e);
       return;
     }

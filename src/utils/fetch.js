@@ -1,35 +1,35 @@
 import { request } from "./api.js";
 import { push } from "./router.js";
-import { validPost } from "./validation.js";
+import { validDocument } from "./validation.js";
 
 // fetch - "POST" 요청
-export const fetchAddPost = async (selectedId) => {
-  const createdPost = await request(`/documents`, {
+export const fetchAddDocument = async (selectedId) => {
+  const createdDocument = await request(`/documents`, {
     method: "POST",
     body: JSON.stringify({
       title: "",
       parent: selectedId,
     }),
   });
-  push(`/documents/${createdPost.id}`);
+  push(`/documents/${createdDocument.id}`);
 };
 
 // fetch - "PUT" 요청
-export const fetchPutPost = async (selectedId, editedPost) => {
+export const fetchPutDocument = async (selectedId, editedDocument) => {
   try {
-    validPost(editedPost);
+    validDocument(editedDocument);
   } catch (error) {
     console.error(error);
   }
 
   await request(`/documents/${selectedId}`, {
     method: "PUT",
-    body: JSON.stringify(editedPost),
+    body: JSON.stringify(editedDocument),
   });
 };
 
 // fetch - "DELETE" 요청
-export const fetchDeletePost = async (selectedId) => {
+export const fetchDeleteDocument = async (selectedId) => {
   await request(`/documents/${selectedId}`, {
     method: "DELETE",
   });

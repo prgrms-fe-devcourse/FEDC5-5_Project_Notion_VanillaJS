@@ -15,9 +15,9 @@ body {
   width: 95vw;
 }
 
-/* PostListPage */
+/* DocumentListPage */
 
-.post-list-page {
+.document-list-page {
   width: 225px;
   height: 100vh;
   border: 1px solid #e1e1e1;
@@ -26,29 +26,29 @@ body {
   padding: 2px 10px;
 }
 
-/* PostListTitle */
+/* DocumentListTitle */
 
-.post-list-title {
+.document-list-title {
   font-weight: 1000;
   margin-left: 5px;
   height: 50px;
   color: #37352f;
 }
 
-.post-list-title:hover {
+.document-list-title:hover {
   cursor: pointer;
 }
 
-/* PostList */
+/* DocumentList */
 
-.post-list-block {
+.document-list-block {
   display: flex;
   align-items: center;
   color: #6d6c69;
   cursor: pointer;
 }
 
-.post-title {
+.document-title {
   margin-left: 3px;
 }
 
@@ -56,12 +56,12 @@ body {
   display: none;
 }
 
-.post-list {
+.document-list {
   display: flex;
   flex-direction: column;
 }
 
-.post-list ul {
+.document-list ul {
   list-style: none;
   padding-left: 20px;
 }
@@ -78,7 +78,7 @@ body {
   background-color: #ebebea;
 }
 
-.post-title {
+.document-title {
   display: block;
   width: 70%;
   overflow: hidden;
@@ -86,9 +86,9 @@ body {
   text-overflow: ellipsis;
 }
 
-/* PostEditPage */
+/* DocumentEditPage */
 
-.post-edit-page {
+.document-edit-page {
   display: flex;
   width: 80%;
   flex-direction: column;
@@ -98,7 +98,7 @@ body {
 /* Editor */
 
 [contenteditable]:focus {
-  outline: 0px solid transparent;
+  outline: none;
 }
 
 [contenteditable]:empty:not(:focus):before {

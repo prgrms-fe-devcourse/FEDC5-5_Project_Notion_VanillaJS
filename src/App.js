@@ -1,20 +1,20 @@
-import PostListPage from "./pages/PostListPage.js";
-import PostEditPage from "./pages/PostEditPage.js";
+import DocumentListPage from "./pages/DocumentListPage.js";
+import DocumentEditPage from "./pages/DocumentEditPage.js";
 
 import { initRouter } from "./utils/router.js";
 import { request } from "./utils/api.js";
-import { validPost, validPostsArray } from "./utils/validation.js";
+import { validDocument, validDocumentsArray } from "./utils/validation.js";
 
 export default function App({ $target }) {
-  const postListPage = new PostListPage({
+  const documentListPage = new DocumentListPage({
     $target,
   });
 
-  const postEditPage = new PostEditPage({
+  const documentEditPage = new DocumentEditPage({
     $target,
     initialState: {
       id: "new",
-      post: {
+      document: {
         title: "제목 없음",
         content: "",
       },
@@ -22,23 +22,23 @@ export default function App({ $target }) {
   });
 
   this.route = async () => {
-    const posts = await request("/documents");
+    const documents = await request("/documents");
     try {
-      validPostsArray(posts);
+      validDocumentsArray(documents);
     } catch (error) {
       console.error(error);
     }
 
-    postListPage.setState({
-      posts,
+    documentListPage.setState({
+      documents,
       selectedId: null,
     });
 
     const { pathname } = window.location;
 
     // 루트 경로일 때 편집기가 보이지 않도록 설정
-    if (pathname === "/" && $target.querySelector(".post-edit-page")) {
-      $target.removeChild($target.querySelector(".post-edit-page"));
+    if (pathname === "/" && $target.querySelector(".document-edit-page")) {
+      $target.removeChild($target.querySelector(".document-edit-page"));
       return;
     }
 
@@ -46,21 +46,21 @@ export default function App({ $target }) {
       const [, , id] = pathname.split("/");
 
       if (id !== "new") {
-        const post = await request(`/documents/${id}`);
+        const document = await request(`/documents/${id}`);
         try {
-          validPost(post);
+          validDocument(document);
         } catch (error) {
           console.error(error);
         }
 
-        postListPage.setState({
-          posts,
+        documentListPage.setState({
+          documents,
           selectedId: id,
         });
 
-        postEditPage.setState({
+        documentEditPage.setState({
           id,
-          post,
+          document,
         });
       }
     }
