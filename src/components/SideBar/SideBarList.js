@@ -24,7 +24,7 @@ export default function SideBarList({
     this.render = () => {
         const documentList = getDocumentList(this.state, "", "$sideBarList");
 
-        $sideBarList.innerHTML = `${documentList}`;
+        $sideBarList.innerHTML = documentList;
     };
     this.render();
 

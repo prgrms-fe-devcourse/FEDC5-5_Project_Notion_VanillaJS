@@ -14,8 +14,8 @@ export const getDocumentList = (rootDocument, text, target) => {
             <button id="deleteButton" class="deleteButton" data-documentid="${id}">-</button>`
                     : ``
             }
-            </li>
             ${getDocumentList(documents, text, target)}
+            </li>
             `;
             return returnText;
         })
