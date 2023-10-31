@@ -1,0 +1,208 @@
+html,
+body {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 0 0 0;
+}
+
+main {
+    display: flex;
+    width: 100vw;
+    height: 100%;
+    color: #37352f;
+    line-height: 1.5;
+}
+
+button {
+    border: transparent;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+}
+
+.listContainer {
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    width: 230px;
+    min-width: 230px;
+    color: rgba(25, 23, 17, 0.6);
+    font-weight: 500;
+    font-size: 14px;
+    background: #fbfbfa;
+    box-shadow: rgb(0 0 0 / 2%) -1px 0px 0px 0px inset;
+}
+
+.header {
+    display: flex;
+    color: #37352f;
+    margin: 15px 0;
+    padding-left: 15px;
+    cursor: default;
+}
+
+.postList {
+    overflow: auto;
+    width: inherit;
+    height: 100%;
+}
+
+.postList ul {
+    padding-left: 0;
+    margin: 2px 0px;
+}
+
+.postList li {
+    display: flex;
+    margin: 2px;
+    border-radius: 3px;
+    padding: 3px 5px 3px;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+.add,
+.remove {
+    color: #a3a29d;
+    padding: 3px;
+}
+
+.root {
+    display: block;
+}
+
+.closed {
+    display: none;
+}
+
+.postList li:hover{
+    background-color: #ebebea;
+    cursor: pointer;
+}
+
+.postList li:active{
+    background-color: #d7d7d5;
+}
+
+.postList li.selected{
+    background-color: #f1f1f0;
+}
+
+.postList li.selected p{
+    font-weight: 600;
+}
+
+.postList p{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px 4px;
+    user-select: none;
+    margin: 0 0 0 0;
+    align-items: center;
+}
+
+.buttons:hover {
+    background-color: #dededd;
+}
+
+.postList .buttons.block {
+    display: block;
+    float: left;
+}
+
+.addPostBottomButton {
+    display: flex;
+    position: sticky;
+    bottom: 0;
+    padding: 12px 0px;
+    border-top: 1.5px solid #ededec;
+    background-color: inherit;
+    color: rgba(25, 23, 17, 0.6);
+    cursor: pointer;
+} 
+
+.addPostBottomButton:hover{
+    background-color: #ebebea;
+} 
+
+.addPostBottomButton button {
+    margin: 0 10px;
+    color: #37352f
+}
+
+.editorContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editor {
+    width: 75%;
+    height: 92%;
+    margin: 50px;
+    margin-bottom: 10px;
+    background: #ffffff;
+    caret-color: #37352f;
+}
+
+.editor .title,
+.editor .content {
+  width: 100%;
+  padding: 10px;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+.editor .title {
+    font-size: 40px;
+    font-weight: 700;
+    overflow: hidden;
+    resize: none;
+}
+.editor .title::placeholder {
+    color: #e1e1e0;
+}
+
+.editor .content {
+    height: 85%;
+    font-size: 16px;
+    resize: none;
+    line-height: 1.8rem;
+}
+.editor .content::placeholder {
+    color: #9c9c98;
+}
+
+.postFooter {
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    width: 75%;
+    margin-bottom: 15px;
+}
+
+.postFooter .title {
+    border-radius: 5px;
+    border: 0.5px solid #efefef;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    box-shadow: 0px 2px 1px 1px #efefef;
+    cursor: pointer;
+    user-select: none;
+}
+
+.postFooter .title:hover {
+    background-color: #fbfbfa;
+}
