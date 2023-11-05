@@ -1,0 +1,97 @@
+.app_helpButton {
+  position: fixed;
+  width: max-content;
+  height: 5.2rem;
+
+  bottom: 2rem;
+  right: 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  background-color: rgba(255, 255, 255, 0);
+}
+.app_helpButton_message {
+  padding: 0.6rem 0.8rem;
+  margin-right: 1.2rem;
+  border-radius: 1rem;
+  background-color: var(--color-semi-white);
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.75);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-font);
+  position: relative;
+  bottom: -6rem;
+  right: 10rem;
+
+  display: flex;
+  transition: all 0.3s;
+}
+
+.app_helpButton_img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 100%;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.app_helpCard {
+  position: fixed;
+  bottom: 24rem;
+  right: -60rem;
+
+  width: 40rem;
+  height: 60rem;
+  padding: 1.2rem;
+  transform: rotate(90deg);
+  background-color: var(--color-semi-white);
+
+  border-radius: 1rem;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.75);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  font-size: 1.6rem;
+  color: var(--color-font);
+  overflow-y: scroll;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+  user-select: none;
+}
+
+.cardToggled {
+  opacity: 1;
+  bottom: 9rem;
+  right: 2rem;
+  transform: rotate(0deg);
+}
+
+.app_helpCard_title {
+  align-self: center;
+  font-size: 3.2rem;
+  margin-bottom: 2rem;
+}
+
+.app_helpCard > h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+.app_helpCard > p {
+  margin-bottom: 0.6rem;
+}
+.app_helpCard > div {
+  margin: 1rem 0;
+  border: 0.2rem var(--color-font) solid;
+}
+
+.app_helpCard > .empty {
+  margin: 1rem 0;
+}
+
+.app_helpCard > .CardText_Tap {
+  margin-left: 1rem;
+}

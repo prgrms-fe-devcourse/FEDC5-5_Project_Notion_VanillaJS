@@ -1,0 +1,103 @@
+.menubar_pageList_list {
+  width: 100%;
+  transition: all 0.3s;
+}
+.menubar_pageList_list_info {
+  width: 100%;
+  height: 2.8rem;
+  padding-right: 1.6rem;
+  border-radius: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.menubar_pageList_list_info_checkbox {
+  display: none;
+}
+
+.menubar_pageList_list_info_checkbox:checked
+  + .menubar_pageList_list_info_label {
+  transform: rotate(90deg);
+}
+
+.menubar_pageList_list_info_label,
+.menubar_pageList_list_info_insertButton,
+.menubar_pageList_list_info_deleteButton {
+  background-color: var(--color-semi-white);
+  border-radius: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+
+  font-size: 2.4rem;
+  color: var(--color-font);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.menubar_pageList_list_info_label {
+  font-size: 2.8rem;
+  padding-top: 0.2rem;
+}
+
+.menubar_pageList_list_info_title {
+  height: 2.4rem;
+  width: calc(100% - 6rem);
+  padding: 0 0.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  color: var(--color-font);
+  font-size: 1.4rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: scroll;
+}
+
+.menubar_pageList_list_info:hover {
+  background-color: var(--color-grey);
+}
+
+.menubar_pageList_list_info_insertButton,
+.menubar_pageList_list_info_deleteButton {
+  opacity: 0;
+}
+
+.menubar_pageList_list_info:hover > .menubar_pageList_list_info_insertButton,
+.menubar_pageList_list_info:hover > .menubar_pageList_list_info_deleteButton,
+.menubar_pageList_list_info:hover > .menubar_pageList_list_info_label {
+  opacity: 1;
+  background-color: var(--color-grey);
+}
+
+.menubar_pageList_list_info:hover
+  > .menubar_pageList_list_info_insertButton:hover,
+.menubar_pageList_list_info:hover
+  > .menubar_pageList_list_info_deleteButton:hover,
+.menubar_pageList_list_info:hover > .menubar_pageList_list_info_label:hover {
+  background-color: var(--color-dark-grey);
+}
+
+.menubar_pageList_list_childrenList {
+  width: fit-content;
+  height: fit-content;
+
+  flex-direction: column;
+  display: none;
+  transition: all 0.3s;
+  visibility: hidden;
+}
+
+.toggleChecked {
+  visibility: visible;
+  display: flex;
+  width: 100%;
+}

@@ -1,0 +1,64 @@
+@import url(/CSS/App.css);
+@import url(/CSS/Menubar/List.css);
+@import url(/CSS/Menubar/Menubar.css);
+@import url(/CSS/PageViewer/Editor.css);
+@import url(/CSS/PageViewer/EditorText.css);
+@import url(/CSS/PageViewer/PageViewer.css);
+@import url(/CSS/PageViewer/SubPageList.css);
+@import url(/CSS/HelpCard.css);
+@import url(/CSS/IndexPage.css);
+
+:root {
+  --color-white: rgb(255, 255, 255);
+  --color-semi-white: rgb(247, 247, 245);
+  --color-grey: rgb(232, 232, 230);
+  --color-dark-grey: rgb(202, 202, 200);
+
+  --color-font: rgb(115, 115, 111);
+
+  --font-size-normal: 16px;
+}
+/* * {
+  box-sizing: border-box;
+} */
+
+li {
+  list-style: none;
+}
+body,
+#main,
+html {
+  width: 100%;
+  height: 100%;
+  font-family: "Gill Sans";
+}
+
+button {
+  background-color: var(--color-semi-white);
+  outline: none;
+  border: none;
+}
+input {
+  border: none;
+  outline: none;
+}
+
+h3,
+h1,
+span,
+p,
+section,
+button,
+article,
+div,
+li,
+body,
+ul {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}

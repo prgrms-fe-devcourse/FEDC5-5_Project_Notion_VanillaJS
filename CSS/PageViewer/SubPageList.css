@@ -1,0 +1,41 @@
+.pageViewer_subPageList_title {
+  margin: 1.2rem 0;
+  font-size: 1.6rem;
+  color: var(--color-font);
+  cursor: default;
+}
+
+.pageViewer_subPage_subPageList {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1.2rem;
+  overflow: scroll;
+}
+
+.pageViewer_subPage_subPageList_subList {
+  width: 100%;
+  padding: 0.2rem 0 0.3rem 1.6rem;
+  margin-bottom: 1.2rem;
+
+  border-radius: 0.4rem;
+
+  display: flex;
+  align-items: center;
+
+  color: var(--color-font);
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pageViewer_subPage_subPageList_subList:hover {
+  background-color: var(--color-grey);
+}
+
+.empty {
+  cursor: default;
+}
+
+.empty:hover {
+  background-color: var(--color-white);
+}
