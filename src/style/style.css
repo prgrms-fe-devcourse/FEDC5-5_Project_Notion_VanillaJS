@@ -150,4 +150,6 @@ body {
 .input-content {
   cursor: text;
   line-height: 2.5;
+  width: 600px;
+  min-height: 600px;
 }
