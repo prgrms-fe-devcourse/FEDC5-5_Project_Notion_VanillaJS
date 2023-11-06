@@ -1,0 +1,88 @@
+html {
+    all: unset;
+}
+
+body {
+    all: unset;
+}
+
+#app {
+    all: unset;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 12px;
+    overflow: hidden;
+}
+
+.document-tree {
+    all: unset;
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: antiquewhite;
+}
+
+.document-node {
+    list-style: none;
+}
+
+.document-title {
+    cursor: pointer;
+    &:hover {
+        filter: brightness(90%);
+    }
+}
+
+.document-title :hover {
+    filter: brightness(90%);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.add-button {
+    &::after {
+        display: inline-block;
+        content: "\2795";
+        font-size: 10pt;
+    }
+}
+
+.delete-button {
+    display: inline-block;
+
+    &::after {
+        display: inline-block;
+        content: "\274C";
+        font-size: 10pt;
+    }
+}
+
+.editor {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 24px;
+}
+
+.editor-title {
+    outline: none;
+    border: none;
+    font-size: xx-large;
+}
+
+.editor-content {
+    outline: none;
+    border: none;
+    flex-grow: 1;
+    font-size: 1.2rem;
+}
