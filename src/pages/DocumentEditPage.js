@@ -10,10 +10,10 @@ export default function DocumentEditPage({ $target, initialState }) {
 
   this.state = initialState;
 
-  let documentLocalSaveKey = `temp-document-${this.state.id}`;
+  const documentLocalSaveKey = `temp-document-`;
   let timer = null;
 
-  const savedDocument = getItem(documentLocalSaveKey, {
+  const savedDocument = getItem(documentLocalSaveKey + this.state.id, {
     title: "",
     content: "",
     documents: "",
@@ -23,7 +23,7 @@ export default function DocumentEditPage({ $target, initialState }) {
     $target: $documentEditPage,
     initialState: savedDocument,
     onEditing: (document) => {
-      setItem(documentLocalSaveKey, {
+      setItem(documentLocalSaveKey + this.state.id, {
         ...document,
         tempSaveDate: new Date(),
       });
@@ -45,15 +45,14 @@ export default function DocumentEditPage({ $target, initialState }) {
           push(`/documents/${this.state.id}`);
         }
 
-        removeItem(documentLocalSaveKey);
+        removeItem(documentLocalSaveKey + this.state.id);
       }, 1500);
     },
   });
 
   this.setState = async (nextState) => {
-    documentLocalSaveKey = `temp-document-${nextState.id}`;
     this.state = nextState;
-    const tempDocument = getItem(documentLocalSaveKey, {
+    const tempDocument = getItem(documentLocalSaveKey + this.state.id, {
       title: "",
       content: "",
     });
@@ -81,7 +80,7 @@ export default function DocumentEditPage({ $target, initialState }) {
           push(`/documents/${this.state.id}`);
         }
       } else {
-        removeItem(documentLocalSaveKey);
+        removeItem(documentLocalSaveKey + this.state.id);
         push(`/documents/${this.state.id}`);
       }
     } else {
