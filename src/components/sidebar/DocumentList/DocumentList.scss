@@ -1,0 +1,62 @@
+.document-navigator {
+  max-height: 700px;
+
+  border: solid $background-light-hover;
+  border-width: 1px 0;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none;
+}
+
+.document-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: 300px;
+}
+
+@for $i from 0 through 10 {
+  $paddingLeft: 20px;
+
+  .depth-#{$i} {
+    max-width: calc(280px - $paddingLeft * #{$i});
+    width: calc(280px - ($paddingLeft * #{$i}));
+
+    @if ($i == 0) {
+      padding-left: 0;
+    } @else {
+      margin-left: $paddingLeft;
+
+      border-left: 1px solid $background-light-hover;
+    }
+  }
+}
+
+.add-new-page {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+
+  padding: 10px 5px;
+  margin: 2px 5px;
+
+  border-radius: 4px;
+
+  font-size: 16px;
+  text-align: center;
+
+  cursor: pointer;
+  transition: background-color 0.05s ease-in-out;
+
+  &:hover {
+    background-color: $background-light-hover;
+  }
+}

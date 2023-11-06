@@ -1,0 +1,22 @@
+#app {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+
+  height: 100vh;
+}
+
+.sidebar {
+  display: grid;
+  grid-template-rows: 100px minmax(0px, auto);
+
+  background-color: $background-light;
+
+  border-right: 1px solid $background-light-hover;
+}
+
+.mainSection {
+  padding: 0 50px;
+
+  overflow: hidden;
+  background-color: $background;
+}

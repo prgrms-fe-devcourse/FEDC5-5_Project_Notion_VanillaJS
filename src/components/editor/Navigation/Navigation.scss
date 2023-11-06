@@ -1,0 +1,39 @@
+.editor-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 700px;
+  width: 100%;
+
+  margin: 0 auto;
+}
+
+.editor-nav-title {
+  max-width: 700px;
+  width: 100%;
+
+  margin: 10px auto;
+}
+
+.editor-nav-list {
+  width: 100%;
+
+  & ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+
+    & .editor-nav-item {
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+
+      &.empty-item {
+        width: 100%;
+
+        text-align: left;
+      }
+    }
+  }
+}

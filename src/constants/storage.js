@@ -1,0 +1,3 @@
+export const STORAGE_KEY = {
+  UNFOLDED_STORAGE: 'UNFOLDED_STORAGE',
+};

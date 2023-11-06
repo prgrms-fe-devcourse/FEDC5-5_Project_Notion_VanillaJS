@@ -1,0 +1,35 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "commonjs": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "prettier/prettier"],
+  "plugins": ["prettier"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+
+  "rules": {
+    "no-var": "error",
+    "no-multiple-empty-lines": "error",
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "eqeqeq": "error",
+    "dot-notation": "error",
+    "no-unused-vars": "error",
+    "prettier/prettier": "error",
+    "max-depth": ["error", 2],
+    "max-lines-per-function": ["error", 15],
+
+    "object-curly-spacing": ["error", "always"],
+    "eol-last": ["error", "always"],
+    "quotes": ["error", "single"],
+    "no-tabs": ["error", { "allowIndentationTabs": true }],
+    "semi": ["error", "always"]
+  },
+
+  "ignorePatterns": ["node_modules/", "*.config.js"]
+}

@@ -1,0 +1,70 @@
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 700px;
+  width: 100%;
+
+  padding: 50px 0;
+  margin: 0 auto;
+
+  visibility: hidden;
+
+  &.visible {
+    visibility: visible;
+  }
+}
+
+.editor-title {
+  width: 100%;
+
+  padding: 10px 0;
+
+  background-color: inherit;
+
+  font-size: 28px;
+
+  border: none;
+  border-bottom: 1px solid $background-light-hover;
+  outline: none;
+
+  &::placeholder {
+    color: $background-light-hover;
+  }
+}
+
+.editor-content {
+  width: 100%;
+  height: 600px;
+
+  padding: 10px 0;
+
+  background-color: inherit;
+
+  font-size: 16px;
+
+  border: none;
+  outline: none;
+
+  resize: none;
+
+  overflow-y: auto;
+
+  &::placeholder {
+    color: $background-light-hover;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: inherit;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $accent;
+    border-radius: 10px;
+  }
+}
