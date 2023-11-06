@@ -16,6 +16,7 @@ export default function DocumentEditPage({ $target, initialState }) {
   const savedDocument = getItem(documentLocalSaveKey, {
     title: "",
     content: "",
+    documents: "",
   });
 
   const editor = new Editor({
@@ -45,6 +46,7 @@ export default function DocumentEditPage({ $target, initialState }) {
         }
 
         removeItem(documentLocalSaveKey);
+
       }, 1500);
     },
   });
@@ -52,7 +54,10 @@ export default function DocumentEditPage({ $target, initialState }) {
   this.setState = async (nextState) => {
     documentLocalSaveKey = `temp-document-${nextState.id}`;
     this.state = nextState;
-    const tempDocument = getItem(documentLocalSaveKey, { title: "", content: "" });
+    const tempDocument = getItem(documentLocalSaveKey, {
+      title: "",
+      content: "",
+    });
 
     // 작성중인 내용이 서버에 저장되지 않은 경우
     if (
@@ -62,6 +67,7 @@ export default function DocumentEditPage({ $target, initialState }) {
       if (confirm("작성중인 글이 있습니다. 불러오시겠습니까?")) {
         editor.setState({
           ...tempDocument,
+          documents: this.state.document.documents,
           originalContent: tempDocument.content,
         });
         this.state.document = tempDocument;
@@ -80,9 +86,14 @@ export default function DocumentEditPage({ $target, initialState }) {
         push(`/documents/${this.state.id}`);
       }
     } else {
+      console.log(
+        "DocumentEditPage.setState - this.state.document",
+        this.state.document
+      );
       editor.setState({
         title: this.state.document.title,
         content: this.state.document.content,
+        documents: this.state.document.documents,
         originalContent: this.state.document.content,
       });
     }

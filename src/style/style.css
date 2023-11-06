@@ -70,12 +70,12 @@ body {
   display: flex;
   flex-direction: row;
   padding: 2px;
-  border-radius: 3px;
 }
 
-.parent-list:hover,
+.document-list-block:hover,
 .selected {
   background-color: #ebebea;
+  border-radius: 3px;
 }
 
 .document-title {
@@ -113,8 +113,8 @@ body {
 }
 
 .text-container {
-  display: flex;
-  width: 60vw;
+  /* display: flex; */
+  width: 600px;
   margin: 10px 300px;
 }
 
@@ -151,5 +151,16 @@ body {
   cursor: text;
   line-height: 2.5;
   width: 600px;
-  min-height: 600px;
+  min-height: 200px;
+}
+
+/* ChildrenDocument */
+
+.child-document {
+  padding: 2px;
+  height: 25px;
+}
+
+.child-document-title {
+  text-decoration: underline #ebebea;
 }

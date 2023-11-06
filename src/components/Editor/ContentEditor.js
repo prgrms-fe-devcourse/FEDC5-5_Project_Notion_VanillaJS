@@ -8,10 +8,7 @@ export default function ContentEditor({ $target, initialState, onEditing }) {
     <div class="input-content" contenteditable="true" data-text="내용을 입력하세요."></div>
   `;
 
-  this.state = {
-    ...initialState,
-    originalContent: initialState.content,
-  };
+  this.state = initialState,
 
   this.setState = (nextState) => {
     this.state = nextState;
