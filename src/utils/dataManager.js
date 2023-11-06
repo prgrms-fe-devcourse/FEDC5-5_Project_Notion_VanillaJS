@@ -20,7 +20,7 @@ export function findDocumentFromTree(documents, id) {
 
 // api get 요청으로 받은 트리구조 Documents 데이터를 callback 함수를 통해 수정합니다.
 // dfs
-export function updateDocumentToTree(documents, id, data, callback) {
+export function updateDocumentToTree(documents, id, data, documentItemChange) {
   // deep copy 를 수행
   const copiedDocuments = JSON.parse(JSON.stringify(documents));
 
@@ -32,10 +32,15 @@ export function updateDocumentToTree(documents, id, data, callback) {
 
   copiedDocuments.forEach((item) => {
     if (item.id === Number(id)) {
-      callback(item, data);
+      documentItemChange(item, data);
       return copiedDocuments;
     } else if (item.documents && item.documents.length > 0) {
-      const children = updateDocumentToTree(item.documents, id, data, callback);
+      const children = updateDocumentToTree(
+        item.documents,
+        id,
+        data,
+        documentItemChange
+      );
       if (children) {
         item.documents = children;
       }

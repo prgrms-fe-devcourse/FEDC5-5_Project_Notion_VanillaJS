@@ -5,9 +5,15 @@ import { putData } from "../utils/fetchData.js";
 import { setEditingPostData, removeEditingPostData } from "../utils/storage.js";
 import { debounce } from "../utils/debounce.js";
 
-export default function Editor({ $target, initalState, setSideBarState }) {
+export default function Editor({
+  $target,
+  initalState,
+  setSideBarState,
+  editorId = "editor",
+}) {
   const $div = document.createElement("div");
-  $div.id = "editor";
+
+  $div.id = editorId;
   $target.appendChild($div);
 
   this.state = initalState;
@@ -31,7 +37,7 @@ export default function Editor({ $target, initalState, setSideBarState }) {
     // 찾은 타이틀 중에 중복되는 타이틀을 제거하고 링크에 포함된 타이틀을 제거합니다.
     // ex) [post1](/documents/post1) => post1
     const tempLinkingPosts = foundedTitleInContent.reduce((acc, cur) => {
-      if (cur.title === "documents" || cur.title === "") return acc;
+      if (["documents", ""].includes(cur.title)) return acc;
       if (foundedTitleInContent.some((item) => item.id === cur.title))
         return acc;
       if (acc.some((ac) => ac.title === cur.title)) return acc;
@@ -62,17 +68,16 @@ export default function Editor({ $target, initalState, setSideBarState }) {
   };
 
   // debounce 를 사용하여 1초마다 서버에 데이터를 전달합니다.
-  this.debounce = debounce(() => {
+  this.debounce = debounce(async () => {
     const body = {
       title: this.state.title,
       content: this.state.content,
     };
-    putData(this.state.id, body).then((data) => {
-      // sideBar 컴포넌트에 상태를 전달합니다.
-      setSideBarState(data);
-      // 서버에 데이터를 전달한 후에는 localStorage 에서 해당 데이터를 삭제합니다.
-      removeEditingPostData(this.state.id);
-    });
+    const data = await putData(this.state.id, body);
+    // sideBar 컴포넌트에 상태를 전달합니다.
+    setSideBarState(data);
+    // 서버에 데이터를 전달한 후에는 localStorage 에서 해당 데이터를 삭제합니다.
+    removeEditingPostData(this.state.id);
   }, 1000);
 
   this.init = () => {

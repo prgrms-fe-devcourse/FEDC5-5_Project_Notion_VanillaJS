@@ -9,31 +9,32 @@ import { getEditingPostData, removeEditingPostData } from "../utils/storage.js";
 export default function PostEdit({ $target, initialState, setSideBarState }) {
   this.state = initialState;
 
-  this.setState = (nextState) => {
+  this.setState = async (nextState) => {
+    if (this.state.id === nextState.id) return;
     this.state = nextState;
     // 로컬 스토리지 데이터를 가져옵니다.
     const localData = getEditingPostData(this.state.id);
 
     // 서버 데이터를 가져옵니다.
-    getData(this.state.id).then((data) => {
-      footer.setState(data.documents);
+    const data = await getData(this.state.id);
 
-      // 로컬 스토리지 데이터가 서버 데이터보다 최신이면
-      if (localData.tempUpdatedAt > data.updatedAt) {
-        const isConfirmed = confirm(
-          "저장되지 않은 데이터가 있습니다. 불러오시겠습니까?"
-        );
-        putData(this.state.id, localData).then(() => {
-          // 서버에 데이터를 덮어씌웁니다.
-          editor.setState(isConfirmed ? localData : data);
-          setSideBarState(isConfirmed ? localData : data);
-          removeEditingPostData(this.state.id);
-        });
-      } else {
-        editor.setState(data);
-        setSideBarState(data);
-      }
-    });
+    footer.setState(data.documents);
+
+    // 로컬 스토리지 데이터가 서버 데이터보다 최신이면
+    if (localData.tempUpdatedAt > data.updatedAt) {
+      const isConfirmed = confirm(
+        "저장되지 않은 데이터가 있습니다. 불러오시겠습니까?"
+      );
+      const data = await putData(this.state.id, localData);
+
+      // 서버에 데이터를 덮어씌웁니다.
+      editor.setState(isConfirmed ? localData : data);
+      setSideBarState(isConfirmed ? localData : data);
+      removeEditingPostData(this.state.id);
+    } else {
+      editor.setState(data);
+      setSideBarState(data);
+    }
   };
 
   const $div = document.createElement("div");

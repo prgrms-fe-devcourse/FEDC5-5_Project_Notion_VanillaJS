@@ -1,17 +1,14 @@
 import App from "./components/App.js";
 
-import { getData, getDatas } from "./utils/fetchData.js";
-import { getIDs } from "./utils/dataManager.js";
+import { getDatas } from "./utils/fetchData.js";
 
-const initialSideBarState = await getDatas();
-const initialId = getIDs(initialSideBarState)[0];
+// 최상위 레벨에서 async 사용
+(async () => {
+  const initialSideBarState = await getDatas();
+  const initialId = initialSideBarState[0].id;
 
-let initialEditorState = { id: -1, title: "", content: "" };
+  const initialEditorState = { id: initialId };
+  const $target = document.querySelector("#app");
 
-if (typeof initialId === "number") {
-  initialEditorState = await getData(initialId);
-}
-
-const $target = document.querySelector("#app");
-
-new App({ $target, initialSideBarState, initialEditorState });
+  new App({ $target, initialSideBarState, initialEditorState });
+})();

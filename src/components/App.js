@@ -29,7 +29,7 @@ export default function App({
 
   const editor = new PostEdit({
     $target: $main,
-    initalState: initialEditorState,
+    initialState: initialEditorState,
     // 콜백으로 sideBar 컴포넌트의 상태를 변경합니다.
     setSideBarState: (editingPostData) => {
       const nextState = updatePostToSideBar(sideBar.state, editingPostData);

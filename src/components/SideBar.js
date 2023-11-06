@@ -18,18 +18,18 @@ export default function SideBar({ $target, initialState, setPostIdState }) {
     this.render();
   };
 
-  $div.addEventListener("click", (e) => {
+  $div.addEventListener("click", async (e) => {
     e.preventDefault();
     if (e.target.tagName === "BUTTON") {
       const data = {
-        title: "",
+        title: "New",
         parent: e.target.id,
       };
-      postData(data).then((data) => {
-        this.setState(appendPostToSideBar(this.state, data, e.target.id));
-        setPostIdState(data.id);
-        pushHistoryById(data.id);
-      });
+      const resultData = await postData(data);
+
+      this.setState(appendPostToSideBar(this.state, resultData, e.target.id));
+      setPostIdState(resultData.id);
+      pushHistoryById(resultData.id);
     } else if (e.target.tagName === "LI") {
       setPostIdState(e.target.id);
       pushHistoryById(e.target.id);
