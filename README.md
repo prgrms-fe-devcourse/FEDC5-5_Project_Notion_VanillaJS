@@ -1,11 +1,39 @@
 # 📌 5주차 프로젝트[Project1]
 
-## 필수 프로젝트
+## 폴더 구조
 
-- 프로젝트 기한
-  - 프로젝트 수행 기간 : 2023년 10월 17일(화) ~ 2023년 10월 26일(목)
-  - 멘티 코드 리뷰 기간 : 2023년 10월 27일(금) ~ 2023년 10월 30일(월)
-  - 멘토 코드 리뷰 기간 : 2023년 10월 27일(금) ~ 2023년 11월 2일(목)
-  - 코드 리뷰 반영 기간 : 2023년 11월 3일(금) ~ 2023년 11월 6일(월)
-- 내용
-  - [Day 21] 노션 클로닝 요구사항을 확인해 주세요.
+```
+root
+├─ README.md
+├─ index.html
+├─ src
+│  ├─ App.js
+│  ├─ api
+│  │  ├─ api.js
+│  │  └─ url.js
+│  ├─ components
+│  │  ├─ DocumentTree.js    -> 좌측 사이드바
+│  │  ├─ Editor.js          -> 편집기
+│  │  ├─ Loading.js         -> 로딩 컴포넌트
+│  │  ├─ Modal.js           -> 모달 컴포넌트
+│  │  └─ TreeList.js        -> 좌측 사이드바의 리스트 컴포넌트
+│  ├─ main.js
+│  └─ utils
+│     ├─ recursion.js
+│     └─ storage.js
+└─ style.css
+```
+
+## Commit Convention
+    
+| Tag Name | Description |
+|:---------|:------------|
+feat |	새로운 기능 추가
+design |	CSS 등 사용자 UI 디자인 변경
+style |	코드 포맷 변경, 세미 콜론 누락, 코드 수정이 없는 경우
+comment |	필요한 주석 추가, 변경 및 삭제
+fix |	버그 수정
+refactor |	코드 리팩토링, 새로운 기능이나 버그 수정없이 현재 구현을 개선한 경우
+docs |	README.md 수정
+rename |	파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우
+remove |	파일을 삭제하는 작업만 수행한 경우
