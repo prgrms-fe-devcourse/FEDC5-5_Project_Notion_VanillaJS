@@ -46,7 +46,6 @@ export default function DocumentEditPage({ $target, initialState }) {
         }
 
         removeItem(documentLocalSaveKey);
-
       }, 1500);
     },
   });
@@ -86,10 +85,6 @@ export default function DocumentEditPage({ $target, initialState }) {
         push(`/documents/${this.state.id}`);
       }
     } else {
-      console.log(
-        "DocumentEditPage.setState - this.state.document",
-        this.state.document
-      );
       editor.setState({
         title: this.state.document.title,
         content: this.state.document.content,

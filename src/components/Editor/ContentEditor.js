@@ -1,6 +1,10 @@
 import { textToHtml, textToHtmlWithTag } from "../../utils/transfer.js";
 
-export default function ContentEditor({ $target, initialState, onEditing }) {
+export default function ContentEditor({
+  $target,
+  initialState,
+  onContentEditing,
+}) {
   const $contentContainer = document.createElement("div");
   $contentContainer.className = "text-container";
 
@@ -8,8 +12,7 @@ export default function ContentEditor({ $target, initialState, onEditing }) {
     <div class="input-content" contenteditable="true" data-text="내용을 입력하세요."></div>
   `;
 
-  this.state = initialState,
-
+  this.state = initialState;
   this.setState = (nextState) => {
     this.state = nextState;
     $contentContainer.querySelector(".input-content").innerHTML = textToHtml(
@@ -34,9 +37,6 @@ export default function ContentEditor({ $target, initialState, onEditing }) {
   $contentContainer
     .querySelector(".input-content")
     .addEventListener("input", (e) => {
-      onEditing({
-        ...this.state,
-        content: e.target.innerText,
-      });
+      onContentEditing(e.target.innerText);
     });
 }

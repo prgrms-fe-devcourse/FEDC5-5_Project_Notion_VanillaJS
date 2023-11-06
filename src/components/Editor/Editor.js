@@ -11,7 +11,16 @@ export default function Editor({ $target, initialState, onEditing }) {
   const titleEditor = new TitleEditor({
     $target: $editor,
     initialState: { title: this.state.title, content: this.state.content },
-    onEditing,
+    onTitleEditing: (title) => {
+      this.setState(
+        {
+          ...this.state,
+          title,
+        },
+        false
+      );
+      onEditing(this.state);
+    },
   });
 
   const contentEditor = new ContentEditor({
@@ -21,7 +30,16 @@ export default function Editor({ $target, initialState, onEditing }) {
       content: this.state.content,
       originalContent: this.state.content,
     },
-    onEditing,
+    onContentEditing: (content) => {
+      this.setState(
+        {
+          ...this.state,
+          content,
+        },
+        false
+      );
+      onEditing(this.state);
+    },
   });
 
   const childrenDocument = new ChildrenDocument({
@@ -29,8 +47,10 @@ export default function Editor({ $target, initialState, onEditing }) {
     initialState: { documents: this.state.documents },
   });
 
-  this.setState = (nextState) => {
+  this.setState = (nextState, isUpdateComponents = true) => {
     this.state = nextState;
+
+    if (!isUpdateComponents) return;
 
     titleEditor.setState(nextState);
     contentEditor.setState(nextState);

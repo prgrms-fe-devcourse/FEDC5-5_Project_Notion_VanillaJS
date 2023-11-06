@@ -1,4 +1,4 @@
-export default function TitleEditor({ $target, initialState, onEditing }) {
+export default function TitleEditor({ $target, initialState, onTitleEditing }) {
   const $titleContainer = document.createElement("div");
   $titleContainer.className = "text-container";
 
@@ -27,9 +27,6 @@ export default function TitleEditor({ $target, initialState, onEditing }) {
   $titleContainer
     .querySelector(".input-title")
     .addEventListener("input", (e) => {
-      onEditing({
-        ...this.state,
-        title: e.target.textContent,
-      });
+      onTitleEditing(e.target.textContent);
     });
 }
