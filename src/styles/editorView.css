@@ -1,0 +1,52 @@
+#editorView {
+  display: flex;
+  flex-direction: row;
+
+  width: 90%;
+  height: 90%;
+
+  justify-content: space-between;
+}
+#editor {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  width: 50%;
+  height: auto;
+}
+
+#editor textarea {
+  overflow-y: visible;
+
+  width: 100%;
+  height: 70vh;
+
+  border: none;
+}
+
+#editor textarea:focus {
+  outline: none;
+}
+#editor input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  margin-top: 1.8em;
+  font-size: 1.2rem;
+}
+
+#editor input:focus {
+  outline: none;
+}
+
+#header {
+  text-align: center;
+}
+#richView {
+  padding: 3rem;
+  width: 48%;
+  height: 75vh;
+
+  overflow-y: auto;
+}

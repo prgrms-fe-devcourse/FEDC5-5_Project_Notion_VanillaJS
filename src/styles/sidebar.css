@@ -1,0 +1,41 @@
+#sidebar {
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 1rem;
+  width: 15%;
+  height: 96vh;
+  overflow-y: auto;
+
+  font-size: small;
+
+  border-radius: 1rem;
+
+  background-color: #eee;
+}
+
+#sidebar ul {
+  padding: 0rem 0 0rem 0.3rem;
+}
+#sidebar div {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#sidebar div li {
+  list-style: none;
+  padding: 0.2rem;
+  width: 100%;
+  margin-right: 1rem;
+  overflow: hidden;
+}
+
+#sidebar div li:hover {
+  border-radius: 0.3rem;
+
+  background-color: #ccc;
+}
