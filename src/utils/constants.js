@@ -1,0 +1,16 @@
+export const NEW_DOCUMENT_INIT_ID = "new";
+
+export const SIDEBAR_VIEW_MODE = {
+  DOCS_INDEX_VIEWER: "DOCS_INDEX_VIEWER",
+};
+
+export const ROUTE_CHANGE_EVENT_NAME = "route-change";
+
+export const EDITOR_VALUE_CHANGE_EVENT_NAME = "value-change";
+
+export const LEEF_COMPONENT_RENDER_SCOPE = {
+  POSITION_MORE_THEN: 10,
+  POSITION_LESS_THEN: 81,
+  ROTATE_MORE_THEN: 20,
+  ROTATE_LESS_THEN: 41,
+};
