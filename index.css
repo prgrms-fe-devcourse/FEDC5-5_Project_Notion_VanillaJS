@@ -1,0 +1,179 @@
+#main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 메뉴바 */
+.menuBar {
+  width: 500px;
+  height: 100%;
+  background-color: #f6f6f6;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.postlist {
+  margin-top: 20px;
+  padding-left: 20px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.imageAndIntroduce {
+  display: flex;
+}
+
+.introduce {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.addPost {
+  margin-top: 70px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.summary {
+  display: flex;
+  font-size: 18px;
+  /* position: relative; */
+}
+
+.summary:hover .buttonGroup {
+  display: flex;
+}
+
+.markerBtn {
+  border: 0;
+  background-color: transparent;
+}
+.titleSpan {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.buttonGroup {
+  /* display: none; */
+  /* justify-content: flex-end; */
+  /* position: absolute; */
+  /* display: flex; */
+  display: none;
+  /* flex-direction: row; */
+}
+
+.addBtn {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* 메뉴바 리사이징 */
+.resizeMenu {
+  cursor: ew-resize;
+  height: 100%;
+  width: 5px;
+}
+
+/* 에디터 */
+.editor {
+  width: 100%;
+  height: 100%;
+  padding-left: 7vw;
+  padding-top: 7vw;
+  box-sizing: border-box;
+}
+
+.editDiv {
+  /* width: 100%; */
+  height: 100%;
+  padding: 10px;
+  /* box-sizing: border-box; */
+}
+
+.link {
+  /* color: #0000ff; */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link:hover {
+  background-color: #dcdcdc;
+}
+
+.linktext {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linktext:hover {
+  background-color: #dcdcdc;
+}
+
+/* 모달 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal .background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modalBox {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 40vw;
+  height: 70vh;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.modalBox .modalTitle {
+  outline: none;
+}
+
+.modalBox .modalContent {
+  outline: none;
+  overflow-y: auto;
+  flex: 20;
+}
+
+.modalBox button {
+  flex: 1;
+  align-self: end;
+  width: 80px;
+  margin-top: 5px;
+}
+
+.hidden {
+  display: none;
+}
