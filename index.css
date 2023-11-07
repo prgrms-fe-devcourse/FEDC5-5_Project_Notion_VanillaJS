@@ -1,0 +1,258 @@
+#parent {
+  display: flex;
+}
+
+#edit-page {
+  margin-left: 100px;
+  margin: auto;
+}
+
+.title {
+  display: inline-block;
+}
+
+.toggle-button {
+  display: inline-block;
+}
+
+.insert-button {
+  display: inline-block;
+}
+
+.delete-button {
+  display: inline-block;
+}
+
+ul {
+  font-size: 1px;
+  line-height: 0;
+  padding: 0px;
+}
+li {
+  color: #8a8a8a;
+  font-size: 14px;
+  font-weight: 600;
+  list-style: none;
+  line-height: 0;
+}
+
+.children-post {
+  display: none;
+}
+
+.children-post-block {
+  display: block;
+}
+
+#newpage-button {
+  display: block;
+}
+
+#side-bar {
+  width: 240px;
+  height: 100vh;
+  overflow: auto;
+  background-color: #fbfbfa;
+}
+
+.button-div {
+  display: none;
+}
+.button-div-post {
+  display: inline-block;
+  padding-right: 10px;
+  float: right;
+}
+/* 
+li:hover .button-div {
+  display: inline-block;
+} */
+
+.title-area {
+  font-size: 40px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+.content-area {
+  font-size: 16px;
+  border: none;
+  width: 800px;
+  height: 700px;
+  outline: none;
+  overflow: auto;
+  resize: none;
+}
+
+input::placeholder {
+  color: #e4e4e3;
+}
+
+textarea::placeholder {
+  color: #a2a19f;
+}
+
+.editor-div {
+  width: 100%;
+  height: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#header {
+  font-size: 15px;
+  font-weight: 600;
+  padding-bottom: 1px;
+  padding-left: 5px;
+}
+.toggle-button {
+  background-color: #fbfbfa;
+  border: 1px solid #fbfbfa;
+}
+
+.fa-angle-right {
+  color: #91908e;
+}
+.fa-angle-down {
+  color: #91908e;
+}
+.fa-plus {
+  padding-top: 4px;
+  font-size: 13px;
+  color: #91908e;
+}
+.fa-trash-can {
+  padding-top: 4px;
+  font-size: 14px;
+  color: #91908e;
+}
+
+.child-link-button {
+  margin-left: 8px;
+  padding: 8px 15px;
+  color: #959493;
+  font-weight: 500;
+  border-radius: 5px;
+  border: 1px solid #d5d5d5;
+  background-color: #fbfbfa;
+}
+
+.child-link-button:hover {
+  background-color: #f5f4f1;
+}
+
+.child-link-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #898988;
+}
+
+.child-div {
+  font-size: 15px;
+  font-weight: 500;
+  color: #898988;
+}
+
+.immediately-child-post {
+  margin-left: 8px;
+  padding: 8px 15px;
+  color: #959493;
+  font-weight: 500;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  background-color: #fbfbfa;
+}
+
+.immediately-child-post:hover {
+  background-color: #f5f4f1;
+}
+
+.list:hover {
+  background-color: #eaeaea;
+  border-radius: 5px;
+  margin: 3px 4px 3px 4px;
+  cursor: pointer;
+}
+
+.list:hover > .button-div > .insert-button,
+.list:hover > .button-div > .delete-button,
+.list:hover > .toggle-button {
+  background-color: #eaeaea;
+  border: none;
+}
+
+.list:hover > .button-div {
+  padding-top: 2px;
+  margin-right: 7px;
+  display: inline-block;
+  float: right;
+}
+
+.list:hover > .button-div > .insert-button:hover,
+.list:hover > .button-div > .delete-button:hover,
+.list:hover > .toggle-button:hover {
+  background-color: #dfdfdf;
+  border-radius: 5px;
+  size: 10%;
+  cursor: pointer;
+}
+.newpage-button {
+  padding-left: 4px;
+}
+.newpage-button:hover {
+  background-color: #eaeaea;
+  line-height: 200%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.selected-list {
+  background-color: #eaeaea;
+  border-radius: 5px;
+  margin: 3px 4px 3px 4px;
+  cursor: pointer;
+}
+
+.selected-list > .toggle-button {
+  background-color: #eaeaea;
+  border: 1px solid #eaeaea;
+}
+
+.selected-list:hover > .button-div {
+  padding-top: 2px;
+  margin-right: 7px;
+  display: inline-block;
+  float: right;
+}
+
+.selected-list:hover > .button-div > .insert-button,
+.selected-list:hover > .button-div > .delete-button,
+.selected-list:hover > .toggle-button {
+  background-color: #eaeaea;
+  border: none;
+}
+.selected-list:hover > .button-div > .insert-button:hover,
+.selected-list:hover > .button-div > .delete-button:hover,
+.selected-list:hover > .toggle-button:hover {
+  background-color: #dfdfdf;
+  border-radius: 5px;
+  size: 10%;
+  cursor: pointer;
+}
+
+.immediately-child-post:hover {
+  cursor: pointer;
+}
+
+.child-link-button:hover {
+  cursor: pointer;
+}
+
+.header-title:hover {
+  cursor: pointer;
+}
+
+.home {
+  color: rgb(36, 36, 36);
+  font-size: 18px;
+}
