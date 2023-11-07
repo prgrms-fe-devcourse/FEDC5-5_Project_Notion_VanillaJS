@@ -1,0 +1,21 @@
+.sidebar > .document > .title-and-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em 0 0 1em;
+    font-size: 1.1rem;
+}
+
+.sidebar > .document > .title-and-form > .title-and-form__button {
+    font-size: 1.1rem;
+    color: var(--sidebar_c);
+    background-color: transparent;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar > .document > .title-and-form:hover > .title-and-form__button {
+    opacity: 1;
+}

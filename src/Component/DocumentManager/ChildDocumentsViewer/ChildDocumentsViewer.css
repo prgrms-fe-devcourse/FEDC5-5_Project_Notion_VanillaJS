@@ -1,0 +1,14 @@
+.editor-wrap > .document-manager > .document-child-list {
+    color: var(--sidebar_c);
+    padding: 1em 0 1em 0;
+    border-top: 1px solid var(--hover_c);
+    height: 20%;
+    overflow: auto;
+}
+
+.editor-wrap > .document-manager > .document-child-list > .empty {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,48 @@
+@import url(./Reset.css);
+/* sidebar */
+@import url(/src/Component/Sidebar/Sidebar.css);
+@import url(/src/Component/Sidebar/Header/Header.css);
+@import url(/src/Component/Sidebar/Document/Document.css);
+@import url(/src/Component/Sidebar/Document/DocumentForm/DocumentForm.css);
+@import url(/src/Component/Sidebar/Document/DocumentList/DocumentList.css);
+/* editor */
+@import url(/src/Component/DocumentManager/DocumentManger.css);
+@import url(/src/Component/DocumentManager/DocumentEditor/DocumentEditor.css);
+@import url(/src/Component/DocumentManager/ChildDocumentsViewer/ChildDocumentsViewer.css);
+/* common */
+@import url(/src/Component/Common/DocumentItems/DocumentItems.css);
+@import url(/src/Component/Common/DocumentItems/DocumentItem/Documentitem.css);
+
+:root {
+    --black: black;
+    --white: #ffffff;
+    --sidebar_bg: #fbfbfa;
+    --sidebar_bd: #f5f5f4;
+    --sidebar_c: #73726e;
+    --header_c: #50544f;
+    --current_c: #f1f1f0;
+    --hover_c: #ebebea;
+}
+
+#app {
+    height: 100%;
+    display: flex;
+}
+
+.root-wrap {
+    width: 100%;
+    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editor-wrap {
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial,
+        sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+}

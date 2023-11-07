@@ -1,0 +1,27 @@
+/* editor 전체 */
+.editor-wrap > .document-manager > .editor {
+    padding: 1em 2em 2em 2em;
+    height: 80%;
+    overflow: auto;
+}
+/* editor 입력 상단 input */
+.editor-wrap > .document-manager > .editor > .editor__title {
+    width: 100%;
+    font-size: 3rem;
+    border: none;
+    outline: none;
+}
+
+/* editor 콘텐츠 */
+.editor-wrap > .document-manager > .editor > .editor__content {
+    font-size: 1.5rem;
+    margin: 1em 0 0 0;
+    outline: none;
+    line-height: 1.7em;
+}
+
+/* editor 콘텐츠 비었을때 placeholder */
+.editor-wrap > .document-manager > .editor > .editor__content:empty::before {
+    content: '내용을 입력해주세요';
+    color: var(--sidebar_c);
+}

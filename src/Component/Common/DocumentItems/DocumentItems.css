@@ -1,0 +1,15 @@
+/* side bar */
+.sidebar > .document > .document-list > .document-items--root {
+}
+
+.sidebar > .document > .document-list > .document-items--root .document-items {
+    padding: 0 0 0 15px;
+}
+
+/* child viewer */
+.document-manager > .document-child-list > .document-items--root {
+}
+
+.document-manager > .document-child-list > .document-items--root .document-items {
+    padding: 0 0 0 15px;
+}

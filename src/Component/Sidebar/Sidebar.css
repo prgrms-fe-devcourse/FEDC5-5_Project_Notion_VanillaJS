@@ -1,0 +1,9 @@
+.sidebar {
+    max-width: 50%;
+    min-width: 20%;
+    border: 1px solid var(--sidebar_bd);
+    color: var(--sidebar_c);
+    background-color: var(--sidebar_bd);
+    resize: horizontal;
+    overflow: auto;
+}
