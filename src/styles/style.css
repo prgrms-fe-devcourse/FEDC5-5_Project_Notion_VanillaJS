@@ -1,0 +1,165 @@
+:root {
+  --sans-serif: "ui-sans-serif", "-apple-system", "BlinkMacSystemFont";
+  --width: 230px;
+  --hover-color: rgb(235, 235, 235);
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: rgba(99, 98, 97);
+  font-family: var(--sans-serif);
+}
+
+/* 좌측 영역 */
+.sidebar {
+  background-color: rgb(251, 251, 251);
+  color: rgba(25, 23, 17, 0.6);
+  border-right: 1px solid rgb(245, 245, 245);
+  height: 100vh;
+  width: var(--width);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+  padding-left: 8px;
+}
+
+h3 {
+  padding: 16px 10px 16px 4px;
+  font-weight: 600;
+  color: rgb(55, 53, 47);
+}
+
+h3::before {
+  content: "✨";
+  margin-right: 4px;
+}
+
+/* 문서 리스트 영역 */
+details {
+  color: rgba(25, 23, 17, 0.6);
+}
+
+details > ul {
+  padding-left: 16px;
+}
+
+details > ul > .empty {
+  color: rgba(25, 23, 17, 0.5);
+  font-size: 14px;
+  font-weight: 500;
+  padding-left: 12px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+summary {
+  list-style-type: none;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin: 1px 0;
+  padding: 2px 10px 2px 5px;
+}
+
+summary:hover {
+  background-color: var(--hover-color);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.document-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.document-buttons {
+  display: none;
+}
+
+summary:hover > .document-buttons {
+  display: flex;
+  flex-direction: row;
+  color: rgba(25, 23, 17, 0.6);
+}
+
+summary:hover > .document-buttons > button:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+  border-radius: 4px;
+}
+
+details[open] summary::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='12px' viewBox='0 0 448 512'%3E%3Cstyle%3Esvg%7Bfill:%23767571%7D%3C/style%3E%3Cpath d='M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z'/%3E%3C/svg%3E");
+  display: inline-block;
+  padding: 4px;
+  width: 12px;
+  height: 12px;
+}
+
+details:not([open]) summary::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='12px' viewBox='0 0 320 512'%3E%3Cstyle%3Esvg%7Bfill:%23767571%7D%3C/style%3E%3Cpath d='M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z'/%3E%3C/svg%3E");
+  display: inline-block;
+  padding: 4px;
+  width: 12px;
+  height: 12px;
+}
+
+.sidebar h4 {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 2px 10px;
+  min-height: 24px;
+  font-size: 14px;
+}
+
+.sidebar h4::before {
+  content: "+";
+  width: 10px;
+  display: inline-block;
+  padding-right: 4px;
+}
+
+.sidebar h4:hover {
+  background-color: var(--hover-color);
+  cursor: pointer;
+}
+
+button {
+  background-color: var(--hover-color);
+  color: rgb(55, 53, 47);
+  font-weight: 600;
+  width: 20px;
+  height: 20px;
+  margin: 0 0 0 2px;
+  cursor: pointer;
+}
+
+/* 우측 데이터 영역 */
+.editor {
+  padding: 0px 50px;
+  width: calc(100vw - var(--width));
+  box-sizing: border-box;
+}
+
+.editor .title {
+  font-size: 40px;
+  border: none;
+  outline: none;
+  margin: 120px 0 30px 0;
+  font-family: var(--sans-serif);
+  font-weight: 700;
+}
+
+.editor .content {
+  font-size: 16px;
+  height: 400px;
+  border: none;
+  outline: none;
+  font-family: var(--sans-serif);
+}
