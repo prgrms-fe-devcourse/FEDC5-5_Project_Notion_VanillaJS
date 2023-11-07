@@ -1,0 +1,142 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    height: 100%;
+}
+
+.fold {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.action-buttons {
+    display: none;
+}
+
+.documents-container {
+    width: 300px;
+    height: 100%;
+    padding: 10px;
+    border-right: 1px solid #d0d0d0;
+    background: #fbfbfa;
+    box-sizing: border-box;
+}
+
+.add-document-wrap {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 0px;
+    padding-left: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.add-document-wrap:hover {
+    display: flex;
+    align-items: center;
+    background: #e4e4e4;
+    border-radius: 4px;
+}
+
+.documents-item {
+    cursor: pointer;
+    padding-left: 10px;
+
+}
+
+.document-item-title-wrap {
+    display: flex;
+    padding: 5px 0px;
+    display: flex;
+    gap: 5px;
+}
+
+.document-item-title-wrap:hover > .action-buttons  {
+    display: flex;
+}
+
+.document-item-title-wrap:hover  {
+    background: #e4e4e4;
+    border-radius: 4px;
+}
+
+.document-item-title {
+    flex: 1 0 auto;
+    color: #74736e;
+}
+
+.selected-document {
+    background: #f1f1f0;
+    border-radius: 4px;
+}
+
+.selected-document span {
+    font-weight: bold;
+    color: #37352f;
+}
+
+.end-document-item {
+    cursor: default;
+    color: #999895;
+    padding-left: 10px;
+}
+
+.editor-page {
+    width: calc(100% - 300px);
+    padding: 10px 70px;
+    box-sizing: border-box;
+}
+
+#editor-title {
+    outline: none;
+    border: none;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#editor-content {
+    resize: none;
+    margin-top: 30px;
+    outline: none;
+}
+
+.editor-wrap {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 80px;
+}
+
+.edit-button-wrap {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    transform: translateY(-110%);
+    box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+    box-sizing: border-box;
+}
+
+.hide {
+    display: none;
+}
+
+button {
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
