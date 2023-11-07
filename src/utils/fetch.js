@@ -44,7 +44,7 @@ export const fetchDeleteDocument = async (selectedId) => {
     const [, , id] = pathname.split("/");
 
     // 선택된(편집 중인) 문서를 삭제하면 루트 경로로 이동
-    if (parseInt(id) === selectedId) {
+    if (id === selectedId) {
       push("/");
     } else {
       push(pathname);

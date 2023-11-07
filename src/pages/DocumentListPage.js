@@ -1,7 +1,7 @@
 import DocumentList from "../components/DocumentList/DocumentList.js";
 import DocumentListTitle from "../components/DocumentList/DocumentListTitle.js";
 
-import { fetchDeleteDocument, fetchAddDocument } from "../utils/fetch.js";
+import { handleClickEvent } from "../utils/handler.js";
 
 export default function DocumentListPage({ $target }) {
   const $documentListPage = document.createElement("div");
@@ -18,8 +18,7 @@ export default function DocumentListPage({ $target }) {
       documents: [],
       selectedId: null,
     },
-    handleDeleteDocument: async (selectedId) => await fetchDeleteDocument(selectedId),
-    handleAddDocument: async (selectedId) => await fetchAddDocument(selectedId),
+    handleClickEvent
   });
 
   this.setState = (nextState) => {
