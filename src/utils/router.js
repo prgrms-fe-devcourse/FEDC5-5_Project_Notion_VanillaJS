@@ -13,7 +13,7 @@ export const initRouter = (onRouter) => {
 };
 
 // URL 이동
-export const push = (nextUrl) => {
+export const triggerURLChange = (nextUrl) => {
   window.dispatchEvent(
     new CustomEvent(ROUTER_CHANGE_EVENT_NAME, {
       detail: { nextUrl },

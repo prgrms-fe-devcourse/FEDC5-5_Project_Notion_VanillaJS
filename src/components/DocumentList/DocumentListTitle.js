@@ -1,4 +1,4 @@
-import { push } from "../../utils/router.js";
+import { triggerURLChange } from "../../utils/router.js";
 
 export default function DocumentListTitle({ $target }) {
   const $documentListTitle = document.createElement("div");
@@ -13,7 +13,7 @@ export default function DocumentListTitle({ $target }) {
   };
 
   $documentListTitle.addEventListener("click", () => {
-    push("/");
+    triggerURLChange("/");
   });
 
   this.render();

@@ -1,4 +1,4 @@
-import { push } from "../../utils/router.js";
+import { triggerURLChange } from "../../utils/router.js";
 
 export default function ChildrenDocument({ $target, initialState }) {
   const $childrenDocument = document.createElement("div");
@@ -36,7 +36,7 @@ export default function ChildrenDocument({ $target, initialState }) {
   $childrenDocument.addEventListener("click", (e) => {
     if (e.target.closest(".child-document")) {
       const { id } = e.target.closest(".child-document").dataset;
-      push(`/documents/${id}`);
+      triggerURLChange(`/documents/${id}`);
       return;
     }
   });

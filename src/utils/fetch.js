@@ -1,5 +1,5 @@
 import { request } from "./api.js";
-import { push } from "./router.js";
+import { triggerURLChange } from "./router.js";
 import { validDocument } from "./validation.js";
 
 // fetch - "POST" 요청
@@ -11,7 +11,7 @@ export const fetchAddDocument = async (selectedId) => {
       parent: selectedId,
     }),
   });
-  push(`/documents/${createdDocument.id}`);
+  triggerURLChange(`/documents/${createdDocument.id}`);
 };
 
 // fetch - "PUT" 요청
@@ -36,7 +36,7 @@ export const fetchDeleteDocument = async (selectedId) => {
 
   const { pathname } = window.location;
   if (pathname === "/") {
-    push("/");
+    triggerURLChange("/");
     return;
   }
 
@@ -45,9 +45,9 @@ export const fetchDeleteDocument = async (selectedId) => {
 
     // 선택된(편집 중인) 문서를 삭제하면 루트 경로로 이동
     if (id === selectedId) {
-      push("/");
+      triggerURLChange("/");
     } else {
-      push(pathname);
+      triggerURLChange(pathname);
     }
   }
 };

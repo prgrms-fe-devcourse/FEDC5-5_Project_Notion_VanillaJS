@@ -1,5 +1,5 @@
 import { fetchAddDocument, fetchDeleteDocument } from "./fetch.js";
-import { push } from "./router.js";
+import { triggerURLChange } from "./router.js";
 
 const handleToggle = (event) => {
   const $childrenUl = event.target.closest("li").querySelector(".toggle-ul");
@@ -24,7 +24,7 @@ const handleAddDocument = async (
   selectedId = "",
   event = {}
 ) => {
-  push(`/documents/new`);
+  triggerURLChange(`/documents/new`);
   await fetchAddDocument(selectedId);
 
   if (!isRoot) {
@@ -40,14 +40,14 @@ const handleClickDocument = (selectedId) => {
   const { pathname } = location;
 
   if (pathname === "/") {
-    push(`/documents/${selectedId}`);
+    triggerURLChange(`/documents/${selectedId}`);
   }
 
   if (pathname.indexOf("/documents/") === 0) {
     const [, , currentId] = pathname.split("/");
 
     if (currentId !== selectedId) {
-      push(`/documents/${selectedId}`);
+      triggerURLChange(`/documents/${selectedId}`);
     }
   }
 };

@@ -1,7 +1,7 @@
 import Editor from "../components/Editor/Editor.js";
 
 import { getItem, setItem, removeItem } from "../utils/storage.js";
-import { push } from "../utils/router.js";
+import { triggerURLChange } from "../utils/router.js";
 import { fetchPutDocument } from "../utils/fetch.js";
 
 export default function DocumentEditPage({ $target, initialState }) {
@@ -42,7 +42,7 @@ export default function DocumentEditPage({ $target, initialState }) {
         await fetchPutDocument(this.state.id, document);
 
         if (document !== this.state.document) {
-          push(`/documents/${this.state.id}`);
+          triggerURLChange(`/documents/${this.state.id}`);
         }
 
         removeItem(documentLocalSaveKey + this.state.id);
@@ -77,11 +77,11 @@ export default function DocumentEditPage({ $target, initialState }) {
         });
 
         if (tempDocument !== this.state.document) {
-          push(`/documents/${this.state.id}`);
+          triggerURLChange(`/documents/${this.state.id}`);
         }
       } else {
         removeItem(documentLocalSaveKey + this.state.id);
-        push(`/documents/${this.state.id}`);
+        triggerURLChange(`/documents/${this.state.id}`);
       }
     } else {
       editor.setState({
