@@ -1,5 +1,5 @@
 import Editor from './Editor.js';
-import { request } from './api.js';
+import { request } from './utils/api.js';
 
 export default function NotePage({ $target, initialState }) {
   const $page = document.createElement('div');

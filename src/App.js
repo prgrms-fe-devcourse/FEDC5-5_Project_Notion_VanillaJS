@@ -1,6 +1,6 @@
 import DocumentsList from './DocumentsList.js';
 import NotePage from './NotePage.js';
-import { initRouter } from './router.js';
+import { initRouter } from './utils/router.js';
 
 export default function App({ $target }) {
   const documentsList = new DocumentsList({

@@ -1,4 +1,4 @@
-import { request } from './api.js';
+import { request } from './utils/api.js';
 
 export default function DocumentsList({ $target, onSelect }) {
   /*
