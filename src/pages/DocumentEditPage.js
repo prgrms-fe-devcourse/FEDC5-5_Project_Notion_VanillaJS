@@ -3,6 +3,7 @@ import Editor from "../components/Editor/Editor.js";
 import { getItem, setItem, removeItem } from "../utils/storage.js";
 import { triggerURLChange } from "../utils/router.js";
 import { fetchPutDocument } from "../utils/fetch.js";
+import { debounce } from "../utils/debounce.js";
 
 export default function DocumentEditPage({ $target, initialState }) {
   const $documentEditPage = document.createElement("div");
@@ -11,7 +12,6 @@ export default function DocumentEditPage({ $target, initialState }) {
   this.state = initialState;
 
   const documentLocalSaveKey = `temp-document-`;
-  let timer = null;
 
   const savedDocument = getItem(documentLocalSaveKey + this.state.id, {
     title: "",
@@ -22,32 +22,26 @@ export default function DocumentEditPage({ $target, initialState }) {
   const editor = new Editor({
     $target: $documentEditPage,
     initialState: savedDocument,
-    onEditing: (document) => {
+    onEditing: debounce(async (editedDocument) => {
       setItem(documentLocalSaveKey + this.state.id, {
-        ...document,
+        ...editedDocument,
         tempSaveDate: new Date(),
       });
 
       const initId = this.state.id;
 
-      // 디바운스 (편집기 입력을 마치고 1.5초 뒤 실행)
-      if (timer !== null) clearTimeout(timer);
+      if (initId !== this.state.id) {
+        return;
+      }
 
-      timer = setTimeout(async () => {
-        // setTimeout 콜백 함수가 실행되기 전후로 id가 같은지 검사
-        if (initId !== this.state.id) {
-          return;
-        }
+      await fetchPutDocument(this.state.id, editedDocument);
 
-        await fetchPutDocument(this.state.id, document);
+      if (editedDocument !== this.state.document) {
+        triggerURLChange(`/documents/${this.state.id}`);
+      }
 
-        if (document !== this.state.document) {
-          triggerURLChange(`/documents/${this.state.id}`);
-        }
-
-        removeItem(documentLocalSaveKey + this.state.id);
-      }, 1500);
-    },
+      removeItem(documentLocalSaveKey + this.state.id);
+    }, 1500),
   });
 
   this.setState = async (nextState) => {
