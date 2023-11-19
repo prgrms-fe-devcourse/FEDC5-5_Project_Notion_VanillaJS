@@ -87,7 +87,6 @@ export default function Editor({ $page, initialState }) {
       $page.innerHTML = `
       <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
       <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
-      <div class="test" style="background-color:pink;">asdfadf</div>
     `;
     });
   };
