@@ -78,10 +78,11 @@ export default function Editor({ $page, initialState }) {
           console.log("스위치케이스", clickflag);
           this.focused();
           break;
-        case "editor-title":
-          break;
-        default:
+        case "RootContainer":
+          console.log(event.target.className);
           this.focusOut();
+        default:
+          break;
       }
     });
   };

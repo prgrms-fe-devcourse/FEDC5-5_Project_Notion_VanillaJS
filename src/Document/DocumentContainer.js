@@ -6,10 +6,11 @@ export default function DocumentContainer({ $target, initialState }) {
   const $page = document.createElement("div");
 
   this.init = () => {
+    console.log("ad");
     $page.className = "DocumentContainer";
     $target.appendChild($page);
-    $page.innerHTML = "DocumentContainer";
-    this.state = initialState;
+    $page.innerHTML = "홈 화면입니당";
+    this.state = {};
   };
 
   this.init(); //초기 화면
