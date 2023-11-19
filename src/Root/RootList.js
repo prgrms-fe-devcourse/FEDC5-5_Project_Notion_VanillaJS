@@ -54,7 +54,7 @@ export default function RootList({
   this.render = () => {
     $root.innerHTML = `
           <div class="document_tree">
-          <p class="top-root">개인 페이지 <img src="../../img/add.svg" class="addParent"></p>
+          <p class="top-root">개인 페이지 <img src="../../img/add.svg" class="addRoot"></p>
               <ul>
               ${this.state.map((v) => renderDocument(v)).join("")}
               </ul>
@@ -70,6 +70,13 @@ export default function RootList({
     const $title = e.target.closest(".li-title");
     const $liContainer = e.target.closest(".li-container");
 
+    // const eventTable = {
+    //   arrow: () => {},
+    //   delete: () => {},
+    // };
+
+    // eventTable[e.target.className]?.()
+
     if ($arrow) {
       //화살표 클릭 시 open className추가
       $liContainer.classList.toggle("content-opened");
@@ -80,7 +87,7 @@ export default function RootList({
       onClick(id);
     } else if ($button) {
       //button 클래그 별로 클릭시 새 문서 혹은 하위문서 추가 및 삭제
-      if ($button.className === "addParent") {
+      if ($button.className === "addParent" || "addRoot") {
         addNewDoc();
         return;
       } else if ($button.className === "addSubDoc") {
