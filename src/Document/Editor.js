@@ -73,15 +73,14 @@ export default function Editor({ $page, initialState }) {
     }
 
     window.addEventListener("click", (event) => {
-      if (
-        event.target.className === "editor-content" ||
-        event.target.className === "editor-title"
-      ) {
-        // 편집기 내용이나 제목을 클릭한 경우
-        this.focused();
-      } else {
-        // 편집기 외부를 클릭한 경우
-        this.focusOut();
+      switch (event.target.className) {
+        case "editor-content":
+          this.focused();
+          break;
+        case "editor-title":
+          break;
+        default:
+          this.focusOut();
       }
     });
   };
