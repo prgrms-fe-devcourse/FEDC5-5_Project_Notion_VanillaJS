@@ -2,6 +2,8 @@
 
 ## 📌 과제 설명 <!-- 어떤 걸 만들었는지 대략적으로 설명해주세요 -->
 
+배포 주소 https://junly21-notion-vanilla-js.vercel.app/
+
 VanillaJS로 노션을 클로닝하는 프로젝트입니다.
 ![image](https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS/assets/91151775/d35845f9-784d-45a2-a8dd-98e1419aabba)
 
