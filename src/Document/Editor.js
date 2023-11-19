@@ -75,6 +75,7 @@ export default function Editor({ $page, initialState }) {
     window.addEventListener("click", (event) => {
       switch (event.target.className) {
         case "editor-content":
+          console.log("스위치케이스", clickflag);
           this.focused();
           break;
         case "editor-title":
@@ -84,9 +85,13 @@ export default function Editor({ $page, initialState }) {
       }
     });
   };
-
+  let clickflag;
   this.focused = () => {
     //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어주고, 편집기능 시작.
+    console.log("focused발생", clickflag);
+    if (clickflag) {
+      return;
+    }
     const contentEditableContent = htmlToMarkdown(this.state.content);
     $page.innerHTML = `
       <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
@@ -95,15 +100,18 @@ export default function Editor({ $page, initialState }) {
 
     const $contentInput = document.getElementById("contentInput");
     $contentInput.focus();
+    clickflag = true;
   };
 
   this.focusOut = () => {
     //편집기에 사라지면 마크다운 언어를 html로 바꿔준다.
+    console.log("focusout발생", clickflag);
     const contentEditableContent = markdownToHtml(this.state.content);
     $page.innerHTML = `
       <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
       <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
     `;
+    clickflag = false;
   };
 
   $page.addEventListener("keyup", (e) => handleKeyUp(e));
