@@ -1,0 +1,224 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  height: 100%;
+}
+
+#target {
+  /* background-color: beige; */
+  display: flex;
+  height: 100vh;
+  width: 95vw;
+  /* border: 1px solid black; */
+  /* border-radius: 0.5rem; */
+}
+
+.RootContainer {
+  background-color: #f9f9f9;
+  height: 100vh;
+  width: 300px;
+  margin-right: 2vw;
+  /* border: 1px solid black; */
+  border-radius: 0.5rem;
+  padding: 10px;
+}
+
+.title-container {
+  margin-bottom: 15px; /* 이 부분이 Title 컨테이너의 하단 여백을 조절합니다. 필요에 따라 값을 조정하세요. */
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center; /* 수직 정렬을 위해 추가 */
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 50px;
+}
+.title-image {
+  width: 23px;
+  height: 23px;
+  margin-right: 10px;
+}
+
+.root {
+  /* RootList 컨테이너의 스타일 수정 */
+  margin-top: 15px; /* Title과의 상단 간격 조절 */
+  margin-left: 10px;
+}
+
+.rootList {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.li-title {
+  display: flex;
+  margin-top: 3px;
+  text-align: center;
+}
+
+.document_tree {
+  width: 250px;
+}
+
+.DocumentContainer {
+  /* background-color: blanchedalmond; */
+  height: 100vh;
+  width: 80vw;
+  /* border: 1px solid black; */
+  border-radius: 0.5rem;
+  padding: 20px;
+}
+
+.btn {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.top-root {
+  font-size: 13px;
+  font-weight: 550;
+  color: #afafaf;
+  display: flex;
+  cursor: default;
+  position: relative; /* 상대 위치 설정 */
+}
+
+ul {
+  list-style: none;
+  margin-left: -30px;
+  color: grey;
+  font-size: 14px;
+}
+.open {
+  display: block !important; /* !important를 사용하여 우선권을 강화 */
+}
+.closed {
+  display: none !important; /* !important를 사용하여 우선권을 강화 */
+}
+
+li {
+  display: flex;
+}
+
+li:hover {
+  background-color: #efefef;
+}
+
+.li-arrow {
+  transition: 0.3s;
+  transform: rotate(0deg);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  justify-content: center;
+}
+
+.li-arrow:hover {
+  color: black;
+  width: 20px;
+  height: 20px;
+}
+
+.li-arrow.arrow-opened {
+  transform: rotate(90deg);
+}
+
+.addRoot{
+  background-color: transparent; /* 기본 배경색을 투명으로 설정 */
+  border: none; /* 기본 테두리 없애기 */
+  display: block;
+  cursor: pointer;
+  position: absolute; /* 위치 설정을 위해 절대 위치 지정 */
+  right: 0; /* 맨 오른쪽에 위치 */
+  width: 20px;
+  height: 20px;
+}
+
+.addParent,
+.addSubDoc {
+  background-color: transparent; /* 기본 배경색을 투명으로 설정 */
+  border: none; /* 기본 테두리 없애기 */
+  display: none; /* 기본으로 숨김 */
+  cursor: pointer;
+  position: absolute; /* 위치 설정을 위해 절대 위치 지정 */
+  right: 0; /* 맨 오른쪽에 위치 */
+  width: 20px;
+  height: 20px;
+}
+.deleteButton {
+  background-color: transparent; /* 기본 배경색을 투명으로 설정 */
+  border: none; /* 기본 테두리 없애기 */
+  display: none; /* 기본으로 숨김 */
+  cursor: pointer;
+  position: absolute; /* 위치 설정을 위해 절대 위치 지정 */
+  right: 20px; /* 맨 오른쪽에 위치 */
+  width: 20px;
+  height: 20px;
+}
+
+.addRoot:hover,
+.addParent:hover,
+.addSubDoc:hover,
+.deleteButton:hover {
+  background-color: #dfdfdf; /* 마우스 호버 시 배경색을 회색(grey)으로 변경 */
+  border: none; /* 테두리 없애기 */
+  border-radius: 0.1rem;
+}
+
+.top-root:hover .addParent,
+.rootList:hover .addSubDoc,
+.rootList:hover .deleteButton {
+  display: inline-block; /* 부모 요소 .rootList가 호버되면 버튼 표시 */
+}
+
+.add {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.li-container {
+  display: inline;
+}
+
+.li-title {
+  cursor: pointer;
+}
+
+.selected {
+  border: 1px solid black;
+}
+@media (max-width: 800px) {
+  /* 뷰포트 너비에 따라 조절 */
+  #target {
+    width: 100%; /* 원하는 크기로 조절 */
+  }
+}
+
+input[type="text"] {
+  border: none;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea {
+  font-size: 14px;
+  padding: 5px;
+}
+
+textarea:focus {
+  outline: auto;
+}
+
+.editor-content {
+  height: 80vh;
+}
