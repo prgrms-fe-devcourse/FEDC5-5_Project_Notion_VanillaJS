@@ -1,6 +1,6 @@
 # 
 
-## 📌 과제 설명 <!-- 어떤 걸 만들었는지 대략적으로 설명해주세요 -->
+## 📌 프로젝트 설명 <!-- 어떤 걸 만들었는지 대략적으로 설명해주세요 -->
 
 배포 주소 https://junly21-notion-vanilla-js.vercel.app/
 
@@ -89,36 +89,14 @@ src 폴더 내부에는 화면 구성을 위한 **main.js**와 **App.js**, 하�
 7. **handleTitle**함수는 제목이 편집 될 경우 **PUT** 메소드를 실행하는 **fetchEditDoc**을 호출하고, **titleChanger.js**에 있는 **changeRootTitle**을 실행하여 **Root에도 제목 변화**가 적용되도록 합니다.
 8. **handleContent**함수는 본문 내용을 api통신을 위해 markdown문법을 HTML로 변환해줍니다. 이후 fetchEditDoc을 실행합니다.
 
-### 구현 실패한 내용 😥
-
-- [ ]  편집기 내에서 다른 Document name을 적은 경우, 자동으로 해당 Document의 편집 페이지로 이동하는 링크를 거는 기능을 추가합니다. ---->
-**FindTitle.js** 에서 구현을 시도해보았지만 실패하여 주석처리 하였습니다.
-1. Editor의 본문 내용이 변화해 handleContent가 실행될 때 마다
-2. 정규표현식을 사용해 본문내용과 docuemntList에서 제목이 match하는 부분이 있다면
-3. 해당 부분에 a태그 및 push를 통한 이동을 하려 하였는데
-4. addEventListener로 click 이벤트를 받게 하려고 할 때마다 오류가 발생하였습니다.
 
 ### 리팩토링된 내용 -> titleChagner.js 🔧
 
 **편집기**에서 제목이 변경 될 경우 **왼쪽 root**에 표시되는 내용도 실시간으로 **업데이트** 해주기 위하여 기존에 작업했던 방식은 Editor->DocumentContainer->App->RootContainer->Root 로 **하위에서 상위로 콜백**을 통해 전달하고, 다시 상위에서 다른 하위 컴포넌트로 전달되는 방식이었습니다.
 titleChanger.js에서는 Editor.js에서 제목이 변경될 경우 **changeRootTitle**을 통해 window에 **커스텀 이벤트를** 발생시켜 App.js에서 **getChagnedTitle**가 실행될 시 다시 **documentsList**를 불러오도록 하였습니다.
 
-## ✅ PR 포인트 & 궁금한 점 <!-- 리뷰어 분들이 집중적으로 보셨으면 하는 내용을 적어주세요 -->
+### 리팩토링된 내용 -> Editor.js 🔧
 
-### PR 포인트
+Editor.js에 전역으로 이벤트리스너를 등록하여 editor 내부를 클릭 시 html tag가 markdown 문법으로 풀려 작성이 가능하게 하고
+editor 외부를 클릭 시 markdown이 html tag가 되어 어떻게 보일지 확인할 수 있도록 리팩토링 하였습니다.
 
-초반에 커밋 내역을 신경쓰며 PR 메시지를 작성하려 하였으나, Editor 부분의 큰 변경 ce2c41d2182094f5b4b87de5186a20cf965cabf5 으로 인해 커밋된 기능들의 의미가 좀 퇴색된 것 같습니다ㅠㅠ
-
-해당 커밋에서는 textarea로 되어있던 기존 편집기를 div contenteditable로 바꾸는 과정에서 많은 변화가 생겼습니다. 
-그 과정에서 생각보다 많은 시간이 소요되기도 하고, 어려움을 많이 겪으며 동작 면에서 불안정한 요소들도 많이 발생했습니다.
-
-따라서 ce2c41d2182094f5b4b87de5186a20cf965cabf5 시점의 기능에서 버그나 이상한 점이 너무 많이 보여서 불편하시다면 Editor원본.js로 작성되어있던 마지막 커밋인 802e7acd42b78bdedc52f1ec8ab43c712ce2daed 와 비교하여 봐주시는게 좋아보입니다.
-
-802e7acd42b78bdedc52f1ec8ab43c712ce2daed 시점의 커밋은 **기본적으로 편집기는 textarea 기반으로 단순한 텍스트 편집기로 시작하되, 여력이 되면 div와 contentEditable을 조합해서 좀 더 Rich한 에디터를 만들어봅니다.** 라는 요구사항이 반영되지는 않았지만 좀 더 깔끔한 로직을 가지고 있던 시점이라고 생각되기 때문입니다.
-
-또... 생각보다 작업 규모가 커지면서 함수나 파일 분리에 대한 길을 잃어버린 것 같아서 이 부분도 체크해주시면 감사하겠습니다.
-
-파일명, 변수명, 함수명에서 컨벤션을 제대로 신경쓰지 않고 작업한 부분이 있습니다. 죄송합니다.😥
-
-### 궁금한 점
-제가 실패했다고 표기한 FindTitle.js를 모각코 때라거나... 도와주시면 감사할 것 같습니다..
