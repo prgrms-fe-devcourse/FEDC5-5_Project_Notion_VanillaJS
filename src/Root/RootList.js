@@ -87,7 +87,10 @@ export default function RootList({
       onClick(id);
     } else if ($button) {
       //button 클래그 별로 클릭시 새 문서 혹은 하위문서 추가 및 삭제
-      if ($button.className === "addParent" || "addRoot") {
+      if (
+        $button.className === "addParent" ||
+        $button.className === "addRoot"
+      ) {
         addNewDoc();
         return;
       } else if ($button.className === "addSubDoc") {

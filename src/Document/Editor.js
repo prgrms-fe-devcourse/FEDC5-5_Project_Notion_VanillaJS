@@ -51,7 +51,6 @@ export default function Editor({ $page, initialState }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    //this.focused(); 여기로 옮겨도 안돼요
   };
 
   this.render = () => {
@@ -73,38 +72,40 @@ export default function Editor({ $page, initialState }) {
       `;
     }
 
-    this.focused(); //render가 될때마다 addEventListener가 되는걸 고치고 싶었는데 실패함.
-    this.focusOut();
+    window.addEventListener("click", (event) => {
+      if (
+        event.target.className === "editor-content" ||
+        event.target.className === "editor-title"
+      ) {
+        // 편집기 내용이나 제목을 클릭한 경우
+        this.focused();
+      } else {
+        // 편집기 외부를 클릭한 경우
+        this.focusOut();
+      }
+    });
   };
 
   this.focused = () => {
-    //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어준다.
-    window.addEventListener("click", (event) => {
-      if (event.target.className !== ("editor-content" || "editor-title")) {
-        return;
-      }
-      const contentEditableContent = htmlToMarkdown(this.state.content);
-      $page.innerHTML = `
+    //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어주고, 편집기능 시작.
+    const contentEditableContent = htmlToMarkdown(this.state.content);
+    $page.innerHTML = `
       <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
       <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
     `;
-    });
+
+    const $contentInput = document.getElementById("contentInput");
+    $contentInput.focus();
   };
 
   this.focusOut = () => {
-    //편집기에 포커스가 향하게 된다면 html태그를 마크다운 언어로 풀어준다.
-    window.addEventListener("click", (e) => {
-      if (e.target.className === ("editor-content" || "editor-title")) {
-        return;
-      }
-      const contentEditableContent = markdownToHtml(this.state.content);
-      $page.innerHTML = `
+    //편집기에 사라지면 마크다운 언어를 html로 바꿔준다.
+    const contentEditableContent = markdownToHtml(this.state.content);
+    $page.innerHTML = `
       <input type="text" class="editor-title" name="title" style="width:93%; height:5%; margin:20px;" value="${this.state.title}">
       <div contenteditable="true" class="editor-content" id="contentInput" ">${contentEditableContent}</div>
     `;
-    });
   };
 
   $page.addEventListener("keyup", (e) => handleKeyUp(e));
 }
-var cnt = 0;
