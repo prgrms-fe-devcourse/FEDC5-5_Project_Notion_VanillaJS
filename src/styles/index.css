@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 20px;
+}
+
+#side-bar {
+  width: 300px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  background: #fbfbfa;
+  border-right: 1px solid #f5f5f4;
+  color: rgba(55, 53, 47, 0.65);
+}
+
+#profile-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 4px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgb(55, 53, 47);
+  cursor: pointer;
+}
+
+#profile-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+#profile-header span {
+  margin-top: 7px;
+}
+
+#my-workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0 5px 0;
+  padding: 2px 4px;
+}
+
+#edit-section {
+  width: 100%;
+  display: flex;
+  padding: 24px;
+}
+
+#editor {
+  width: 100%;
+  height: calc(80%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+#editor input[name="title"] {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#editor textarea[name="content"] {
+  height: 100%;
+  font-size: 1.2rem;
+  padding: 0 2px;
+}
+
+#document-list {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  overflow: hidden;
+}
+
+#document-children {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+#document-children.hide {
+  height: 0;
+  opacity: 0;
+  transition: height 0.3s ease-in-out;
+}
+
+#document-linked-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #d7d7d7;
+}
+
+#document-linked-list button {
+  border-radius: 4px;
+  padding: 4px;
+  color: #fff;
+  background: rgba(55, 53, 47, 0.65);
+}
+
+#document-linked-list div {
+  display: flex;
+  gap: 6px;
+}
+
+#document-linked-list p {
+  color: rgba(55, 53, 47, 0.65);
+}
+
+#document-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+  box-shadow: rgba(55, 53, 47, 0.08) 0px 1px 0px;
+}
+
+#document-item:hover {
+  cursor: pointer;
+  background-color: #f1f1f0;
+}
+
+#document-title {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 60px);
+}
+
+#document-title-group {
+  padding-left: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+#document-button {
+  flex-shrink: 0;
+}
+
+#document-expand-btn {
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(0);
+}
+
+#document-expand-btn.rotate {
+  transform: rotate(90deg);
+}
+
+#document-expand-btn svg {
+  margin-left: 3px;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  margin: 3px;
+  padding: 4px;
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #e2e2e2;
+}
+
+textarea,
+input {
+  border: none;
+  outline: none;
+  resize: none;
+}
