@@ -1,0 +1,21 @@
+@import "reset.css";
+
+/* sidebar */
+@import "/css/sidebar/sidebar.css";
+@import "/css/sidebar/title.css";
+@import "/css/sidebar/header.css";
+@import "/css/sidebar/documents.css";
+
+/* editor */
+@import "/css/editor/editPage.css";
+@import "/css/editor/editor.css";
+@import "/css/editor/autoSave.css";
+
+body {
+  overflow-y: hidden;
+}
+
+#app {
+  display: flex;
+  position: relative;
+}

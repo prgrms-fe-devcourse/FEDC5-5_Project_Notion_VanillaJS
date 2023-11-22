@@ -1,0 +1,8 @@
+.editPage {
+  width: 78%;
+  position: absolute;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}

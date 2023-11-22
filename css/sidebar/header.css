@@ -1,0 +1,14 @@
+/* hearder */
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8%;
+}
+header .add {
+  margin-right: 4%;
+  cursor: pointer;
+}
+header .add:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+}

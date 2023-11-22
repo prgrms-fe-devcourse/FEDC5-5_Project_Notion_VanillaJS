@@ -1,0 +1,27 @@
+.editor {
+  width: 600px;
+
+  display: flex;
+  flex-direction: column;
+  margin: 12% 8%;
+  position: relative;
+}
+.editor .editorTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-left: 2%;
+  height: 8vh;
+  border: none;
+  border-bottom: 2px solid black;
+}
+.editor .editorContent {
+  overflow: auto;
+  height: 60vh;
+  padding: 2%;
+  border: none;
+  border-bottom: 2px solid black;
+}
+.editor .editorTitle:focus,
+.editor .editorContent:focus {
+  outline: none;
+}
