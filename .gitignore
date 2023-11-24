@@ -1,0 +1,6 @@
+# Node 패키지 제외
+# package.json을 제외하면 배포가 불가능함
+node_modules
+
+# 빌드 파일
+public/*.js

@@ -1,0 +1,10 @@
+{
+    "public": ".",
+    "rewrites": [
+        { "source": "/documents/:filename.css", "destination": "/:filename.css" },
+        { "source": "/documents/:filename.js", "destination": "/:filename.js" },
+        { "source": "/documents*", "destination": "/index.html" },
+        { "source": "/:path", "destination": "/public/:path" },
+        { "source": "/", "destination": "/public/index.html" }
+    ]
+}

@@ -1,0 +1,70 @@
+/* 사이드바 */
+.sidebar {
+    grid-area: sidebar;
+
+    overflow: auto;
+    height: 100vh;
+
+    /* 하단 padding 32px은 인위적으로 넣었음 */
+    padding: 4px 14px 32px 14px;
+
+    background-color: rgb(251, 251, 250);
+    box-shadow: rgba(0, 0, 0, 0.024) -1px 0px 0px 0px inset; /* border 역할 */
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar--header {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar--header--username {
+    /* notion CSS */
+    color: rgb(55, 53, 47);
+    
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.sidebar--header--email {
+    /* notion CSS */
+    color: rgba(55, 53, 47, 0.65);
+    
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 400;
+}
+
+.sidebar--tree--title {
+    /* Notion CSS */
+    padding-top: 6px;
+    font-size: 12px;
+    line-height: 1;
+    color: rgba(55, 53, 47, 0.5);
+    font-weight: 600;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    user-select: none;
+}
+
+.document_list_item {
+    padding-left: 12px;
+    padding-top: 4px;
+}
+
+.document_list_item__title:hover {
+    background-color: rgba(55, 53, 47, 0.08);
+}
+
+.document_list_item__title {
+    /* Notion CSS */
+    font-size: 14px;
+    user-select: none;
+    cursor: pointer;
+    color: rgba(25, 23, 17, 0.6);
+    transition: background 20ms ease-in 0s;
+}

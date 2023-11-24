@@ -1,0 +1,23 @@
+/* 일단 grid로 스타일링하고 sidebar는 width: 0px <-> width: 323px 간 애니메이션 수행 */
+#notion-app {
+    
+    width: 100%;
+    height: 100vh;
+
+    display: grid;
+        
+    grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar main";
+
+    grid-template-rows: 45px 1fr;
+    grid-template-columns: 323px 1fr;
+}
+
+/* 에디터 상단 헤더 */
+#notion-app > header {
+    grid-area: header;
+
+    background-color: white;
+}

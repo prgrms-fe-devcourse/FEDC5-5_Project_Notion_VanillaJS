@@ -1,0 +1,289 @@
+/* 에디터 */
+.editor {
+    grid-area: main;
+
+    color: rgb(55, 53, 47);
+    background-color: white;
+
+    /* notion CSS */
+    /* css variable 쓰긴 하는데 거의 96px이길래 그냥 하드 코딩 */
+    padding-left: 20%;
+    padding-right: 20%;
+
+    /* 제목 상단 height인데 관찰한 값 사용함 */
+    /* 원래 162px인데, 42.5px 높이임 (아래 margin 포함이라 빼줘야 할 듯) */
+    padding-top: 120px; 
+
+    /* 에디터 width가 정의되지 않으면 줄바꿈 없이 무한히 늘어남. */
+    /* calc 말고 width로 해결할 수 없었음.. */
+    /* 330px은 사이드바 크기를 의미 */
+    width: calc(100vw - 330px);
+
+    overflow: auto;
+}
+
+.editor [contenteditable] {
+    /* TODO: emoji가 무조건 개행 상태로만 되는 듯? 이유 찾아야 함. */
+    /* nbsp 생성 못하게 */
+    /* https://stackoverflow.com/questions/54488382/how-to-prevent-non-breaking-spaces-from-being-created-in-a-contenteditable-eleme */
+    /* pre-wrap으로 바꾸니까 img 개행 문제가 사라짐? */
+    white-space: break-spaces;
+
+    /* 에디터 내부의 div는 outline이 보이는데 제거함. (contenteditable이므로 focus를 받기 때문) */
+    outline: none;
+}
+
+/* Notion CSS */
+.show_placeholder {
+    /* after의 absoulte의 기준 위치가 되기 위함 */
+    /* TODO: 사이드 이펙트 있는지 알아보기 */
+    position: relative;
+}
+
+.show_placeholder::after {
+    content: "명령어는 '/' 입력";
+    cursor: text;
+
+    color: rgba(55, 53, 47, 0.5);
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 4px 0px;
+}
+
+
+/* 텍스트 선택 영역 색상 */
+.editor ::selection {
+    /* Notion CSS */
+    background: rgba(35, 131, 226, .28);
+}
+
+.editor__title {
+    /* Notion CSS */
+    font-size: 40px;
+    font-weight: bold;
+    padding: 3px 2px;
+    color: rgb(55, 53, 47);
+
+    position: relative;
+
+    border: none;
+    outline: none;
+}
+
+.editor__title::placeholder {
+    color: rgba(55, 53, 47, 0.15);
+}
+
+
+.editor__content_root {
+    /* notion 유사하게 */
+    font-size: 16px;
+    line-height: 1.5;
+
+    padding-bottom: 30vh;
+}
+
+.editor__content_root div {
+    padding: 3px 0px;
+}
+
+.editor__content_root h1 {
+    /* Notion CSS */
+    margin: 0;
+    padding-top: 32px;
+    padding-bottom: 4px;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.3;
+}
+
+.editor__content_root code {
+    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+    line-height: normal;
+    background: rgba(135, 131, 120, 0.15);
+    color: #eb5757;
+    border-radius: 4px;
+    font-size: 85%;
+    padding: 0.2em 0.4em;
+}
+
+.editor__page_link {
+    width: 100%;
+    /* left, right 2px씩 추가 */
+    padding: 3px 2px !important;
+    border-radius: 4px;
+    user-select: none;
+    cursor: pointer;
+    transition: background 20ms ease-in 0s;
+
+    display: flex;
+    align-items: center;
+}
+
+.editor__page_link:hover {
+    background-color: rgba(55, 53, 47, 0.08);
+}
+
+.editor__page_link_title {
+    /* Notion CSS */
+    text-overflow: ellipsis;
+    font-weight: 500;
+    line-height: 1.3;
+    border-bottom: 1px solid rgba(55, 53, 47, 0.16);
+ }
+
+/* TODO: 나타나기 fadein-out 만들면 좋을 듯 */
+.editor__popup {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    /* 노션 스타일 가져오기 */
+    background-color: white;
+    border-radius: 5px;
+    box-shadow:
+        rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+        rgba(15, 15, 15, 0.1) 0px 3px 6px,
+        rgba(15, 15, 15, 0.2) 0px 9px 24px;
+
+    display: flex;
+}
+
+.editor__popup_item {
+    padding: 4px 8px;
+    height: 32px;
+
+    color: rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition: background 50ms ease-in;
+}
+
+/* first와 last child 에는 각각 좌측/우측에 radius를 적용해줘야 함 */
+.editor__popup_item:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+/* first와 last child 에는 각각 좌측/우측에 radius를 적용해줘야 함 */
+.editor__popup_item:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.editor__popup_item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+/* TODO: 이름 바꾸기. dropdown이 뭐냐 */
+.editor__dropdown {
+    /* fixed는 화면 자체의 기준인듯? 스크롤하면 이동됨  */
+    /* absolute는 스크롤해도 처음 등장한 그 자리에 그대로 있음 */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    /* 노션 스타일 가져오기 */
+    background-color: white;
+    border-radius: 5px;
+    box-shadow:
+        rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+        rgba(15, 15, 15, 0.1) 0px 3px 6px,
+        rgba(15, 15, 15, 0.2) 0px 9px 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    /* Notion CSS */
+    width: 324px;
+    max-width: calc(100vw - 24px);
+    max-height: 40vh;
+}
+
+.editor__dropdown__list {
+    overflow: auto;
+}
+
+.editor__dropdown__header {
+    /* Notion CSS */
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-top: 6px;
+    margin-bottom: 8px;
+    color: rgba(55, 53, 47, 0.65);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 120%;
+    user-select: none;
+}
+
+.editor__dropdown__item {
+
+    /* Notion CSS */
+    user-select: none;
+    transition: background 20ms ease-in 0s;
+    cursor: pointer;
+    width: calc(100% - 8px);
+    margin-left: 4px;
+    margin-right: 4px;
+    border-radius: 4px;
+    
+    min-height: 45px;
+    font-size: 14px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    
+    line-height: 120%;
+
+    display: flex;
+
+}
+
+.editor__dropdown__item:hover {
+    /* Notion CSS */
+    background: rgba(55, 53, 47, 0.08);
+}
+
+.editor__dropdown__item_thumbnail {
+    /* Notion CSS */
+    width: 46px;
+    height: 46px;
+
+    margin-left: 10px;
+    margin-right: 4px;
+    margin-top: 1px;
+
+    border-radius: 4px;
+    background: white;
+    box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px;
+    
+    object-fit: cover;
+}
+
+.editor__dropdown__item_textbox {
+    display: flex;
+    flex-direction: column;
+
+    /* Notion CSS */
+    margin-left: 6px;
+    margin-right: 12px;
+
+}
+
+.editor__dropdown__item_title {
+}
+
+.editor__dropdown__item_description {
+    /* Notion CSS */
+    color: rgb(120, 119, 116);
+    font-size: 12px;
+    
+    margin-top: 2px;
+}
