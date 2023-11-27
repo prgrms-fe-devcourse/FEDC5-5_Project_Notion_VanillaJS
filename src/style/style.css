@@ -1,0 +1,227 @@
+body {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #191919;
+    color: #fff;
+}
+
+main {
+    display: flex;
+    width: 100vw;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #fff;
+    line-height: 1.5;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
+        'Segoe UI Symbol';
+}
+
+#app {
+    display: flex;
+}
+
+/*sidebar*/
+
+.sidebar {
+    position: relative;
+    display: flex;
+    position: sticky;
+    flex-direction: column;
+    background-color: #202020;
+    width: 230px;
+    height: 100%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 230px;
+    position: relative;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+.sidebar_list {
+    margin-left: 10px;
+    flex: 1;
+}
+
+.sidebar_list button {
+    color: #a3a29d;
+    padding: 1px 3px;
+}
+
+.sidebar_header{
+    color: #a3a29d;
+    display: inline-flex;
+    position: sticky;
+    top: 0;
+    width: inherit;
+    padding: 12px 0;
+    border-bottom: 1.5px solid #3D3D3D;
+    background-color: inherit;
+}
+.sidebar_footer p,
+.sidebar_header p {
+    margin-left: 10px;
+} 
+.sidebar_footer {
+    color: #a3a29d;
+    display: inline-flex;
+    position: sticky;
+    bottom: 0;
+    width: inherit;
+    padding: 12px 0;
+    border-top: 1.5px solid #3D3D3D;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+
+ul ul {
+    list-style-type: circle;
+    margin-left: 20px;
+}
+
+li {
+    margin: 10px 0;
+}
+
+
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+
+
+/*document*/
+
+.editPage_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    height: 45px;
+    padding-left: 12px;
+    padding-right: 10px;
+}
+
+.editPage_header button {
+    user-select: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 1;
+    white-space: nowrap;
+    height: 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.2;
+    min-width: 0px;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: rgba(255, 255, 255, 0.81);
+    background-color: inherit;
+}
+.editPage_header button:hover {
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.editPage {
+    width: calc(100vw - 230px);
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editPage_editor {
+    
+    caret-color: rgba(255, 255, 255, 0.81);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    flex-grow: 1;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background: rgb(166, 181, 81); */
+    padding: 10px; 
+}
+
+.title,
+.content {
+    width: 708px;
+    padding: 10px;
+    color: #D4D4D4;
+    background-color: inherit;
+    font-family: inherit;
+    border: none;
+    outline: none;
+}
+
+.title {
+    font-size: 40px;
+    font-weight: 700;
+    overflow: hidden;
+    resize: none;
+}
+
+.content {
+    height: 85%;
+    font-size: 16px;
+    resize: none;
+    line-height: 1.8rem;
+}
+
+.editPage_footer {
+    display: inline-flex;
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+}
+
+.editPage_footer button {
+    background-color: #464646;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom:20px;
+    margin-left: 10px;
+}
+
+.editPage_footer button:hover {
+    background-color: #555;
+}
+
+
+a {
+    color: #0077b5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
