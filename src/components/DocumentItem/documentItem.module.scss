@@ -1,0 +1,59 @@
+@use "@/styles/color";
+
+.s_documentItem {
+  cursor: pointer;
+  height: auto;
+  width: 15rem;
+  margin: 0.7rem 0;
+}
+
+.s_contentContainer {
+  display: flex;
+  align-items: center;
+}
+
+.s_titleContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 0;
+
+  &:hover .s_buttonContainer {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.s_documentItem img {
+  height: 1rem;
+}
+
+.s_childrenDocumentList {
+  margin-left: 0.5rem;
+  width: 100%;
+  display: none;
+}
+
+.s_documentTitle {
+  display: inline-block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: auto;
+  min-width: 5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.s_buttonContainer {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  flex-shrink: 0;
+}
+
+:global(.show) {
+  display: block;
+}

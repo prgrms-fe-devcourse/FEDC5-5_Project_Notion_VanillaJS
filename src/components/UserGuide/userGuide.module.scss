@@ -1,0 +1,44 @@
+@use "@/styles/color";
+
+.s_guideSection {
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.s_guideSection h1 {
+  color: color.$onBackground4;
+  font-size: 2rem;
+  border-bottom: 0.2rem solid color.$surface;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.s_guideArticle {
+  padding: 15px;
+  border: 1px solid color.$surface;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.s_guideArticle h2 {
+  color: color.$onBackground3;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.s_guideArticle p {
+  margin-bottom: 1rem;
+}
+
+.s_guideSummary {
+  margin-bottom: 2rem;
+}
+
+.s_guideSummary + p {
+  color: color.$onBackground3;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
