@@ -1,0 +1,160 @@
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgb(235, 235, 235);
+}
+
+li:hover {
+    background: rgb(235, 235, 235);
+}
+
+.notfoundpage {
+    width: 1200px;
+    height: 1500px;
+}
+
+.notfoundcontent {
+    margin: auto;
+    margin-top: auto;
+    width: 500px;
+    min-height: 500px;
+}
+
+.parentPageList,
+.childPageList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.parentPageList li {
+    margin-left: 0px;
+}
+
+.childPageList li {
+    margin-left: -25px;
+}
+
+.sidebar {
+    min-width: 20%;
+    min-height: 80%;
+    background-color: rgb(252, 251, 250);
+}
+
+.pageTitle {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 8px;
+}
+
+.addDocumentButton {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.searchModalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+
+    display: none;
+}
+
+.searchModal {
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 500px;
+    min-height: 600px;
+    max-height: 600px;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.searchHeader {
+    margin-top: 8px;
+    display: flex;
+}
+
+.searchHeader input {
+    width: 100%;
+    border: none;
+}
+
+.addDocumentButton img {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+.slotbtn {
+    width: 15px;
+    height: 15px;
+}
+
+.page {
+    width: 80%;
+}
+
+.editor {
+    margin: auto;
+    width: 500px;
+    min-height: 700px;
+}
+
+.textEditor {
+
+    width: 500px;
+    height: 500px;
+}
+
+.textEditor:focus {
+    outline: none;
+}
+
+.textEditor p,
+h1,
+h2,
+h3,
+h4,
+span {
+    margin: 0;
+}
+
+.sidebarheader {
+    display: flex;
+    text-align: center;
+}
+
+.sidebarheader img {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 3px;
+    margin-bottom: 15px;
+}
+
+.container {
+    z-index: 0;
+    position: relative;
+    display: flex;
+}
