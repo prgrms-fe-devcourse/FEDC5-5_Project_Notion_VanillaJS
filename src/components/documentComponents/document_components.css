@@ -1,0 +1,96 @@
+.document-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  color: var(--default-font-color);
+}
+
+.document-header-right .delete-button:hover {
+  background-color: initial;
+  border-radius: initial;
+}
+
+.editor {
+  width: 44.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 3rem;
+  border: none;
+  padding: 0.125rem 0;
+  margin-bottom: 0;
+}
+
+.title:focus {
+  outline: none;
+}
+
+[contenteditable="true"]:empty:after {
+  content: attr(placeholder);
+}
+
+.title[contenteditable="true"]:empty:after {
+  color: #e4e4e3;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+.content {
+  position: relative;
+  min-height: 37.5rem;
+  font-size: 1rem;
+  padding-top: 0.3125rem;
+  border: none;
+  caret-color: var(--default-font-color);
+}
+
+.content:focus {
+  outline: none;
+}
+
+.content[contenteditable="true"]:empty:after {
+  color: hsl(var(--default-font-color-hsl), 0.65);
+}
+
+.editor-bottom-nav {
+  width: 44.25rem;
+  display: flex;
+  text-wrap: nowrap;
+  flex-direction: row;
+  padding: 1.25rem 0;
+}
+
+.subdocument-list {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.625rem;
+}
+
+.fa-file {
+  font-size: 1.2rem;
+}
+
+.subdocument-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #b3b2b0;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.subdocument-link-title,
+.document-link {
+  font-weight: var(--default-font-weight);
+  color: var(--bold-font-color);
+  text-decoration: underline;
+  text-decoration-color: hsl(var(--default-font-color-hsl), 0.16);
+  text-decoration-thickness: 0.05rem;
+  text-underline-offset: 0.3125rem;
+}

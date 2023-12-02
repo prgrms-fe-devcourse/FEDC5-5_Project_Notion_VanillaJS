@@ -1,0 +1,29 @@
+#app {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  overflow-y: auto;
+  position: fixed;
+  width: 20%;
+  height: calc(100% - -0.0625rem);
+  background-color: #fbfbfa;
+}
+
+.document-edit-page {
+  position: absolute;
+  right: 0;
+  width: calc(100% - 20%);
+  height: 100%;
+}
+
+.document-edit-page-body {
+  overflow-y: auto;
+  margin-top: 6.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}

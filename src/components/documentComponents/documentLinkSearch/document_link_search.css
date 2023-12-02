@@ -1,0 +1,39 @@
+#item.command {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3125rem;
+  padding: 0.3125rem 0.9375rem;
+  cursor: pointer;
+}
+
+.command p {
+  margin: 0;
+  font-size: var(--default-font-size);
+  color: var(--default-font-color);
+}
+
+#link.wrapper {
+  display: flex;
+  column-gap: 0.625rem;
+  padding: 0.3125rem 0.9375rem;
+  cursor: pointer;
+}
+
+#link.wrapper:hover {
+  background-color: var(--default-hover-bg-color);
+  border-radius: var(--default-hover-border-radius);
+}
+
+#link i {
+  color: #b3b2b0;
+}
+
+.link-title {
+  font-size: var(--default-font-size);
+  color: var(--bold-font-color);
+}
+
+.document-link {
+  display: block;
+  cursor: pointer;
+}

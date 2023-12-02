@@ -1,0 +1,16 @@
+:root {
+  --default-font-size: 14px;
+  --small-font-size: 0.75rem;
+  --default-font-color: rgb(55, 53, 47);
+  --default-font-color-hsl: 30, 8%, 20%;
+  --bold-font-color: #37352f;
+  --default-hover-bg-color: #f1f1f0;
+  --default-hover-border-radius: 0.3rem;
+  --default-font-weight: 500;
+  --bold-font-weight: 600;
+}
+
+html {
+  position: relative;
+  font-size: var(--default-font-size);
+}

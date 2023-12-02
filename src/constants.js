@@ -1,0 +1,4 @@
+export const MAX_TITLE_LENGTH = {
+  DOCUMENT_LIST_ITEM: 15,
+  DOCUMENT_HEADER: 23,
+};

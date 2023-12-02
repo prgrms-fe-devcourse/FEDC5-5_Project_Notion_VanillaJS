@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  padding-inline: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
