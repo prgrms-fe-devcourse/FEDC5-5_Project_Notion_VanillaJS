@@ -1,0 +1,47 @@
+#app {
+  display: flex;
+}
+.sideMenu {
+  width: 360px;
+  background-color: rgb(249, 241, 231);
+}
+.edit {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected {
+  background-color: rgb(255, 255, 0);
+}
+
+input {
+  width: 600px;
+}
+textarea {
+  width: 600px;
+  height: 200px;
+}
+
+button {
+  background: transparent;
+}
+
+button,
+label,
+.documentList,
+.documentTitle {
+  cursor: pointer;
+}
+
+.existTitle {
+  cursor: pointer;
+  color: blue;
+}
+
+.rotate > .arrow {
+  transform: rotate(-90deg);
+}
+
+ul {
+  list-style-type: none;
+}
