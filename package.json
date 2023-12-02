@@ -1,0 +1,24 @@
+{
+  "name": "fedc5-5_project_notion_vanillajs",
+  "version": "1.0.0",
+  "description": "## 필수 프로젝트",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS/issues"
+  },
+  "homepage": "https://github.com/prgrms-fe-devcourse/FEDC5-5_Project_Notion_VanillaJS#readme",
+  "devDependencies": {
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3"
+  }
+}
