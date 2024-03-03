@@ -1,4 +1,5 @@
-import { addEvent, createDOM } from '../../utils/dom.js';
+import { addEvent, createDOM } from '../../../utils/dom.js';
+// import './style.scss';
 
 export default function DocumentList({
   $target,

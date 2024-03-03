@@ -1,5 +1,6 @@
-import App from './App.js';
+import App from './App.js'
+// import '../global.scss'
 
-const $target = document.querySelector('.app');
+const $target = document.querySelector('#app')
 
-new App({ $target });
+new App({ $target })

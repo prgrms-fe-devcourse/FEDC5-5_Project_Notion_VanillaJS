@@ -1,4 +1,5 @@
-import { createDOM } from '../utils/dom.js';
+import { createDOM } from '../../utils/dom.js';
+// import './style.scss';
 
 export default function NotFoundPage({ $target }) {
   const $notFoundPageContainer = createDOM({

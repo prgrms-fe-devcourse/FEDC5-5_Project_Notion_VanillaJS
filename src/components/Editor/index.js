@@ -1,6 +1,7 @@
-import { createDOM } from '../../utils/dom.js';
+import { createDOM } from '../../utils/dom.js'
 import { formatter } from '../../utils/formatter.js';
 import { handleCursor } from '../../utils/handleCursor.js';
+// import './style.scss';
 
 export default function Editor({ $target, initialState, onEditing }) {
   const $editor = createDOM({

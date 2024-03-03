@@ -1,6 +1,7 @@
-import Editor from '../components/editor/Editor.js';
-import SubDocumetFooter from '../components/editor/SubDocumentFooter.js';
-import { createDOM } from '../utils/dom.js';
+import Editor from '../../components/Editor/index.js';
+import SubDocumetFooter from '../../components/Editor/SubDocumentFooter/index.js';
+import { createDOM } from '../../utils/dom.js';
+// import './style.scss';
 
 export default function EditPage({
   $target,

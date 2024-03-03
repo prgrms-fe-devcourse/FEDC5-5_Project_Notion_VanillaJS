@@ -1,5 +1,6 @@
-import { push } from '../../router/router.js';
-import { addEvent, appendChildAll, createDOM } from '../../utils/dom.js';
+import { push } from '../../../router/router.js';
+import { addEvent, appendChildAll, createDOM } from '../../../utils/dom.js';
+// import './style.scss';
 
 export default function DocumentHeader({ $target, onClickPageAddButton }) {
   const $documentHeader = createDOM({
@@ -57,12 +58,13 @@ export default function DocumentHeader({ $target, onClickPageAddButton }) {
       }
   };
 
-  this.handleClickLogo = (e) => {
-    const { target } = e;
-    if (target.matches('.logo') || target.matches('.logo-img')) {
-      push('/');
-    }
-  };
+  // TODO: 로고 클릭 시, 선택된 문서 페이지 초기화
+  // this.handleClickLogo = (e) => {
+  //   const { target } = e;
+  //   if (target.matches('.logo') || target.matches('.logo-img')) {
+  //     push('/');
+  //   }
+  // };
 
   // this로 핸들러를 callback으로 넘겨주면, callback이 function이 아니라는 에러가 발생한다.
   addEvent({

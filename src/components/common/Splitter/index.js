@@ -1,3 +1,5 @@
+// import './style.scss';
+
 export default function Splitter({ $target }) {
   const $splitter = document.createElement('div');
   $splitter.className = 'splitter';

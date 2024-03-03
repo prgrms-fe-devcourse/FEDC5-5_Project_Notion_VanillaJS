@@ -1,4 +1,5 @@
-import { addEvent, appendChildAll, createDOM } from '../../utils/dom.js';
+import { addEvent, appendChildAll, createDOM } from '../../../utils/dom.js';
+// import './style.scss';
 
 export default function Modal() {
   const $modalOverlay = document.querySelector('.modal-overlay');
