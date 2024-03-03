@@ -1,0 +1,14 @@
+{
+  "name": "VaniilaJS_Notion_Cloning",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/lunarmoon7/VaniilaJS_Notion_Cloning.git",
+  "author": "lunarmoon7 <zentechie7@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.70.0"
+  },
+  "dependencies": {
+    "components": "^0.1.0"
+  }
+}
