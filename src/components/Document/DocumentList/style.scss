@@ -1,0 +1,102 @@
+.document-list-container {
+  width: 30%;
+  min-width: 30%;
+  max-width: 35%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #eee;
+}
+
+.document-list {
+  padding-right: 10px;
+  overflow-y: scroll;
+
+  & ul {
+    width: 100%;
+    margin: 0;
+    padding: 0 0 0 20px;
+
+    & li.document-item {
+      margin: 5px 0;
+      box-sizing: border-box;
+
+      & ul {
+        transition: linear;
+      }
+
+      & .main-document-item {
+        position: relative;
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 5px;
+        padding: 3px 5px;
+
+        & button.fold-button {
+          border: none;
+          background-color: inherit;
+          border-radius: 5px;
+          margin-right: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #c7c7c7;
+          }
+        }
+
+        & span.title {
+          flex: 3;
+          cursor: pointer;
+          width: 100px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          min-width: 0px;
+          flex-wrap: nowrap;
+          font-weight: 500;
+          font-size: small;
+          color: #5f5f5f;
+        }
+
+        &:hover {
+          background: rgb(226, 226, 226);
+
+          & .button-group button {
+            visibility: visible;
+          }
+        }
+
+        & .button-group {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          & button {
+            background-color: rgb(226, 226, 226);
+            padding: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            visibility: hidden;
+
+            &:hover {
+              background-color: #c7c7c7;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & li {
+    list-style: none;
+    list-style-type: none;
+  }
+
+  // & .document-item {
+  //   & ul {
+  //     transition: linear;
+  //   }
+  // }
+}

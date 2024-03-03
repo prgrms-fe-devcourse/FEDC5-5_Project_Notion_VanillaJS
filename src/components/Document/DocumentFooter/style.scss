@@ -1,0 +1,49 @@
+.document-footer {
+  margin: auto 5px 5px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+
+  & button {
+    border: none;
+    background-color: inherit;
+    font-size: 20px;
+    color: #6e6e6e;
+    cursor: pointer;
+    transition: 0.3s;
+
+    & a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  & .help-button:hover {
+    color: #609ed7;
+  }
+
+  & .social-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+
+    & .github-button:hover {
+      color: #000;
+    }
+
+    & .velog-button:hover {
+      color: rgb(32, 201, 151);
+    }
+
+    & .blog-button:hover {
+      color: #f27d52;
+    }
+  }
+}
